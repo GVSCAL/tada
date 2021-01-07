@@ -1,0 +1,25 @@
+.. TADA documentation master file, created by
+   sphinx-quickstart on Wed Jan  6 17:16:14 2021.
+   You can adapt this file completely to your liking, but it should at least
+   contain the root `toctree` directive.
+
+Welcome to TADA's documentation!
+================================
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Contents:
+
+   DataGrasper
+   DataTransferer
+   GraphGenerator
+   make_pivot_table
+   TADA_interface
+
+
+Indices and tables
+==================
+
+* :ref:`genindex`
+* :ref:`modindex`
+* :ref:`search`

@@ -1,0 +1,300 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>GraphGenerator module &mdash; TADA 2.0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="make_pivot_table module" href="make_pivot_table.html" />
+    <link rel="prev" title="DataTransferer module" href="DataTransferer.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> TADA
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="DataGrasper.html">DataGrasper module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DataTransferer.html">DataTransferer module</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">GraphGenerator module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="make_pivot_table.html">make_pivot_table module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="TADA_interface.html">TADA_interface module</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">TADA</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>GraphGenerator module</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/GraphGenerator.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-GraphGenerator">
+<span id="graphgenerator-module"></span><h1>GraphGenerator module<a class="headerlink" href="#module-GraphGenerator" title="Permalink to this headline">¶</a></h1>
+<dl class="py class">
+<dt id="GraphGenerator.GraphGenerator">
+<em class="property">class </em><code class="sig-prename descclassname">GraphGenerator.</code><code class="sig-name descname">GraphGenerator</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">filepath</span></em>, <em class="sig-param"><span class="n">design_loop</span><span class="o">=</span><span class="default_value">''</span></em><span class="sig-paren">)</span><a class="headerlink" href="#GraphGenerator.GraphGenerator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt id="GraphGenerator.GraphGenerator.basic_info">
+<code class="sig-name descname">basic_info</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#GraphGenerator.GraphGenerator.basic_info" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="GraphGenerator.GraphGenerator.belt_bracket">
+<code class="sig-name descname">belt_bracket</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">dataframe</span></em>, <em class="sig-param"><span class="n">column_type</span><span class="o">=</span><span class="default_value">'loadcase_short_name'</span></em>, <em class="sig-param"><span class="n">column_bar</span><span class="o">=</span><span class="default_value">'Belt bracket force'</span></em>, <em class="sig-param"><span class="n">column_line</span><span class="o">=</span><span class="default_value">'Belt Fixation DS displacement [mm]'</span></em>, <em class="sig-param"><span class="n">loadcase_name</span><span class="o">=</span><span class="default_value">''</span></em><span class="sig-paren">)</span><a class="headerlink" href="#GraphGenerator.GraphGenerator.belt_bracket" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="GraphGenerator.GraphGenerator.combine_pages">
+<code class="sig-name descname">combine_pages</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">srcpages</span></em><span class="sig-paren">)</span><a class="headerlink" href="#GraphGenerator.GraphGenerator.combine_pages" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="GraphGenerator.GraphGenerator.double_value_chart">
+<code class="sig-name descname">double_value_chart</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">dataframe</span></em>, <em class="sig-param"><span class="n">abs_column_name</span></em>, <em class="sig-param"><span class="n">vert_column_name1</span></em>, <em class="sig-param"><span class="n">vert_column_name2</span></em>, <em class="sig-param"><span class="n">title</span></em>, <em class="sig-param"><span class="n">xlabel</span></em>, <em class="sig-param"><span class="n">ylabel</span></em>, <em class="sig-param"><span class="n">chart_type</span></em><span class="sig-paren">)</span><a class="headerlink" href="#GraphGenerator.GraphGenerator.double_value_chart" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="GraphGenerator.GraphGenerator.front_brackets_load">
+<code class="sig-name descname">front_brackets_load</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">dataframe</span></em>, <em class="sig-param"><span class="n">loadcase_column_name</span><span class="o">=</span><span class="default_value">'loadcase_short_name'</span></em>, <em class="sig-param"><span class="n">doorside_column_name</span><span class="o">=</span><span class="default_value">'DS Front bracket force [kN]'</span></em>, <em class="sig-param"><span class="n">tunnelside_column_name</span><span class="o">=</span><span class="default_value">'TS Front bracket force [kN]'</span></em>, <em class="sig-param"><span class="n">loadcase_name</span><span class="o">=</span><span class="default_value">''</span></em><span class="sig-paren">)</span><a class="headerlink" href="#GraphGenerator.GraphGenerator.front_brackets_load" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="GraphGenerator.GraphGenerator.generate_pdf">
+<code class="sig-name descname">generate_pdf</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">cb_selected</span></em>, <em class="sig-param"><span class="n">design_loop</span></em>, <em class="sig-param"><span class="n">otheritems</span></em>, <em class="sig-param"><span class="n">max_per_page</span><span class="o">=</span><span class="default_value">6</span></em><span class="sig-paren">)</span><a class="headerlink" href="#GraphGenerator.GraphGenerator.generate_pdf" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="GraphGenerator.GraphGenerator.longitudinal_load">
+<code class="sig-name descname">longitudinal_load</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">dataframe</span></em>, <em class="sig-param"><span class="n">abs_column_name</span><span class="o">=</span><span class="default_value">'loadcase_short_name'</span></em>, <em class="sig-param"><span class="n">doorside_column_name</span><span class="o">=</span><span class="default_value">'Latch Outer force'</span></em>, <em class="sig-param"><span class="n">tunnelside_column_name</span><span class="o">=</span><span class="default_value">'Latch Inner force'</span></em>, <em class="sig-param"><span class="n">loadcase_name</span><span class="o">=</span><span class="default_value">''</span></em><span class="sig-paren">)</span><a class="headerlink" href="#GraphGenerator.GraphGenerator.longitudinal_load" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="GraphGenerator.GraphGenerator.rear_brackets_load">
+<code class="sig-name descname">rear_brackets_load</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">dataframe</span></em>, <em class="sig-param"><span class="n">loadcase_column_name</span><span class="o">=</span><span class="default_value">'loadcase_short_name'</span></em>, <em class="sig-param"><span class="n">doorside_column_name</span><span class="o">=</span><span class="default_value">'Rear bracket force DS'</span></em>, <em class="sig-param"><span class="n">tunnelside_column_name</span><span class="o">=</span><span class="default_value">'Rear bracket force TS'</span></em>, <em class="sig-param"><span class="n">loadcase_name</span><span class="o">=</span><span class="default_value">''</span></em><span class="sig-paren">)</span><a class="headerlink" href="#GraphGenerator.GraphGenerator.rear_brackets_load" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="GraphGenerator.GraphGenerator.recliner_torque">
+<code class="sig-name descname">recliner_torque</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">dataframe</span></em>, <em class="sig-param"><span class="n">abs_column_name</span><span class="o">=</span><span class="default_value">'loadcase_short_name'</span></em>, <em class="sig-param"><span class="n">doorside_column_name</span><span class="o">=</span><span class="default_value">'recliner torque DS'</span></em>, <em class="sig-param"><span class="n">tunnelside_column_name</span><span class="o">=</span><span class="default_value">'recliner torque TS'</span></em>, <em class="sig-param"><span class="n">loadcase_name</span><span class="o">=</span><span class="default_value">''</span></em><span class="sig-paren">)</span><a class="headerlink" href="#GraphGenerator.GraphGenerator.recliner_torque" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="GraphGenerator.GraphGenerator.single_bar_chart">
+<code class="sig-name descname">single_bar_chart</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">dataframe</span></em>, <em class="sig-param"><span class="n">abs_column_name</span></em>, <em class="sig-param"><span class="n">vert_column_name</span></em>, <em class="sig-param"><span class="n">title</span><span class="o">=</span><span class="default_value">''</span></em><span class="sig-paren">)</span><a class="headerlink" href="#GraphGenerator.GraphGenerator.single_bar_chart" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="GraphGenerator.GraphGenerator.single_line_chart">
+<code class="sig-name descname">single_line_chart</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">dataframe</span></em>, <em class="sig-param"><span class="n">abs_column_name</span></em>, <em class="sig-param"><span class="n">vert_column_name</span></em>, <em class="sig-param"><span class="n">title</span><span class="o">=</span><span class="default_value">''</span></em><span class="sig-paren">)</span><a class="headerlink" href="#GraphGenerator.GraphGenerator.single_line_chart" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="GraphGenerator.GraphGenerator.two_pie_chart">
+<code class="sig-name descname">two_pie_chart</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">column_name1</span><span class="o">=</span><span class="default_value">'integrity'</span></em>, <em class="sig-param"><span class="n">column_name2</span><span class="o">=</span><span class="default_value">'specs'</span></em><span class="sig-paren">)</span><a class="headerlink" href="#GraphGenerator.GraphGenerator.two_pie_chart" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt id="GraphGenerator.dfToDict">
+<code class="sig-prename descclassname">GraphGenerator.</code><code class="sig-name descname">dfToDict</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">dataframe</span></em>, <em class="sig-param"><span class="n">column_key</span></em>, <em class="sig-param"><span class="n">column_value</span></em><span class="sig-paren">)</span><a class="headerlink" href="#GraphGenerator.dfToDict" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="GraphGenerator.get_found_column">
+<code class="sig-prename descclassname">GraphGenerator.</code><code class="sig-name descname">get_found_column</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">dataframe</span></em>, <em class="sig-param"><span class="n">keyword</span></em>, <em class="sig-param"><span class="n">nb_col</span><span class="o">=</span><span class="default_value">1</span></em><span class="sig-paren">)</span><a class="headerlink" href="#GraphGenerator.get_found_column" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="GraphGenerator.pie_chart">
+<code class="sig-prename descclassname">GraphGenerator.</code><code class="sig-name descname">pie_chart</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">dataframe</span></em>, <em class="sig-param"><span class="n">column</span></em><span class="sig-paren">)</span><a class="headerlink" href="#GraphGenerator.pie_chart" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="GraphGenerator.raw_double_value_chart">
+<code class="sig-prename descclassname">GraphGenerator.</code><code class="sig-name descname">raw_double_value_chart</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">dataframe</span></em>, <em class="sig-param"><span class="n">column_type</span></em>, <em class="sig-param"><span class="n">column_bar1</span></em>, <em class="sig-param"><span class="n">column_bar2</span></em>, <em class="sig-param"><span class="n">subplot</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">chart_type</span><span class="o">=</span><span class="default_value">'bar'</span></em><span class="sig-paren">)</span><a class="headerlink" href="#GraphGenerator.raw_double_value_chart" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="make_pivot_table.html" class="btn btn-neutral float-right" title="make_pivot_table module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="DataTransferer.html" class="btn btn-neutral float-left" title="DataTransferer module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, Wang CHEN, Ruochen CHEN.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
