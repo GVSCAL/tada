@@ -27,8 +27,8 @@ class DataTransferer():
         if not os.path.isfile(self.db_path):
             workbook = xlsxwriter.Workbook(self.db_path)
             workbook.add_worksheet('FEA')
-            workbook.add_worksheet('History')
-            self.df_history = pd.DataFrame(columns=['time', 'runID'])
+            workbook.add_worksheet('History__')
+            self.df_History__ = pd.DataFrame(columns=['time', 'runID'])
 
             header_cell_format = workbook.add_format()
             header_cell_format.set_rotation(90)
@@ -37,7 +37,7 @@ class DataTransferer():
 
             workbook.close()
         else:
-            self.df_history = pd.read_excel(self.db_path, sheet_name='History')
+            self.df_History__ = pd.read_excel(self.db_path, sheet_name='History__')
 
         self.df_database = pd.read_excel(self.db_path, sheet_name='FEA')
         
@@ -92,10 +92,39 @@ class DataTransferer():
                        'Jack pulling force - TRK sub': self.create_regex_dict_keywords_two(['pulling','jack'],['force','beam']),
                        'Pullig displacement - TRK sub': self.create_regex_dict_keywords_two(['pulling','jack'],['dis','displacement']),
                        'Ultimate torque - HA-Rec sub': self.create_regex_dict_keywords_two(['ultimate','ulti'],['torque']),
-                       'Pinion torque - HA sub': self.create_regex_dict_keywords_two(['pinion'],['torque']),
+                       'Pinion torque': self.create_regex_dict_keywords_two(['pinion'],['torque']),
                        'OrbitingGear force - HA sub': self.create_regex_dict_keywords_two(['OrbitingGear'],['force']),
                        'Leadscrew force axial - e-tilt sub': self.create_regex_dict_keywords_three(['Leadscrew'],['force'],['axial','axis']),
                        'Leadscrew force radial - e-tilt sub': self.create_regex_dict_keywords_three(['Leadscrew'],['force'],['radi','radial']),
+                       'Res_F C_ROLLER_1-C_CAM': self.create_regex_dict_keywords_three(['Resultant contact force'],['COMMAND_ROLLER_1'],['COMMAND_CAM']),
+                       'Res_F C_ROLLER_2-C_CAM': self.create_regex_dict_keywords_three(['Resultant contact force'],['COMMAND_ROLLER_2'],['COMMAND_CAM']),
+                       'Res_F C_ROLLER_3-C_CAM': self.create_regex_dict_keywords_three(['Resultant contact force'],['COMMAND_ROLLER_3'],['COMMAND_CAM']),
+                       'Res_F C_ROLLER_4-C_CAM': self.create_regex_dict_keywords_three(['Resultant contact force'],['COMMAND_ROLLER_4'],['COMMAND_CAM']),
+                       'Res_F C_ROLLER_5-C_CAM': self.create_regex_dict_keywords_three(['Resultant contact force'],['COMMAND_ROLLER_5'],['COMMAND_CAM']),
+                       'Res_F C_ROLLER_6-C_CAM': self.create_regex_dict_keywords_three(['Resultant contact force'],['COMMAND_ROLLER_6'],['COMMAND_CAM']),
+                       'Res_F L_ROLLER_10-PINION': self.create_regex_dict_keywords_three(['Resultant contact force'],['LOCK_ROLLER_10'],['PINION']),
+                       'Res_F L_ROLLER_9-PINION': self.create_regex_dict_keywords_three(['Resultant contact force'],['LOCK_ROLLER_9'],['PINION']),
+                       'Res_F L_ROLLER_8-PINION': self.create_regex_dict_keywords_three(['Resultant contact force'],['LOCK_ROLLER_8'],['PINION']),
+                       'Res_F L_ROLLER_7-PINION': self.create_regex_dict_keywords_three(['Resultant contact force'],['LOCK_ROLLER_7'],['PINION']),
+                       'Res_F L_ROLLER_6-PINION': self.create_regex_dict_keywords_three(['Resultant contact force'],['LOCK_ROLLER_6'],['PINION']),
+                       'Res_F L_ROLLER_5-PINION': self.create_regex_dict_keywords_three(['Resultant contact force'],['LOCK_ROLLER_5'],['PINION']),
+                       'Res_F L_ROLLER_4-PINION': self.create_regex_dict_keywords_three(['Resultant contact force'],['LOCK_ROLLER_4'],['PINION']),
+                       'Res_F L_ROLLER_3-PINION': self.create_regex_dict_keywords_three(['Resultant contact force'],['LOCK_ROLLER_3'],['PINION']),
+                       'Res_F L_ROLLER_2-PINION': self.create_regex_dict_keywords_three(['Resultant contact force'],['LOCK_ROLLER_2'],['PINION']),
+                       'Res_F L_ROLLER_1-PINION': self.create_regex_dict_keywords_three(['Resultant contact force'],['LOCK_ROLLER_1'],['PINION']),
+                       'Res_F L_ROLLER_10-L_RING': self.create_regex_dict_keywords_three(['Resultant contact force'],['LOCK_ROLLER_10'],['LOCKER_RING']),
+                       'Res_F L_ROLLER_9-L_RING': self.create_regex_dict_keywords_three(['Resultant contact force'],['LOCK_ROLLER_9'],['LOCKER_RING']),
+                       'Res_F L_ROLLER_8-L_RING': self.create_regex_dict_keywords_three(['Resultant contact force'],['LOCK_ROLLER_8'],['LOCKER_RING']),
+                       'Res_F L_ROLLER_7-L_RING': self.create_regex_dict_keywords_three(['Resultant contact force'],['LOCK_ROLLER_7'],['LOCKER_RING']),
+                       'Res_F L_ROLLER_6-L_RING': self.create_regex_dict_keywords_three(['Resultant contact force'],['LOCK_ROLLER_6'],['LOCKER_RING']),
+                       'Res_F L_ROLLER_5-L_RING': self.create_regex_dict_keywords_three(['Resultant contact force'],['LOCK_ROLLER_5'],['LOCKER_RING']),
+                       'Res_F L_ROLLER_4-L_RING': self.create_regex_dict_keywords_three(['Resultant contact force'],['LOCK_ROLLER_4'],['LOCKER_RING']),
+                       'Res_F L_ROLLER_3-L_RING': self.create_regex_dict_keywords_three(['Resultant contact force'],['LOCK_ROLLER_3'],['LOCKER_RING']),
+                       'Res_F L_ROLLER_2-L_RING': self.create_regex_dict_keywords_three(['Resultant contact force'],['LOCK_ROLLER_2'],['LOCKER_RING']),
+                       'Res_F L_ROLLER_1-L_RING': self.create_regex_dict_keywords_three(['Resultant contact force'],['LOCK_ROLLER_1'],['LOCKER_RING']),
+                       'Res_F Pinion-Collar-1': self.create_regex_dict_keywords_three(['Resultant contact force'],['Pinion'],['Collar-1']),
+                       'Res_F Pinion-Collar-2': self.create_regex_dict_keywords_three(['Resultant contact force'],['Pinion'],['Collar-2']),
+                       'Torque MX on pinions section': self.create_regex_dict_keywords_two(['Torque MX'],['pinions section']),
                        
                        }
 
@@ -173,11 +202,13 @@ class DataTransferer():
 
         now = datetime.now()
         dt_string = now.strftime("%d-%m-%Y %H:%M:%S")
-        new_history = {'time': dt_string, 'runID': ','.join(str(e) for e in runID_list).rstrip(',')}
+        new_History__ = {'time': dt_string, 'runID': ','.join(str(e) for e in runID_list).rstrip(',')}
 
-        self.df_history = self.df_history.append(new_history, ignore_index=True)
+        print('original:', self.df_History__)
+        self.df_History__ = self.df_History__.append(new_History__, ignore_index=True)
+        print('added:', self.df_History__)
 
-        self.df_history.to_excel(writer, sheet_name='History', index=False,header = True)
+        self.df_History__.to_excel(writer, sheet_name='History__', index=False,header = True)
 
         worksheet1 = writer.sheets['FEA']
         col_names = [{'header': col_name} for col_name in self.df_database.columns]
@@ -189,14 +220,14 @@ class DataTransferer():
             'name': 'FEA'  
         })
 
-        worksheet2 = writer.sheets['History']
-        col_names2 = [{'header': col_name} for col_name in self.df_history.columns]
-        worksheet2.add_table(0, 0, self.df_history.shape[0], self.df_history.shape[1] - 1, {
+        worksheet2 = writer.sheets['History__']
+        col_names2 = [{'header': col_name} for col_name in self.df_History__.columns]
+        worksheet2.add_table(0, 0, self.df_History__.shape[0], self.df_History__.shape[1] - 1, {
             'columns': col_names2,
             # 'style' = option Format as table value and is case sensitive 
             # (look at the exact name into Excel)
             'style': 'Table Style Medium 9',
-            'name': 'History'  
+            'name': 'History__'  
         })
         worksheet2.set_column(0,0,18)
         worksheet2.set_column(1,1,80)
