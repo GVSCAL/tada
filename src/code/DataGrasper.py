@@ -128,7 +128,8 @@ class DataGrasper():
             df_clean = df_orig[df_orig[0].notnull()]                                      #remove missing data row if criteria have no name
             df_short = df_clean.loc[:, 0:1]                                   #get data for criteria and values only.
             df_short.loc[:,0] = df_short.loc[:,0].astype(str).str.replace(u'\xa0', '')          # remove strange white space in header
-            df_short.loc[:,1] = df_short.loc[:,1].astype(str).str.replace(' ', '')            #clean up numbering format, eg: 1 000
+            df_short.loc[:,1] = df_short.loc[:,1].astype(str).replace('-', np.nan) 
+            df_short.loc[:,1] = df_short.loc[:,1].astype(str).str.replace(' ', '')            #clean up numbering format, eg: 1 000 
             df_short.loc[:,1] = df_short.loc[:,1].astype(float).abs()                           #get absulute data value
             df_short.reset_index(drop=True,inplace=True)                                              #re_index
             return df_short
@@ -139,9 +140,7 @@ class DataGrasper():
     ##########################################################
         df_cleaned = pd_cleanup(df)
         df_renamed = rename_labels(df_cleaned)                           #use functions defined above to get df format we want.
-        
         df_renamed.drop_duplicates(subset='Items', keep='first',inplace = True)  ## remove duplicated line(duplicated criterias)
-
         new_row = pd.DataFrame({'Items':['RunID','OEM','project_name','seatversion','loadcase','dummy','design_loop','TRK_position','HA_position','pulse','integrity','specs'],
                                 'Values':[RunID,OEM,project_name,seatversion,loadcase,dummy,design_loop,self.TRK_position,self.HA_position,pulse,integrity,specs]})   ##create a new df with MIT run infor
         merged_df = pd.concat([new_row,df_renamed],ignore_index = True)    #Merge two data frame. reindex from 0.
@@ -157,7 +156,7 @@ class DataGrasper():
     def generate_xml(self):
         df_merged_all = reduce(self.merge_on_items,self.data_frames)               #loop over all runs, using reduce function.
         df_merged_all.columns = df_merged_all.iloc[0]                    #REINDEX column lables
-
+        
         ###########################################################################
         df_temp = df_merged_all.copy()            ##make a copy of df
         df_temp.drop_duplicates(inplace = True)  ## remove full duplicated line(duplicated criterias)
@@ -169,12 +168,12 @@ class DataGrasper():
 
         df_T.columns = pd.io.parsers.ParserBase({'names':df_T.columns})._maybe_dedup_names(df_T.columns)  ##rename duplicated lable name if exist
         df_T[df_T.eq(0)] = np.nan  # set 0 valus to NAN
+        
+        
         df_T.dropna(axis='columns',how='all',inplace=True)          # remove column if only have value=0 or empty
+        print(df_T)
 
-        for col in df_T.columns[12:]:
-            if len(df_T[col].unique()) == 1:                         # unique=2 means one value + others = empty
-                df_T.drop(col,inplace=True,axis=1)                    # drop columns which only have one single value.
-                
+        
         # datetime object containing current date and time
         now = datetime.now()
         # dd/mm/YY H:M:S
@@ -187,8 +186,8 @@ class DataGrasper():
 
         # os.makedirs(os.path.dirname(filepath),exist_ok=True)
         writer = pd.ExcelWriter(filepath, engine='xlsxwriter') 
+        print(df_T)
         df_T.to_excel(writer, sheet_name='FEA', index=False,header = True)  # output THC summary.T excel to the working folder.
-
         # worksheet is instance of Excel sheet "FEA" - used for inserting the table
         worksheet = writer.sheets['FEA']
         # workbook is instance of whole book - used i.e. for cell format assignment 

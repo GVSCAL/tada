@@ -175,9 +175,7 @@ class DataTransferer():
         dt_string = now.strftime("%d-%m-%Y %H:%M:%S")
         new_history = {'time': dt_string, 'runID': ','.join(str(e) for e in runID_list).rstrip(',')}
 
-        print('original:', self.df_history)
         self.df_history = self.df_history.append(new_history, ignore_index=True)
-        print('added:', self.df_history)
 
         self.df_history.to_excel(writer, sheet_name='History', index=False,header = True)
 

@@ -117,12 +117,14 @@ class StInterface():
         """This function gets selected runIDs and adjust the display of related widgets
 
         Args:
-            old_upload_len ([type]): [description]
-            old_id_list ([type]): [description]
-            last_current_runIDs_value ([type]): [description]
+            old_upload_len (int): Previous uploaded file length
+            old_id_list (list): Previous runID list in multi-select widget
+            last_current_runIDs_value (list): Temporary variable to store previous runID list. When a runID is removed, this variable will be sent to the widget
 
         Returns:
-            [type]: [description]
+            int: Number of ujploaded file 
+            list: List of selected runIDs in the multi-select widget
+            list: Temporary list variable which contains runIDs.
         """
         print('Refreshing uploaded files...')
         print('old_id_list\n', old_id_list)
