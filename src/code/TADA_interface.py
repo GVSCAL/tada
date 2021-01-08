@@ -21,6 +21,8 @@ import xlsxwriter.exceptions
 import random
 
 import pandas as pd
+from configparser import ConfigParser
+
 
 class StInterface():
     """This is the class for display Streamlit user interface
@@ -91,11 +93,34 @@ class StInterface():
     def interface(self):
         """This function displays the basic elements to the interface
         """
+
+        import streamlit.components.v1 as components
+
+        cfg = ConfigParser()
+        cfg.read('../config.ini')
+        
+        direc_path = cfg.get('user_setting','directory_path')
+        direc_path = direc_path.replace('\\', '/')
+
         st.title('THC Automated Display Analysis')
         with st.beta_expander("How to use?"):
             st.write('This tool can make result summary for a bunch of RunIDs based on results searched from [MIT report website](http://frbriunil007.bri.fr.corp/dashboard/MIT_reports.php).')
-            st.markdown("- Select your txt file (Runids), then click **'Search Online'**. Excels will be created in your **Desktop**, in folder **'THC_output_file'**.\nYou can also click **Generate PDF** to get quick charts.")
-            st.markdown('- **Please CLOSE your excel before clicking the button Search!**')
+            st.markdown(f"- Select your txt file (Runids), then click **'Search Online'**. .\nYou can also click **Generate PDF** to get quick charts.")
+            st.markdown(f'- Excels and PDFs will be created in **{direc_path}**')          
+            components.html(
+                """
+                <button id="btn" onclick="
+                    var dummy = document.createElement('textarea');
+                    document.body.appendChild(dummy);
+                    dummy.value = '%s';
+                    dummy.select();
+                    dummy.setSelectionRange(0, 99999);
+                    document.execCommand('copy');
+                    alert('Path copied: %s');
+                    document.body.removeChild(dummy);">Copy path</button>
+                """ % (direc_path, direc_path),
+                height=30
+            )
 
 
     def display_sidebar_widget(self):
