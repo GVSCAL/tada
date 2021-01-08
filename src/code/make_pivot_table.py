@@ -1,3 +1,12 @@
+"""
+**Note:**
+This module is not imported in the TADA program for the moment 
+
+  
+Update from V2.1 : output method upgraded to xlsxwriter, doing 'format as table' for PowerBI
+Update from V2.2 : remove duplicated run ids, add unit for criterias.
+"""
+
 import win32com.client as win32
 from pathlib import Path
 import sys
@@ -8,17 +17,21 @@ from datetime import datetime  # only used for synthetic data
 
 
 import pythoncom
+
 win32c = win32.constants
 
-
 def pivot_table(wb: object, ws1: object, pt_ws: object, ws_name: str, pt_name: str, pt_rows: list, pt_cols: list, pt_filters: list, pt_fields: list):
-    """
-    wb = workbook1 reference
-    ws1 = worksheet1
-    pt_ws = pivot table worksheet number
-    ws_name = pivot table worksheet name
-    pt_name = name given to pivot table
-    pt_rows, pt_cols, pt_filters, pt_fields: values selected for filling the pivot tables
+    """This function creates a pivot table in the excel file
+
+    :param object wb: workbook1 reference
+    :param object ws1: worksheet1
+    :param object pt_ws: pivot table worksheet number
+    :param str ws_name: pivot table worksheet name
+    :param str pt_name: name given to pivot table
+    :param list pt_rows: values selected for filling the pivot tables
+    :param list pt_cols: values selected for filling the pivot tables
+    :param list pt_filters: values selected for filling the pivot tables
+    :param list pt_fields: values selected for filling the pivot tables
     """
 
     # pivot table location

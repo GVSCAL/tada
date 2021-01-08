@@ -20,6 +20,7 @@ import requests
 import xlsxwriter.exceptions
 import random
 
+import pandas as pd
 
 class StInterface():
     """This is the class for display Streamlit user interface
@@ -61,22 +62,22 @@ class StInterface():
     def setSearched(self, state):
         """This function sets search state. 
 
-        Args:
-            state (bool): Receive a boolean value.
+        :param bool state: A boolean value.
         """
         self._searched = state
     def getSearchedState(self):
         """This function returns search state, an instance variable which represents if 'Search' button has been clicked or not
 
-        Returns:
-            bool: returns a boolean value
+        :return: A boolean value
+        :rtype: bool
         """
         return self._searched
+
+
     def setGenerated(self, state):
         """This function sets generate state. If button 'Generate graph' is clicked, then the generate state will be set to true.
 
-        Args:
-            state (bool): Receive a boolean value.
+        :param bool state: Receive a boolean value.
         """
         self._generated = state
     def getGeneratedState(self):
@@ -91,10 +92,10 @@ class StInterface():
         """This function displays the basic elements to the interface
         """
         st.title('THC Automated Display Analysis')
-        st.write('This tool can make result summary for a bunch of RunIDs based on results searched from [MIT report website](http://frbriunil007.bri.fr.corp/dashboard/MIT_reports.php).')
-        st.header('How to use?')
-        st.markdown("- Select your txt file (Runids), then click **'Search Online'**. Excels will be created in your **Desktop**, in folder **'THC_output_file'**.\nYou can also click **Generate PDF** to get quick charts.")
-        st.markdown('- **Please CLOSE your excel before clicking the button Search!**')
+        with st.beta_expander("How to use?"):
+            st.write('This tool can make result summary for a bunch of RunIDs based on results searched from [MIT report website](http://frbriunil007.bri.fr.corp/dashboard/MIT_reports.php).')
+            st.markdown("- Select your txt file (Runids), then click **'Search Online'**. Excels will be created in your **Desktop**, in folder **'THC_output_file'**.\nYou can also click **Generate PDF** to get quick charts.")
+            st.markdown('- **Please CLOSE your excel before clicking the button Search!**')
 
 
     def display_sidebar_widget(self):
@@ -116,15 +117,17 @@ class StInterface():
     def get_uploaded(self, old_upload_len, old_id_list, last_current_runIDs_value):
         """This function gets selected runIDs and adjust the display of related widgets
 
-        Args:
-            old_upload_len (int): Previous uploaded file length
-            old_id_list (list): Previous runID list in multi-select widget
-            last_current_runIDs_value (list): Temporary variable to store previous runID list. When a runID is removed, this variable will be sent to the widget
-
-        Returns:
-            int: Number of ujploaded file 
-            list: List of selected runIDs in the multi-select widget
-            list: Temporary list variable which contains runIDs.
+        :param old_upload_len: Previous uploaded file length
+        :type old_upload_len: int
+        :param old_id_list: Previous runID list in multi-select widget
+        :type old_id_list: list
+        :param last_current_runIDs_value: Temporary variable to store previous runID list. When a runID is removed, this variable will be sent to the widget
+        :type last_current_runIDs_value: list
+        :Returns:
+            - len(uploaded_file): Number of ujploaded file 
+            - self.multi_runIDs: List of selected runIDs in the multi-select widget 
+            - current_runIDs: Temporary list variable which contains runIDs.
+        :rtype: int, list, list
         """
         print('Refreshing uploaded files...')
         print('old_id_list\n', old_id_list)
@@ -200,7 +203,13 @@ class StInterface():
 
 
     def toRunidList(self,runid_string):
-        txt_orig = runid_string.upper()                                   ## get runid from a txt file
+        """This function converts a string to a list of RunIDs
+        
+        :param str runid_string: Input string
+        :return: A list of runIDs
+        :rtype: list
+        """
+        txt_orig = runid_string.upper()                                   ## convert to upper case
         runid_list = re.findall(r'\w\w[12]\d{5}\d?',txt_orig)           ## find runids into a list according to search pattern
         runid_list = list(dict.fromkeys(runid_list))                      # remove duplicated runs.
         return runid_list
@@ -208,6 +217,8 @@ class StInterface():
 
     # @st.cache(suppress_st_warning=True)
     def search_online(self):
+        """This function handles online search interface
+        """
         if not self.multi_runIDs:
             st.error('No runID selected')
 
@@ -256,14 +267,19 @@ class StInterface():
         else:
             st.text("Done")
         self.tmp_excel_path, self.regular_excel_path = tmp_excel_path, regular_excel_path
-        return  tmp_excel_path, regular_excel_path
 
     def display_excel_path(self):
+        """This function displays the path of generated excel
+        """
         st.info(f'Temporary excel path: {self.tmp_excel_path}')
         st.info(f'Regular excel path: {self.regular_excel_path}')
 
 
     def display_default_loop(self, path):
+        """This function displays run loops as checkbox widgts
+        
+        :param str path: Regular excel path
+        """
         with st.beta_expander("Select loops"):
             c1, c2 = st.beta_columns((1,10))
             self.loop_list = self.get_all_loop(path)          
@@ -271,25 +287,14 @@ class StInterface():
             for i in range(len(self.loop_list)):
                 self.cb_loop.append(c2.checkbox(self.loop_list[i], True, key=i))
 
-    def display_common_creterias(self):
-        with st.beta_expander("Select graph types"):
-            c1, c2 = st.beta_columns((1,10))
-            graph_types = ['Status','Belt bracket on track','Longitudinal load','Recliner torque','Front bracket load','Rear brackets load']
-            self.cb_graph_type.clear()
-            for i in range(len(graph_types)):
-                self.cb_graph_type.append(c2.checkbox(graph_types[i], True, key=i))
 
-    def display_uncommon_criterias(self):
-        with st.beta_expander("Select other columns"):
-            c1, c2 = st.beta_columns((1,10))
-            print(self.uncommon_criteria)
-            self.cb_uncommon_criteria.clear()
-            uc_list = self.uncommon_criteria
-            for i in range(len(uc_list)):
-                self.cb_uncommon_criteria.append(c2.checkbox(uc_list[i], True, key=i))
-
-    
     def get_all_loop(self, path):
+        """This function returns a list of all loops presented in the excel
+
+        :param str path: Path of the regular excel
+        :return: list of all loops
+        :rtype: list
+        """
         # create generator object
         self.gen = GraphGenerator(path)
         df_selected = self.gen.df_origin[['OEM','project_name','design_loop']]
@@ -299,7 +304,34 @@ class StInterface():
         loop_list = list(dic_loop.keys())
         return loop_list
 
+    def display_common_creterias(self):
+        """This function displays common creterias as checkbox widgets
+        """
+        with st.beta_expander("Select graph types"):
+            c1, c2 = st.beta_columns((1,10))
+            graph_types = ['Status','Belt bracket on track','Longitudinal load','Recliner torque','Front bracket load','Rear brackets load']
+            self.cb_graph_type.clear()
+            for i in range(len(graph_types)):
+                self.cb_graph_type.append(c2.checkbox(graph_types[i], True, key=i))
+
+    def display_uncommon_criterias(self):
+        """This function displays uncommon creterias as checkbox widgets
+        """
+        with st.beta_expander("Select other columns"):
+            c1, c2 = st.beta_columns((1,10))
+            print(self.uncommon_criteria)
+            self.cb_uncommon_criteria.clear()
+            uc_list = self.uncommon_criteria
+            for i in range(len(uc_list)):
+                self.cb_uncommon_criteria.append(c2.checkbox(uc_list[i], True, key=i))
+
+
     def verifyCanGenerate(self):
+        """This function checks if it's possible to generate charts
+
+        :return: Returns a boolean
+        :rtype: boolean
+        """
         result = True
         if (sum(self.cb_loop) == 0):
             st.warning('Please select at least one loop.')
@@ -312,6 +344,8 @@ class StInterface():
         return result
 
     def show_excel_data(self):
+        """This function print the regularized dataframe to the interface
+        """
         self.cb_view_table = st.sidebar.checkbox('View Excel table')
         
         if self.cb_view_table:
@@ -319,7 +353,8 @@ class StInterface():
             st.write(self.gen.df_origin)   
 
     def generate_charts(self):
-
+        """This function generates a PDF which contains all generated graphs
+        """
         uc_list = self.uncommon_criteria
         max_per_page = self.nb_per_page
 
@@ -352,32 +387,41 @@ class StInterface():
             st.warning(f"PermissionError: {e}")
             return
         
-        self.mode = 'Compare mode' if self.gen.compare_mode else 'Single runID'
+        self.mode = 'Compare mode' if self.gen.compare_mode else 'Single runID mode'
         st.success("PDF File generated successfully")
         st.info(f'PDF path: {save_path}')
 
     def plot_graphs(self):
-        st.text(f'Total: {len(self.fig_list)} graphs')
-        
-        st.text(f'Mode: {self.mode}')
-        for graph in self.fig_list:
-            st.pyplot(graph)
+        """This function draws charts to interface
+        """
+
+        st.info(f'Total: {len(self.fig_list)} graphs, mode: {self.mode}')
+        with st.beta_expander('Graphs', expanded=True): 
+            for graph in self.fig_list:
+                st.pyplot(graph)
 
 
 
     def incrementUploader(self):
+        """This function increment the inner key field for file uploader widget
+        """
         self.uploaderKey += 1
 
     def initialize(self):
-        print('initialize StInterface')
+        """This function initialize the Streamlilt interface
+        """
         tmp_multiSelectKey = self.multiSelectKey     # Store old keys
         tmp_uploaderKey = self.uploaderKey
         self.__init__()                             # Initialize all class variables
         self.multiSelectKey = tmp_multiSelectKey   # Restore old keys
         self.uploaderKey = tmp_uploaderKey 
+        print('Interface initialized!')
+
 
 
 class DataStorage():
+    """This class stores global variables, which we don't want lose them during every user action
+    """
     def __init__(self):
         self.regular_excel_path = None
         self.upload_length = 0

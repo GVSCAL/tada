@@ -87,11 +87,11 @@
             
               <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="TADA_interface.html">TADA_interface module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="DataGrasper.html">DataGrasper module</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">DataTransferer module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="GraphGenerator.html">GraphGenerator module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="make_pivot_table.html">make_pivot_table module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="TADA_interface.html">TADA_interface module</a></li>
 </ul>
 
             
@@ -165,32 +165,46 @@
 <dt id="DataTransferer.DataTransferer">
 <em class="property">class </em><code class="sig-prename descclassname">DataTransferer.</code><code class="sig-name descname">DataTransferer</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">raw_file_name</span><span class="o">=</span><span class="default_value">'df2.xlsx'</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataTransferer.DataTransferer" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>[summary]
-sqdqsdqsdqsd</p>
+<p>This class analyse the information in the raw excel file and generates a regular excel with standard columns</p>
 <dl class="py method">
 <dt id="DataTransferer.DataTransferer.concatenate_to_db">
 <code class="sig-name descname">concatenate_to_db</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">runID_list</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataTransferer.DataTransferer.concatenate_to_db" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Concatenate search information to database after each search is finished</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>runID_list</strong> (<em>list</em>) – List of runID searched</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt id="DataTransferer.DataTransferer.create_regex_dict_keywords_four">
 <code class="sig-name descname">create_regex_dict_keywords_four</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">keywords1</span></em>, <em class="sig-param"><span class="n">keywords2</span></em>, <em class="sig-param"><span class="n">keywords3</span></em>, <em class="sig-param"><span class="n">keywords4</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataTransferer.DataTransferer.create_regex_dict_keywords_four" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>See function create_regex_dict_keywords_two</p>
+</dd></dl>
 
 <dl class="py method">
 <dt id="DataTransferer.DataTransferer.create_regex_dict_keywords_three">
 <code class="sig-name descname">create_regex_dict_keywords_three</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">keywords1</span></em>, <em class="sig-param"><span class="n">keywords2</span></em>, <em class="sig-param"><span class="n">keywords3</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataTransferer.DataTransferer.create_regex_dict_keywords_three" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>See function create_regex_dict_keywords_two</p>
+</dd></dl>
 
 <dl class="py method">
 <dt id="DataTransferer.DataTransferer.create_regex_dict_keywords_two">
 <code class="sig-name descname">create_regex_dict_keywords_two</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">keywords1</span></em>, <em class="sig-param"><span class="n">keywords2</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataTransferer.DataTransferer.create_regex_dict_keywords_two" title="Permalink to this definition">¶</a></dt>
-<dd><p>ezdzd</p>
-<dl class="simple">
-<dt>Args:</dt><dd><p>keywords1 (int): frfff
-keywords2 (frf): fed</p>
+<dd><p>This class creates a list of possible keyword combination. It select one elements from each argument and combine them into a new list, then appends the list to keywords_list</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>keywords1</strong> (<em>list</em>) – First keyword list</p></li>
+<li><p><strong>keywords2</strong> (<em>[</em><em>type</em><em>]</em>) – Second keyword list</p></li>
+</ul>
 </dd>
-<dt>Returns:</dt><dd><p>int: dsd</p>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>List which contains lists of keyword combination</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>list</p>
 </dd>
 </dl>
 </dd></dl>
@@ -198,37 +212,113 @@ keywords2 (frf): fed</p>
 <dl class="py method">
 <dt id="DataTransferer.DataTransferer.generate_reg_excel">
 <code class="sig-name descname">generate_reg_excel</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#DataTransferer.DataTransferer.generate_reg_excel" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>This function generates regular excel</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Path of regular excel generated</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt id="DataTransferer.DataTransferer.getAllCriterias">
 <code class="sig-name descname">getAllCriterias</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#DataTransferer.DataTransferer.getAllCriterias" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>This function returns all columns except basic columns from the regular dataframe</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>List which contains column names</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt id="DataTransferer.DataTransferer.getInfo">
 <code class="sig-name descname">getInfo</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#DataTransferer.DataTransferer.getInfo" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>This function calls update_df1_according_to_match</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p>all_criteria: List of all column names except basic column name</p></li>
+<li><p>uncommon_criterias: List of all uncommon column names which is not stored in our column</p></li>
+<li><p>msg_list: List of messages</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>list, list, list</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt id="DataTransferer.DataTransferer.getUncommonCriterias">
 <code class="sig-name descname">getUncommonCriterias</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">all_criteria</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataTransferer.DataTransferer.getUncommonCriterias" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>This function returns uncommon column names which is not stored in our column name dictionary</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>all_criteria</strong> (<em>list</em>) – List which contains all column names except basic column names</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>List which contains all uncommon columns</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt id="DataTransferer.DataTransferer.send_basic_info">
 <code class="sig-name descname">send_basic_info</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#DataTransferer.DataTransferer.send_basic_info" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>This function send basic information from raw dataframe to regular dataframe</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Updated regular dataframe</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>pandas.Dataframe</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt id="DataTransferer.DataTransferer.send_data">
 <code class="sig-name descname">send_data</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">df1_column_name</span></em>, <em class="sig-param"><span class="n">df2_column_name</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataTransferer.DataTransferer.send_data" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>This function send data from raw dataframe to regular dataframe, by providing their correspond column names</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df1_column_name</strong> (<em>str</em>) – Column name of the regular dataframe</p></li>
+<li><p><strong>df2_column_name</strong> (<em>str</em>) – Column name of the raw dataframe</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt id="DataTransferer.DataTransferer.update_df1_according_to_match">
 <code class="sig-name descname">update_df1_according_to_match</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#DataTransferer.DataTransferer.update_df1_according_to_match" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>This function match column using regular expression, then send matched content from raw dataframe to regular ddataframe</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Updated regular dataframe</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>pandas.Dataframe</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>List of messages generated during match process</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
 
 </dd></dl>
 

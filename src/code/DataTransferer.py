@@ -12,8 +12,7 @@ from configparser import ConfigParser
 
 
 class DataTransferer():
-    """[summary]
-    sqdqsdqsdqsd
+    """This class analyse the information in the raw excel file and generates a regular excel with standard columns
     """
     def __init__(self,raw_file_name = r'df2.xlsx'):
         cfg = ConfigParser()
@@ -40,8 +39,6 @@ class DataTransferer():
             self.df_History__ = pd.read_excel(self.db_path, sheet_name='History__')
 
         self.df_database = pd.read_excel(self.db_path, sheet_name='FEA')
-        
-
         
         # raw_file_name is the user input, template_filename is the template df.
         # the goal is to send raw_file_name information to template_filename(template with standard criteria names)
@@ -147,14 +144,13 @@ class DataTransferer():
 
 
     def create_regex_dict_keywords_two(self,keywords1,keywords2):
-        """ezdzd
+        """This class creates a list of possible keyword combination. It select one elements from each argument and combine them into a new list, then appends the list to keywords_list
 
-        Args:
-            keywords1 (int): frfff
-            keywords2 (frf): fed
-
-        Returns:
-            int: dsd
+        :param list keywords1: First keyword list
+        :param list keywords2: Second keyword list
+        :type keywords2: [type]
+        :return: List which contains lists of keyword combination
+        :rtype: list
         """
         keywords_list = []
         for keyword1 in keywords1 :
@@ -163,6 +159,8 @@ class DataTransferer():
         return keywords_list
 
     def create_regex_dict_keywords_three(self,keywords1,keywords2,keywords3):
+        """See function create_regex_dict_keywords_two
+        """
         keywords_list = []
         for keyword1 in keywords1 :
             for keyword2 in keywords2:
@@ -171,6 +169,8 @@ class DataTransferer():
         return keywords_list
 
     def create_regex_dict_keywords_four(self,keywords1,keywords2,keywords3,keywords4):
+        """See function create_regex_dict_keywords_two
+        """
         keywords_list = []
         for keyword1 in keywords1 :
             for keyword2 in keywords2:
@@ -182,6 +182,11 @@ class DataTransferer():
 
     # send data from df2 to df1, according to column name
     def send_data(self,df1_column_name,df2_column_name):  
+        """This function send data from raw dataframe to regular dataframe, by providing their correspond column names
+
+        :param str df1_column_name: Column name of the regular dataframe
+        :param str df2_column_name: Column name of the raw dataframe
+        """
         if df1_column_name not in self.df1.columns:
             # if column name does not exist, create an empty column
             self.df1[df1_column_name] = np.nan
@@ -190,9 +195,12 @@ class DataTransferer():
             print('col2:', df2_column_name)
 
         self.df1[df1_column_name] = self.df1[df1_column_name].combine_first(self.df2[df2_column_name])  # combine 2 columns together
-      #  print('here2')
             
-    def concatenate_to_db(self, runID_list):
+    def concatenate_to_db(self, runID_list):   
+        """Concatenate search information to database after each search is finished
+
+        :param list runID_list: List of runID searched
+        """
         # Concatenate result at the front of DB
         self.df_database = pd.concat([self.df1, self.df_database], axis=0, ignore_index=True)
         # If duplicates, keep the first (newer) occurance
@@ -236,6 +244,13 @@ class DataTransferer():
 
     # match column according to regex
     def update_df1_according_to_match(self):
+        """This function match column using regular expression, then send matched content from raw dataframe to regular ddataframe
+        
+        :return: Updated regular dataframe
+        :rtype: pandas.Dataframe
+        :return: List of messages generated during match process
+        :rtype: list
+        """
         msg_list = []
         for key in self.dict_regex:
             print("Searching column:",key,"...")
@@ -257,21 +272,45 @@ class DataTransferer():
         return self.df1, msg_list
 
     def send_basic_info(self):
+        """This function send basic information from raw dataframe to regular dataframe
+        
+        :return: Updated regular dataframe
+        :rtype: pandas.Dataframe
+        """
         for basic_info in self.basic_info_list:
             self.send_data(basic_info,basic_info)
         return self.df1
 
     def getAllCriterias(self):
+        """This function returns all columns except basic columns from the regular dataframe
+        
+        :return: List which contains column names
+        :rtype: list
+        """
         all_criteria = self.df1.columns[len(self.basic_info_list):].to_list()
         return all_criteria
 
     def getUncommonCriterias(self,all_criteria):
+        """This function returns uncommon column names which is not stored in our column name dictionary
+        
+        :param list all_criteria: List which contains all column names except basic column names
+        :return: List which contains all uncommon columns
+        :rtype: list
+        """
         #this returns uncommon criterias
         uncommon_criterias = list(set(all_criteria) - set(self.common_criteria))
         return uncommon_criterias
 
     # this returns two list of criterias. one is for common criterias. 2nd is the other criterias.
     def getInfo(self):
+        """This function calls update_df1_according_to_match
+        
+        :Returns: 
+            - all_criteria: List of all column names except basic column name
+            - uncommon_criterias: List of all uncommon column names which is not stored in our column
+            - msg_list: List of messages
+        :rtype: list, list, list
+        """
         self.df1, msg_list = self.update_df1_according_to_match()
         self.df1 = self.send_basic_info()
         
@@ -281,6 +320,11 @@ class DataTransferer():
         return all_criteria, uncommon_criterias, msg_list
 
     def generate_reg_excel(self):
+        """This function generates regular excel
+
+            :return: Path of regular excel generated
+            :rtype: str
+        """
         from GraphGenerator import dfToDict
         import random 
         now = datetime.now()

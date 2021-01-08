@@ -10,11 +10,12 @@ Welcome to TADA's documentation!
    :maxdepth: 2
    :caption: Contents:
 
+   TADA_interface
    DataGrasper
    DataTransferer
    GraphGenerator
    make_pivot_table
-   TADA_interface
+   
 
 
 Indices and tables

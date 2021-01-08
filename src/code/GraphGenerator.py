@@ -4,7 +4,7 @@ import matplotlib
 import numpy as np
 import textwrap
 import os
- 
+from typing import Tuple
 from matplotlib.backends.backend_pdf import PdfPages
 from datetime import datetime
 import sys
@@ -46,6 +46,8 @@ KW_Rear_Bracket_Force_TS = 'Rear bracket force TS'
 
 # This class contains functions to draw different types of graphs
 class GraphGenerator():
+    """This class contains functions to draw different types of graphs
+    """
     def __init__(self,filepath,design_loop = ''):
         print("PATH:",filepath)
 
@@ -61,6 +63,15 @@ class GraphGenerator():
 
 
     def two_pie_chart(self,column_name1 = 'integrity', column_name2 = 'specs'):
+        """Function which returns a fig object of a two pie chart
+        
+        :param column_name1: Column name of 'integrity', defaults to 'integrity'
+        :type column_name1: str, optional
+        :param column_name2: Column name of 'specification', defaults to 'specs'
+        :type column_name2: str, optional
+        :return: Generated figure object
+        :rtype: matplotlib.pyplot.figure
+        """
         fig = plt.figure()
         fig.add_subplot(121)
         pie_chart(self.df,column_name1)
@@ -82,6 +93,21 @@ class GraphGenerator():
 
         
     def belt_bracket(self,dataframe,column_type='loadcase_short_name', column_bar=KW_Belt_Bracket_Force,column_line=BFD_DS, loadcase_name = ""):
+        """This function plots graph for 'belt bracket'
+
+        :param dataframe: Regular dataframe
+        :type dataframe: pandas.Dataframe
+        :param column_type: Column name for the x axis, defaults to 'loadcase_short_name'
+        :type column_type: str, optional
+        :param column_bar: Column name for the bar chart., defaults to KW_Belt_Bracket_Force
+        :type column_bar: str, optional
+        :param column_line: Column name for the line chart., defaults to BFD_DS
+        :type column_line: str, optional
+        :param loadcase_name: Load case name (only for compare mode, defaults to ""
+        :type loadcase_name: str, optional
+        :return: Generated figure object
+        :rtype: matplotlib.pyplot.figure
+        """
         xs,ys = dfToDict(dataframe,column_type,column_bar)
         if not self.compare_mode:
             title = "Belt Bracket on track"
@@ -129,7 +155,23 @@ class GraphGenerator():
         
     #     return fig
 
-    def longitudinal_load(self,dataframe,abs_column_name='loadcase_short_name', doorside_column_name='Latch Outer force', tunnelside_column_name='Latch Inner force', loadcase_name = ''):
+    def longitudinal_load(self,dataframe:pd.core.frame.DataFrame,abs_column_name='loadcase_short_name', doorside_column_name='Latch Outer force', tunnelside_column_name='Latch Inner force', loadcase_name = '') -> matplotlib.pyplot.figure:
+        """This function plots graph for 'longitudinal load'
+
+        :param dataframe: Regular dataframe
+        :type dataframe: pandas.Dataframe
+        :param abs_column_name: Column name for x axis, defaults to 'loadcase_short_name'
+        :type abs_column_name: str, optional
+        :param doorside_column_name: Column name for first bar, defaults to 'Latch Outer force'
+        :type doorside_column_name: str, optional
+        :param tunnelside_column_name: Column name for second bar, defaults to 'Latch Inner force'
+        :type tunnelside_column_name: str, optional
+        :param loadcase_name: Load case name (only for compare mode), defaults to ''
+        :type loadcase_name: str, optional
+        :return: Generated figure object
+        :rtype: matplotlib.pyplot.figure
+        """
+
         title = "Longitudinal Load" if not self.compare_mode else "Longitudinal Load ("+ loadcase_name + ")"
         if not self.compare_mode:
             title = "Longitudinal Load" 
@@ -142,7 +184,22 @@ class GraphGenerator():
         return fig
 
 
-    def recliner_torque(self,dataframe,abs_column_name='loadcase_short_name', doorside_column_name='recliner torque DS', tunnelside_column_name='recliner torque TS', loadcase_name = ''):    
+    def recliner_torque(self,dataframe:pd.core.frame.DataFrame,abs_column_name='loadcase_short_name', doorside_column_name='recliner torque DS', tunnelside_column_name='recliner torque TS', loadcase_name = '')-> matplotlib.pyplot.figure:    
+        """This function plots graph for 'recliner torque'
+
+        :param dataframe: Regular dataframe
+        :type dataframe: pd.core.frame.DataFrame
+        :param abs_column_name: Column name for x axis, defaults to 'loadcase_short_name'
+        :type abs_column_name: str, optional
+        :param doorside_column_name: Column name for first bar, defaults to 'recliner torque DS'
+        :type doorside_column_name: str, optional
+        :param tunnelside_column_name: Column name for second bar, defaults to 'recliner torque TS'
+        :type tunnelside_column_name: str, optional
+        :param loadcase_name: Load case name (only for compare mode), defaults to ''
+        :type loadcase_name: str, optional
+        :return: Generated figure object
+        :rtype: matplotlib.pyplot.figure
+        """
         if not self.compare_mode:
             title = "Recliner Torque" 
             chart_type = 'bar'
@@ -154,17 +211,48 @@ class GraphGenerator():
         # plt.axhline(y=2000, color='red', linestyle='--')
         return fig
 
-    def front_brackets_load(self,dataframe, loadcase_column_name = 'loadcase_short_name', doorside_column_name = FBF_DS , tunnelside_column_name= FBF_TS, loadcase_name = ''):
+    def front_brackets_load(self,dataframe:pd.core.frame.DataFrame, abs_column_name = 'loadcase_short_name', doorside_column_name = FBF_DS , tunnelside_column_name= FBF_TS, loadcase_name = '')-> matplotlib.pyplot.figure:
+        """This function plots graph for 'front brackets load'
+
+        :param dataframe: Regular dataframe
+        :type dataframe: pd.core.frame.DataFrame
+        :param abs_column_name: Column name for x axis, defaults to 'loadcase_short_name'
+        :type abs_column_name: str, optional
+        :param doorside_column_name: Column name for first bar, defaults to FBF_DS
+        :type doorside_column_name: str, optional
+        :param tunnelside_column_name: Column name for second bar, defaults to FBF_TS
+        :type tunnelside_column_name: str, optional
+        :param loadcase_name: Load case name (only for compare mode), defaults to ''
+        :type loadcase_name: str, optional
+        :return: Generated figure object
+        :rtype: matplotlib.pyplot.figure
+        """
+
         if not self.compare_mode:
             title = "Front Brackets Load" 
             chart_type = 'bar'
         else:
             title = "Front Brackets Load ("+ loadcase_name + ")"
             chart_type = 'line'
-        fig = self.double_value_chart(dataframe,loadcase_column_name, doorside_column_name, tunnelside_column_name, title, loadcase_column_name,'Load[kN]', chart_type=chart_type)
+        fig = self.double_value_chart(dataframe,abs_column_name, doorside_column_name, tunnelside_column_name, title, abs_column_name,'Load[kN]', chart_type=chart_type)
         return fig
       
-    def rear_brackets_load(self, dataframe,loadcase_column_name = 'loadcase_short_name', doorside_column_name = KW_Rear_Bracket_Force_DS, tunnelside_column_name = KW_Rear_Bracket_Force_TS, loadcase_name = ''):
+    def rear_brackets_load(self, dataframe:pd.core.frame.DataFrame, abs_column_name = 'loadcase_short_name', doorside_column_name = KW_Rear_Bracket_Force_DS, tunnelside_column_name = KW_Rear_Bracket_Force_TS, loadcase_name = '')-> matplotlib.pyplot.figure:
+        """This function plots graph for 'rear brackets load'
+
+        :param dataframe: Regular dataframe
+        :type dataframe: pd.core.frame.DataFrame
+        :param abs_column_name: Column name for x axis, defaults to 'loadcase_short_name'
+        :type abs_column_name: str, optional
+        :param doorside_column_name: Column name for first bar, defaults to KW_Rear_Bracket_Force_DS
+        :type doorside_column_name: str, optional
+        :param tunnelside_column_name: Column name for second bar, defaults to KW_Rear_Bracket_Force_TS
+        :type tunnelside_column_name: str, optional
+        :param loadcase_name: Load case name (only for compare mode), defaults to ''
+        :type loadcase_name: str, optional
+        :return: Generated figure object
+        :rtype: matplotlib.pyplot.figure
+        """
         if not self.compare_mode:
             title = "Rear Brackets Load" 
             chart_type = 'bar'
@@ -172,11 +260,32 @@ class GraphGenerator():
             title = "Rear Brackets Load ("+ loadcase_name + ")"
             chart_type = 'line'
 
-        fig = self.double_value_chart(dataframe,loadcase_column_name, doorside_column_name, tunnelside_column_name, title, loadcase_column_name,'Load[kN]', chart_type=chart_type)
+        fig = self.double_value_chart(dataframe,abs_column_name, doorside_column_name, tunnelside_column_name, title, abs_column_name,'Load[kN]', chart_type=chart_type)
         return fig
 
-    def double_value_chart(self,dataframe,abs_column_name, vert_column_name1, vert_column_name2,title,xlabel,ylabel, chart_type):
-        fig, xs, _ = raw_double_value_chart(dataframe,abs_column_name, vert_column_name1, vert_column_name2, chart_type=chart_type)
+    def double_value_chart(self,dataframe:pd.core.frame.DataFrame,abs_column_name:str, vert_column_name1:str, vert_column_name2:str,title:str,xlabel:str,ylabel:str, chart_type:str)-> matplotlib.pyplot.figure:
+        """This function generate a double value (bar/line) chart
+
+        :param dataframe: Regular dataframe
+        :type dataframe: pd.core.frame.DataFrame
+        :param abs_column_name: Column name for x axis
+        :type abs_column_name: str
+        :param vert_column_name1: Column name for first y axis
+        :type vert_column_name1: str
+        :param vert_column_name2: Column name for second y axis
+        :type vert_column_name2: str
+        :param title: Graph title name
+        :type title: str
+        :param xlabel: x label name
+        :type xlabel: str
+        :param ylabel: y label name
+        :type ylabel: str
+        :param chart_type: Type of the chart (bar/line)
+        :type chart_type: str
+        :return: Generated figure object
+        :rtype: matplotlib.pyplot.figure
+        """
+        fig, xs = raw_double_value_chart(dataframe,abs_column_name, vert_column_name1, vert_column_name2, chart_type=chart_type)
         if not fig:
             return False
         # plt.xlabel(xlabel)
@@ -191,7 +300,20 @@ class GraphGenerator():
         plt.title(title,pad=0)
         return fig
 
-    def single_bar_chart(self, dataframe,abs_column_name, vert_column_name, title = ''):
+    def single_bar_chart(self, dataframe:pd.core.frame.DataFrame,abs_column_name, vert_column_name, title = '')-> matplotlib.pyplot.figure:
+        """This function generates a one bar chart
+
+        :param dataframe: Regular dataframe
+        :type dataframe: pd.core.frame.DataFrame
+        :param abs_column_name: Column name for x axis
+        :type abs_column_name: str
+        :param vert_column_name: Column name for y axis
+        :type vert_column_name: str
+        :param title: Graph title name, defaults to ''
+        :type title: str, optional
+        :return: Generated figure object
+        :rtype: matplotlib.pyplot.figure
+        """
         xs_bar,ys_bar = dfToDict(dataframe,abs_column_name,vert_column_name)
         print('xs bar',xs_bar)
         print('ys bar',ys_bar)
@@ -245,7 +367,20 @@ class GraphGenerator():
 
 
 
-    def single_line_chart(self, dataframe,abs_column_name, vert_column_name, title = '' ):
+    def single_line_chart(self, dataframe:pd.core.frame.DataFrame, abs_column_name:str, vert_column_name:str, title = '' )-> matplotlib.pyplot.figure:
+        """This function generates a one line chart
+
+        :param dataframe: Regular dataframe
+        :type dataframe: pd.core.frame.DataFrame
+        :param abs_column_name: Column name for x axis
+        :type abs_column_name: str
+        :param vert_column_name: Column name for y axis
+        :type vert_column_name: str
+        :param title: Graph title name, defaults to ''
+        :type title: str, optional
+        :return: Generated figure object
+        :rtype: matplotlib.pyplot.figure
+        """
         xs_line,ys_line = dfToDict(dataframe,abs_column_name,vert_column_name)
         for i in range(len(xs_line) - 1, -1, -1):
                 if np.isnan(ys_line[i]):
@@ -297,6 +432,14 @@ class GraphGenerator():
 
     # return basic information of the component
     def basic_info(self):
+        """This function return basic information of the runID set (OEM, Project name, Loadcase)
+
+        :Returns:
+            - oem_list: OEM list
+            - pjtname_list: Project name list
+            - loadcase_list: Loadcase list
+        :rtype: list, list, list
+        """
         x_axis_lable = 'loadcase_short_name'
         df_selected = self.df[['OEM','project_name',x_axis_lable]]
         dic_oem = df_selected.groupby(['OEM']).apply(list).to_dict()
@@ -316,6 +459,8 @@ class GraphGenerator():
 
     # function to combine multiple PDF pages into one page
     def combine_pages(self,srcpages):
+        """This function combines multiple pages of a PDF file in to one page 
+        """
         SCALE = 0.5
         srcpages = PageMerge() + srcpages
         print(srcpages.xobj_box[2:])
@@ -329,7 +474,25 @@ class GraphGenerator():
         return srcpages.render()
 
     # function to generate PDF file
-    def generate_pdf(self,cb_selected,design_loop,otheritems, max_per_page = 6):
+    def generate_pdf(self,cb_selected:list,design_loop:list,otheritems:list, max_per_page = 6):
+        """This function generates PDF file
+
+        :param cb_selected: List of integers which contains checkbox index of selected graphs types
+        :type cb_selected: list
+        :param design_loop: List of strings which contains selected design loop
+        :type design_loop: list
+        :param otheritems: List of strings which contains uncommon column names
+        :type otheritems: list
+        :param max_per_page: Maximum number of chart in one PDF page, defaults to 6
+        :type max_per_page: int, optional
+        :Returns: 
+            - fig_list: List of matplotlib.pyplot.figure
+            - savepath: Path of PDF generated
+            - msg_list: List of strings which contains message
+        :rtype: list, str, list
+        """
+
+
         now = datetime.now()
         # dd/mm/YY H:M:S
         dt_string = now.strftime("%d-%m-%Y_%H%M%S")
@@ -350,7 +513,7 @@ class GraphGenerator():
             
             # add figure to the PDF file
             # Status selected
-            if(cb_selected):
+            if(cb_selected[0]):
                 fig1 = self.two_pie_chart('integrity', 'specs')
                 if fig1:
                     pdf.savefig(fig1)
@@ -529,7 +692,15 @@ class GraphGenerator():
 
 
 # draw a pie chart
-def pie_chart(dataframe,column):
+def pie_chart(dataframe:pd.core.frame.DataFrame,column:str):
+    """This function plot a pie chart
+
+    :param dataframe: Regular dataframe
+    :type dataframe: pd.core.frame.DataFrame
+    :param column: Column name for the pie chart
+    :type column: str
+    """
+    
     column = column.strip()
     color_dict = {"OK":'limegreen',"OK Limit":'yellow',"NOK Limit":'orange',"NOK":'r','None':'w'}
     df = dataframe[['RunID',column]]    #select columns and generate a dataframe
@@ -559,13 +730,31 @@ def pie_chart(dataframe,column):
     plt.legend(patches, labels, loc='best',bbox_to_anchor=(0.8, 0.1), fontsize=8)
     plt.axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle.
     plt.title(column)
-    return plt
+    
 
 # draw a double bar chart
-def raw_double_value_chart(dataframe,column_type, column_bar1, column_bar2, subplot = False, chart_type = 'bar'):
+def raw_double_value_chart(dataframe:pd.core.frame.DataFrame,column_type:str, vert_column_name1:str, vert_column_name2:str, chart_type = 'bar')-> Tuple[matplotlib.pyplot.figure, list]:
+    """Generates raw double value (bar/line) chart
+
+    :param dataframe: Regular dataframe
+    :type dataframe: pd.core.frame.DataFrame
+    :param column_type: Column name for x axis
+    :type column_type: str
+    :param vert_column_name1: Column name for first y axis
+    :type vert_column_name1: str
+    :param vert_column_name2: Column name for second y axis
+    :type vert_column_name2: str
+    :param chart_type: Type of the chart, defaults to 'bar'
+    :type chart_type: str, optional
+    :Returns: 
+        -fig: Generated figure object
+        -xs: List of x axis value
+    :rtype: matplotlib.pyplot.figure, list
+    """
+    
     fig = plt.figure()  #create a empty figure
-    xs,ys_1 = dfToDict(dataframe,column_type,column_bar1)   #generate the dictionary
-    xs2,ys_2 = dfToDict(dataframe,column_type,column_bar2)
+    xs,ys_1 = dfToDict(dataframe,column_type,vert_column_name1)   #generate the dictionary
+    xs2,ys_2 = dfToDict(dataframe,column_type,vert_column_name2)
     print('xs1:', xs)
     print('ys1:', ys_1)
     print('xs2:', xs2)
@@ -578,30 +767,25 @@ def raw_double_value_chart(dataframe,column_type, column_bar1, column_bar2, subp
                 ys_1.pop(i) 
                 ys_2.pop(i) 
 
-                print('xs1:', xs)
-                print('ys1:', ys_1)
-                print('xs2:', xs2)
-                print('ys2:', ys_2)
-
     if chart_type == 'bar':
         # if no bars can be generated, return False
         if len(xs) == 0:
-            return False, False, False
+            return False, False
         # define x coordinate
         x = np.arange(len(xs)) 
         total_width, n = 0.9 , 2
         width = total_width / n
         x = x - (total_width - width) / 2
-        plt.bar(x, ys_1, color = "dodgerblue",edgecolor = "k",width=width,label=column_bar1)    #draw bar chart
-        plt.bar(x + width, ys_2, color = "mediumblue",edgecolor = "k",width=width,label=column_bar2)
+        plt.bar(x, ys_1, color = "dodgerblue",edgecolor = "k",width=width,label=vert_column_name1)    #draw bar chart
+        plt.bar(x + width, ys_2, color = "mediumblue",edgecolor = "k",width=width,label=vert_column_name2)
         
     elif chart_type == 'line':
         # if less or equal than one line point can be generated, return False
         if len(xs) <= 1:
-            return False, False, False
+            return False, False
 
-        plt.plot(xs,ys_1,'o-',color = 'dodgerblue',lw = 3,label = column_bar1)
-        plt.plot(xs,ys_2,'o-',color = 'mediumblue',lw = 3,label = column_bar2)
+        plt.plot(xs,ys_1,'o-',color = 'dodgerblue',lw = 3,label = vert_column_name1)
+        plt.plot(xs,ys_2,'o-',color = 'mediumblue',lw = 3,label = vert_column_name2)
     
     plt.legend(prop={'size': 8}, loc='best')
     # display the maximum
@@ -621,10 +805,25 @@ def raw_double_value_chart(dataframe,column_type, column_bar1, column_bar2, subp
         scale = max(max1, max2) - min(min1, min2)
         factor = 0.2
         plt.ylim(bottom =  min(min1, min2)-factor*scale, top = max(max1, max2)+factor*scale)
-    return fig, xs, plt
+    return fig, xs
 
 # convert a data frame to a dictionary which contains the selected column
-def dfToDict(dataframe,column_key,column_value):
+def dfToDict(dataframe:pd.core.frame.DataFrame,column_key:str,column_value:str):
+    """This function convert a data frame to a dictionary which contains the selected column, then returns keys and values of the dictionary
+
+
+    :param dataframe: Regular dataframe
+    :type dataframe: pd.core.frame.DataFrame
+    :param column_key: The column name which constitutes dictionary key
+    :type column_key: str
+    :param column_value: The column name which constituted dictionary value
+    :type column_value: str
+    :returns: 
+        - xs - List of dictionary keys
+        - ys - List of dictionary values
+    :rtype: list, list
+    """
+
     column_key = column_key.strip()
     column_value = column_value.strip()
     df = dataframe[[column_key,column_value]]       # temporary df which contains only 2 columns
@@ -638,11 +837,22 @@ def dfToDict(dataframe,column_key,column_value):
     return xs,ys
 
 
-def get_found_column(dataframe, keyword, nb_col = 1):
-    if keyword in dataframe.columns:
-        print('Find keyword: ',keyword)
-        return keyword
+def get_found_column(dataframe:pd.core.frame.DataFrame, colName: str):
+    """This function search the column by keyword and return the column name. If no column name is found, then return False.
+
+    :param dataframe: Regular dataframe
+    :type dataframe: pd.core.frame.DataFrame
+    :param colName: The column name that we want to search
+    :type colName: str
+    :return: The column name found, false if not found
+    :rtype: str or bool
+    """
+    
+    
+    if colName in dataframe.columns:
+        print('Find colName: ',colName)
+        return colName
     
     else:
-        print('Cannot find keyword: ', keyword)
+        print('Cannot find colName: ', colName)
         return False

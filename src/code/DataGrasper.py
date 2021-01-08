@@ -1,23 +1,5 @@
 # -*- coding: utf-8 -*-
-"""
-Created on Mon May 25 16:08:38 2020
 
-@author: chenwang
-THC_summary_V2 :compare to V1, No need export csv from Lv0 report website.
-Now script scraping information from website based runid.
-
-input = runids from a txt file 'runidlist.txt' , including runs we want extract information.
-output = One excel with all information from THC. ==> 
-this goes to PowerBI for visualisation.
-  
-careful : 
-    error if run have no Lv0 report.
-    error if run have no THC table.
-    better to create some kind of checking function.
-    
-Update from V2.1 : output method upgraded to xlsxwriter, doing 'format as table' for PowerBI
-Update from V2.2 : remove duplicated run ids, add unit for criterias.
-"""
 
 import requests
 from bs4 import BeautifulSoup
@@ -32,12 +14,15 @@ from configparser import ConfigParser
 
 
 class FooException(Exception):
+    """This class is a custom class for handling exception, it extends class Exception
+    """
     def __init__(self, run):
         self.runID = run
 
 
 class DataGrasper():
-
+    """This class grasps information from MIT webpage
+    """
     def __init__(self):
         self.runIDs = []
         self.data_frames = []
@@ -46,15 +31,13 @@ class DataGrasper():
         cfg.read('../config.ini')
         self.direc_path = cfg.get('user_setting','directory_path')
 
-    def open_txt_file(self, path):
-        with open(path) as f:
-            txt_orig = f.read().upper()                                   ## get runid from a txt file
-            self.runid_list = re.findall(r'\w\w[12]\d{5}\d?',txt_orig)           ## find runids into a list according to seach pattern
-            self.runid_list = list(dict.fromkeys(self.runid_list))                      # remove duplicated runs.
-            # self.data_frames = []
-        return self.runid_list
-
     def search_online_by_runID(self, runid_list):
+        """This function search for information from a list of runIDs and generates a dataframe which contains all information of all runIDs
+
+        :param list runid_list: A list of runIDs
+        :raises FooException: When there is an error, a FooException will be raised, with runID as argument.
+        """
+
         self.data_frames = []
         print('runid:',runid_list)
         try:
@@ -64,8 +47,13 @@ class DataGrasper():
             raise FooException(runs)
 
     def get_df_from_runid(self,RunID):
+        """This function generate a dataframe from a particular RunID, by scraping infor from Lv0 website based on RunID.
+
+        :param str RunID: One RunID
+        :return: Dataframe for one runID
+        :rtype: Pandas.Dataframe
+        """
         print('get_df_from_runid:',RunID)
-    ##this function returns df we need by scraping infor from Lv0 website based on RunID
         url = 'http://frbriunil007.bri.fr.corp/dashboard/MIT_reports.php?FEA_ref='+RunID
         data = requests.get(url)
         soup = BeautifulSoup(data.text, 'html.parser')      #GET All Lv0 report web information(html) into 'soup'
@@ -149,11 +137,17 @@ class DataGrasper():
     ##***********************************************************************************##
     
 
-    def merge_on_items(self,left,right):                                                      #define a function merge to dataframe according to 'criteria'
+    def merge_on_items(self,left,right):         #define a function merge to dataframe according to 'criteria'
         merged_on_items = pd.merge(left,right,on=['Items'],how='outer')
         return merged_on_items
 
     def generate_xml(self):
+        """This function generates the raw excel
+
+        :return: File path of the generated raw excel
+        :rtype: str
+        """
+
         df_merged_all = reduce(self.merge_on_items,self.data_frames)               #loop over all runs, using reduce function.
         df_merged_all.columns = df_merged_all.iloc[0]                    #REINDEX column lables
         

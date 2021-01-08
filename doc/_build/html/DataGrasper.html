@@ -40,7 +40,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="DataTransferer module" href="DataTransferer.html" />
-    <link rel="prev" title="Welcome to TADA’s documentation!" href="index.html" /> 
+    <link rel="prev" title="TADA_interface module" href="TADA_interface.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -87,11 +87,11 @@
             
               <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="TADA_interface.html">TADA_interface module</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">DataGrasper module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="DataTransferer.html">DataTransferer module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="GraphGenerator.html">GraphGenerator module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="make_pivot_table.html">make_pivot_table module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="TADA_interface.html">TADA_interface module</a></li>
 </ul>
 
             
@@ -161,34 +161,41 @@
             
   <div class="section" id="module-DataGrasper">
 <span id="datagrasper-module"></span><h1>DataGrasper module<a class="headerlink" href="#module-DataGrasper" title="Permalink to this headline">¶</a></h1>
-<p>Created on Mon May 25 16:08:38 2020</p>
-<p>&#64;author: chenwang
-THC_summary_V2 :compare to V1, No need export csv from Lv0 report website.
-Now script scraping information from website based runid.</p>
-<p>input = runids from a txt file ‘runidlist.txt’ , including runs we want extract information.
-output = One excel with all information from THC. ==&gt; 
-this goes to PowerBI for visualisation.</p>
-<dl class="simple">
-<dt>careful<span class="classifier"></span></dt><dd><p>error if run have no Lv0 report.
-error if run have no THC table.
-better to create some kind of checking function.</p>
-</dd>
-</dl>
-<p>Update from V2.1 : output method upgraded to xlsxwriter, doing ‘format as table’ for PowerBI
-Update from V2.2 : remove duplicated run ids, add unit for criterias.</p>
 <dl class="py class">
 <dt id="DataGrasper.DataGrasper">
 <em class="property">class </em><code class="sig-prename descclassname">DataGrasper.</code><code class="sig-name descname">DataGrasper</code><a class="headerlink" href="#DataGrasper.DataGrasper" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>This class grasps information from MIT webpage</p>
 <dl class="py method">
 <dt id="DataGrasper.DataGrasper.generate_xml">
 <code class="sig-name descname">generate_xml</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#DataGrasper.DataGrasper.generate_xml" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>This function generates the raw excel</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>File path of the generated raw excel</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt id="DataGrasper.DataGrasper.get_df_from_runid">
 <code class="sig-name descname">get_df_from_runid</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">RunID</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataGrasper.DataGrasper.get_df_from_runid" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>This function generate a dataframe from a particular RunID, by scraping infor from Lv0 website based on RunID.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>RunID</strong> (<em>str</em>) – One RunID</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Dataframe for one runID</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Pandas.Dataframe</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt id="DataGrasper.DataGrasper.merge_on_items">
@@ -196,14 +203,18 @@ Update from V2.2 : remove duplicated run ids, add unit for criterias.</p>
 <dd></dd></dl>
 
 <dl class="py method">
-<dt id="DataGrasper.DataGrasper.open_txt_file">
-<code class="sig-name descname">open_txt_file</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">path</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataGrasper.DataGrasper.open_txt_file" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
 <dt id="DataGrasper.DataGrasper.search_online_by_runID">
 <code class="sig-name descname">search_online_by_runID</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">runid_list</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataGrasper.DataGrasper.search_online_by_runID" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>This function search for information from a list of runIDs and generates a dataframe which contains all information of all runIDs</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>runid_list</strong> (<em>list</em>) – A list of runIDs</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><a class="reference internal" href="#DataGrasper.FooException" title="DataGrasper.FooException"><strong>FooException</strong></a> – When there is an error, a FooException will be raised, with runID as argument.</p>
+</dd>
+</dl>
+</dd></dl>
 
 </dd></dl>
 
@@ -211,6 +222,7 @@ Update from V2.2 : remove duplicated run ids, add unit for criterias.</p>
 <dt id="DataGrasper.FooException">
 <em class="property">exception </em><code class="sig-prename descclassname">DataGrasper.</code><code class="sig-name descname">FooException</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">run</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataGrasper.FooException" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code></p>
+<p>This class is a custom class for handling exception, it extends class Exception</p>
 </dd></dl>
 
 </div>
@@ -222,7 +234,7 @@ Update from V2.2 : remove duplicated run ids, add unit for criterias.</p>
           <footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
         <a href="DataTransferer.html" class="btn btn-neutral float-right" title="DataTransferer module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-        <a href="index.html" class="btn btn-neutral float-left" title="Welcome to TADA’s documentation!" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="TADA_interface.html" class="btn btn-neutral float-left" title="TADA_interface module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
 
   <hr/>
