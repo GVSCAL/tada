@@ -8,7 +8,6 @@ import numpy as np
 import matplotlib.pyplot as plt
 import os
 import io
-import joblib
 from datetime import datetime
 
 from DataGrasper import *
@@ -136,12 +135,11 @@ class StInterface():
         st.sidebar.write('<a href="http://frbriunil007.bri.fr.corp/dashboard/MIT_reports.php" target="_blank" style="color: white; font-size:25px; text-decoration: none;"><dir style="background-color:#D73925; padding:10px 10px; "><b>MIT Report</b></dir></a>', unsafe_allow_html = True)
         st.sidebar.write('<a href="https://faurus.ww.faurecia.com/community/thehub" target="_blank"><dir style="background-color:#003684; padding:10px 10px"><img src="https://faurus.ww.faurecia.com/9.0.1.1597bde/resources/images/palette-1022/customNavLogoImage-1570090458285-faurus-logos.png" width="50%"></dir></a>', unsafe_allow_html = True)
 
-
+        
         st.sidebar.header('Options')
         self.nb_per_page = st.sidebar.select_slider('Number of graphs per page', options = list(np.arange(6)+1), value=6)
-        # cb_view_table = 
-        self.cb_view_table =st.empty()    
-
+        self.ph_cbViewTable = st.sidebar.empty()
+        self.ph_showTool = st.sidebar.empty()          
 
     def get_uploaded(self, old_upload_len, old_id_list, last_current_runIDs_value):
         """This function gets selected runIDs and adjust the display of related widgets
@@ -257,7 +255,7 @@ class StInterface():
         try:
             grasper.search_online_by_runID(self.multi_runIDs)
         except requests.ConnectionError:
-            st.error('Connection error: please check your network environment')
+            st.error('Connection error: Please check your network environment')
             st.stop()
         except FooException as e:
             st.error(f'Can not find runID: {e.runID}')
@@ -375,16 +373,19 @@ class StInterface():
     def show_excel_data(self):
         """This function print the regularized dataframe to the interface
         """
-        self.cb_view_table = st.sidebar.checkbox('View Excel table')
-        
+
+        self.cb_view_table = self.ph_cbViewTable.checkbox('View Excel table')
         if self.cb_view_table:
-            st.subheader('Regular Excel preview')
-            st.write(self.gen.df_origin)   
+            with st.beta_expander("Regular excel table", expanded=True):
+                with st.spinner('Displaying dataframe...'):
+                    st.write(self.gen.df_origin) 
+
             
-        if st.sidebar.button('Show analyse tool'):
+        if self.ph_showTool.button('Show profiling tool'):
             pr = ProfileReport(self.gen.df_origin, explorative=True)
-            with st.beta_expander("Analyse tool", expanded=True):
+            with st.beta_expander("Profiling tool", expanded=True):
                 st_profile_report(pr)
+
 
     def generate_charts(self):
         """This function generates a PDF which contains all generated graphs

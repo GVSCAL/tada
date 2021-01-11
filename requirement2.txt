@@ -1,0 +1,11 @@
+bs4
+joblib
+matplotlib
+pywin32
+sphinx
+xlsxwriter
+pydub
+streamlit
+streamlit-pandas-profiling
+xlrd
+openpyxl
