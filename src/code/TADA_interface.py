@@ -23,6 +23,10 @@ import random
 import pandas as pd
 from configparser import ConfigParser
 
+# streamlit components
+from pandas_profiling import ProfileReport
+from streamlit_pandas_profiling import st_profile_report
+
 
 class StInterface():
     """This is the class for display Streamlit user interface
@@ -376,6 +380,11 @@ class StInterface():
         if self.cb_view_table:
             st.subheader('Regular Excel preview')
             st.write(self.gen.df_origin)   
+            
+        if st.sidebar.button('Show analyse tool'):
+            pr = ProfileReport(self.gen.df_origin, explorative=True)
+            with st.beta_expander("Analyse tool", expanded=True):
+                st_profile_report(pr)
 
     def generate_charts(self):
         """This function generates a PDF which contains all generated graphs

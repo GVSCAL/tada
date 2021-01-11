@@ -11,6 +11,7 @@ from datetime import datetime
 import sys,os
 
 from configparser import ConfigParser
+from pathlib import Path
 
 
 class FooException(Exception):
@@ -176,6 +177,9 @@ class DataGrasper():
         ################# Using xlsxwriter to output excel with 'format as table'#############
         # declare directory where we want export xlsx file.
         filepath_ = 'THC_summary_raw_data_' + dt_string + '.xlsx'
+
+        Path(self.direc_path).mkdir(parents=True, exist_ok=True)
+
         filepath = os.path.join(self.direc_path, filepath_)
 
         # os.makedirs(os.path.dirname(filepath),exist_ok=True)
