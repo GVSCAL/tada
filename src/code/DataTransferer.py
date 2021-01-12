@@ -8,7 +8,7 @@ import xlsxwriter
 #from MakePivotTable import *
 
 from configparser import ConfigParser
-
+from pathlib import Path
 
 
 class DataTransferer():
@@ -20,6 +20,7 @@ class DataTransferer():
         
         self.direc_path = cfg.get('user_setting','directory_path')
         database_path = cfg.get('debug','database_path')
+        Path(database_path).mkdir(parents=True, exist_ok=True)
 
         db_excelname = 'MIT_database.xlsx'
         self.db_path = os.path.join(database_path, db_excelname)

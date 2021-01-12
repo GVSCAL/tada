@@ -1,4 +1,4 @@
-:: @ECHO OFF
+@ECHO OFF
 :: %~dp0 : current dir
 set DIR_PATH=%~dp0
 set PYTHON_REL_PATH=TADApyEnv
@@ -11,6 +11,6 @@ cd /d %~dp0
 ::.\TADApyEnv\Scripts\activate
 cd src
 cd code
-streamlit run TADA_interface.py
+python -m streamlit run TADA_interface.py
 cd ..
 pause
