@@ -146,7 +146,7 @@ class StInterface():
         
         st.sidebar.header('Options')
         self.nb_per_page = st.sidebar.select_slider('Number of graphs per page', options = list(np.arange(6)+1), value=6)
-        
+        self.ph_cbViewTable = st.sidebar.empty()
         
 
     def display_profiling(self):
@@ -156,9 +156,12 @@ class StInterface():
             st.dataframe(df)
         
         if st.button('Generate profiling'):
+            if not uploaded_file:
+                st.error('Please upload a file')
+                st.stop()
             pr = ProfileReport(df, explorative=True)
             st_profile_report(pr)
-        self.ph_cbViewTable = st.sidebar.empty()
+        
 
     def get_uploaded(self, old_upload_len, old_id_list, last_current_runIDs_value):
         """This function gets selected runIDs and adjust the display of related widgets
