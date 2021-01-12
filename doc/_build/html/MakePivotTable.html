@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>make_pivot_table module &mdash; TADA 2.0 documentation</title>
+  <title>MakePivotTable module &mdash; TADA 2.0 documentation</title>
   
 
   
@@ -90,7 +90,7 @@
 <li class="toctree-l1"><a class="reference internal" href="DataGrasper.html">DataGrasper module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="DataTransferer.html">DataTransferer module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="GraphGenerator.html">GraphGenerator module</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">make_pivot_table module</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">MakePivotTable module</a></li>
 </ul>
 
             
@@ -139,13 +139,13 @@
     
       <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
         
-      <li>make_pivot_table module</li>
+      <li>MakePivotTable module</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
           
-            <a href="_sources/make_pivot_table.rst.txt" rel="nofollow"> View page source</a>
+            <a href="_sources/MakePivotTable.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -158,20 +158,20 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="module-make_pivot_table">
-<span id="make-pivot-table-module"></span><h1>make_pivot_table module<a class="headerlink" href="#module-make_pivot_table" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="module-MakePivotTable">
+<span id="makepivottable-module"></span><h1>MakePivotTable module<a class="headerlink" href="#module-MakePivotTable" title="Permalink to this headline">¶</a></h1>
 <p><strong>Note:</strong>
-This module is not imported in the TADA program for the moment</p>
+Currently, this module is not used in the TADA program</p>
 <p>Update from V2.1 : output method upgraded to xlsxwriter, doing ‘format as table’ for PowerBI
 Update from V2.2 : remove duplicated run ids, add unit for criterias.</p>
 <dl class="py function">
-<dt id="make_pivot_table.main">
-<code class="sig-prename descclassname">make_pivot_table.</code><code class="sig-name descname">main</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#make_pivot_table.main" title="Permalink to this definition">¶</a></dt>
+<dt id="MakePivotTable.main">
+<code class="sig-prename descclassname">MakePivotTable.</code><code class="sig-name descname">main</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#MakePivotTable.main" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py function">
-<dt id="make_pivot_table.pivot_table">
-<code class="sig-prename descclassname">make_pivot_table.</code><code class="sig-name descname">pivot_table</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">wb</span><span class="p">:</span> <span class="n">object</span></em>, <em class="sig-param"><span class="n">ws1</span><span class="p">:</span> <span class="n">object</span></em>, <em class="sig-param"><span class="n">pt_ws</span><span class="p">:</span> <span class="n">object</span></em>, <em class="sig-param"><span class="n">ws_name</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">pt_name</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">pt_rows</span><span class="p">:</span> <span class="n">list</span></em>, <em class="sig-param"><span class="n">pt_cols</span><span class="p">:</span> <span class="n">list</span></em>, <em class="sig-param"><span class="n">pt_filters</span><span class="p">:</span> <span class="n">list</span></em>, <em class="sig-param"><span class="n">pt_fields</span><span class="p">:</span> <span class="n">list</span></em><span class="sig-paren">)</span><a class="headerlink" href="#make_pivot_table.pivot_table" title="Permalink to this definition">¶</a></dt>
+<dt id="MakePivotTable.pivot_table">
+<code class="sig-prename descclassname">MakePivotTable.</code><code class="sig-name descname">pivot_table</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">wb</span><span class="p">:</span> <span class="n">object</span></em>, <em class="sig-param"><span class="n">ws1</span><span class="p">:</span> <span class="n">object</span></em>, <em class="sig-param"><span class="n">pt_ws</span><span class="p">:</span> <span class="n">object</span></em>, <em class="sig-param"><span class="n">ws_name</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">pt_name</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">pt_rows</span><span class="p">:</span> <span class="n">list</span></em>, <em class="sig-param"><span class="n">pt_cols</span><span class="p">:</span> <span class="n">list</span></em>, <em class="sig-param"><span class="n">pt_filters</span><span class="p">:</span> <span class="n">list</span></em>, <em class="sig-param"><span class="n">pt_fields</span><span class="p">:</span> <span class="n">list</span></em><span class="sig-paren">)</span><a class="headerlink" href="#MakePivotTable.pivot_table" title="Permalink to this definition">¶</a></dt>
 <dd><p>This function creates a pivot table in the excel file</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -191,8 +191,8 @@ Update from V2.2 : remove duplicated run ids, add unit for criterias.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt id="make_pivot_table.run_excel">
-<code class="sig-prename descclassname">make_pivot_table.</code><code class="sig-name descname">run_excel</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">filename</span></em>, <em class="sig-param"><span class="n">sheet_name</span><span class="p">:</span> <span class="n">str</span></em><span class="sig-paren">)</span><a class="headerlink" href="#make_pivot_table.run_excel" title="Permalink to this definition">¶</a></dt>
+<dt id="MakePivotTable.run_excel">
+<code class="sig-prename descclassname">MakePivotTable.</code><code class="sig-name descname">run_excel</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">filename</span></em>, <em class="sig-param"><span class="n">sheet_name</span><span class="p">:</span> <span class="n">str</span></em><span class="sig-paren">)</span><a class="headerlink" href="#MakePivotTable.run_excel" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </div>

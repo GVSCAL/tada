@@ -5,14 +5,14 @@ import os
 from datetime import datetime
 import sys
 import xlsxwriter
-#from make_pivot_table import *
+#from MakePivotTable import *
 
 from configparser import ConfigParser
 
 
 
 class DataTransferer():
-    """This class analyse the information in the raw excel file and generates a regular excel with standard columns
+    """This class analyse all column names in the raw excel file and generates a standardized excel with standard columns
     """
     def __init__(self,raw_file_name = r'df2.xlsx'):
         cfg = ConfigParser()

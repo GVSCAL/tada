@@ -1,6 +1,7 @@
 # --------------------------------------------------------------------------------------
-# Important thing to know about Streamlit:                                             |
-#   For every action made, Streamlit just rerun the whole script from start to end!    |
+# Important thing to know about Streamlit:                                              |
+#   Any time something must be updated on the screen, Streamlit just reruns your entire |
+#   Python script from top to bottom                                                    |
 # --------------------------------------------------------------------------------------
 
 import streamlit as st
@@ -28,7 +29,7 @@ from streamlit_pandas_profiling import st_profile_report
 
 
 class StInterface():
-    """This is the class for display Streamlit user interface
+    """This class displays Streamlit user interface
     """
     def __init__(self):
         self.multi_runIDs = []
@@ -50,6 +51,7 @@ class StInterface():
         self.cb_view_table = False
         self.multiSelectKey = 0
         self.uploaderKey = 0
+        self.uploaderKey2 = 0
         self.tmp_excel_path = None
         self.regular_excel_path = None
         self.set_working_dir()
@@ -93,10 +95,9 @@ class StInterface():
         """
         return self._generated
 
-    def interface(self):
+    def interface_mainPage(self):
         """This function displays the basic elements to the interface
         """
-
         import streamlit.components.v1 as components
 
         cfg = ConfigParser()
@@ -125,11 +126,18 @@ class StInterface():
                 height=30
             )
 
+    def interface_profilingPage(self):
+        st.title('THC Automated Display Analysis')
+        with st.beta_expander("How to use?"):
+            st.write('This profiling tool can make data analyse of a dataframe')
+            st.markdown(f"- Select your XLSX file, then click **'Generate Profiling'**")
+
 
     def display_sidebar_widget(self):
         """This function displays sidebar widgets
         """
         st.sidebar.image('../pic/logo_gvs - cut.jpg', width=250)
+        self.page = st.sidebar.selectbox('Page',options=['Main Page','Profiling tool'])
         st.sidebar.header('Useful links')
         st.sidebar.write('<a href="https://www.faurecia.com" target="_blank"><dir style="background-color:#ffffff; padding:10px 10px"><img src="https://www.faurecia.com/sites/groupe/files/logo%402x.png" width="60%"></dir></a>', unsafe_allow_html = True)
         st.sidebar.write('<a href="http://frbriunil007.bri.fr.corp/dashboard/MIT_reports.php" target="_blank" style="color: white; font-size:25px; text-decoration: none;"><dir style="background-color:#D73925; padding:10px 10px; "><b>MIT Report</b></dir></a>', unsafe_allow_html = True)
@@ -138,8 +146,19 @@ class StInterface():
         
         st.sidebar.header('Options')
         self.nb_per_page = st.sidebar.select_slider('Number of graphs per page', options = list(np.arange(6)+1), value=6)
+        
+        
+
+    def display_profiling(self):
+        uploaded_file = st.file_uploader('Choose a XLSX file', type=['xlsx'],accept_multiple_files=False, key = self.uploaderKey2)
+        if uploaded_file:
+            df = pd.read_excel(uploaded_file)
+            st.dataframe(df)
+        
+        if st.button('Generate profiling'):
+            pr = ProfileReport(df, explorative=True)
+            st_profile_report(pr)
         self.ph_cbViewTable = st.sidebar.empty()
-        self.ph_showTool = st.sidebar.empty()          
 
     def get_uploaded(self, old_upload_len, old_id_list, last_current_runIDs_value):
         """This function gets selected runIDs and adjust the display of related widgets
@@ -381,10 +400,7 @@ class StInterface():
                     st.write(self.gen.df_origin) 
 
             
-        if self.ph_showTool.button('Show profiling tool'):
-            pr = ProfileReport(self.gen.df_origin, explorative=True)
-            with st.beta_expander("Profiling tool", expanded=True):
-                st_profile_report(pr)
+        
 
 
     def generate_charts(self):
@@ -442,6 +458,11 @@ class StInterface():
         """
         self.uploaderKey += 1
 
+    def incrementUploader2(self):
+        """This function increment the inner key field for file uploader widget
+        """
+        self.uploaderKey2 += 1
+
     def initialize(self):
         """This function initialize the Streamlilt interface
         """
@@ -480,7 +501,7 @@ if __name__ == "__main__":
 
     interface = state.interface             # Get current state object
     dataStore = state.data                  # Get current state object
-    interface.interface()
+    
 
     interface.display_sidebar_widget()
 
@@ -489,48 +510,51 @@ if __name__ == "__main__":
         dataStore.initialize()
         interface.initialize()
         interface.incrementUploader()
+    
+    if (interface.page == 'Main Page'):
+        interface.interface_mainPage()
+        upload_len, curr_id_list, current_runIDs= interface.get_uploaded(dataStore.upload_length, dataStore.id_list, dataStore.last_current_runIDs)
 
-    upload_len, curr_id_list, current_runIDs= interface.get_uploaded(dataStore.upload_length, dataStore.id_list, dataStore.last_current_runIDs)
 
+        dataStore.upload_length = upload_len
+        dataStore.id_list = curr_id_list
+        dataStore.last_current_runIDs = current_runIDs
 
-    dataStore.upload_length = upload_len
-    dataStore.id_list = curr_id_list
-    dataStore.last_current_runIDs = current_runIDs
+        print('dataStore.id_list', dataStore.id_list)
 
-    print('dataStore.id_list', dataStore.id_list)
+        # bottons for click
+        if st.button("Search"):
+            interface.setGenerated(False)
+            with st.spinner('Searching runIDs online ...'):    
+                interface.search_online()
 
-    # bottons for click
-    if st.button("Search"):
-        interface.setGenerated(False)
-        with st.spinner('Searching runIDs online ...'):    
-            interface.search_online()
-
-        # dataStore.regular_excel_path = regular_excel_path
-            
-        # state.interface = interface     # Update state
-        
-
-    if interface.getSearchedState():
-        interface.display_excel_path()
-        interface.display_default_loop(interface.regular_excel_path) 
-        interface.display_common_creterias()
-        interface.display_uncommon_criterias()
-        
-        if interface.verifyCanGenerate():
-            interface.show_excel_data()
-            if st.button('Generate Graphs'):
-                with st.spinner('Generating graphs...'):       
-                    interface.generate_charts()
-        
-    if interface.getGeneratedState():
-        interface.plot_graphs()
-
+            # dataStore.regular_excel_path = regular_excel_path
+                
+            # state.interface = interface     # Update state
             
 
+        if interface.getSearchedState():
+            interface.display_excel_path()
+            interface.display_default_loop(interface.regular_excel_path) 
+            interface.display_common_creterias()
+            interface.display_uncommon_criterias()
+            
+            if interface.verifyCanGenerate():
+                interface.show_excel_data()
+                if st.button('Generate Graphs'):
+                    with st.spinner('Generating graphs...'):       
+                        interface.generate_charts()
+            
+        if interface.getGeneratedState():
+            interface.plot_graphs()
+
+        
+    else:
+        interface.interface_profilingPage()
+        interface.display_profiling()
+       
 
     print('****************')
     state.data = dataStore      # Update state
     state.interface = interface     # Update state
     state.count += 1
-
-

@@ -14,7 +14,7 @@ Welcome to TADA's documentation!
    DataGrasper
    DataTransferer
    GraphGenerator
-   make_pivot_table
+   MakePivotTable
    
 
 

@@ -15,7 +15,7 @@ from pathlib import Path
 
 
 class FooException(Exception):
-    """This class is a custom class for handling exception, it extends class Exception
+    """This custom class handles exception, it extends class Exception
     """
     def __init__(self, run):
         self.runID = run

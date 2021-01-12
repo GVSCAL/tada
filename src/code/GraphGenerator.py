@@ -44,9 +44,8 @@ KW_Rear_Bracket_Force_TS = 'Rear bracket force TS'
 
 
 
-# This class contains functions to draw different types of graphs
 class GraphGenerator():
-    """This class contains functions to draw different types of graphs
+    """This class contains functions to draw various types of graphs
     """
     def __init__(self,filepath,design_loop = ''):
         print("PATH:",filepath)

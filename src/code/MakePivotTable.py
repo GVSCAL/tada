@@ -1,8 +1,7 @@
 """
 **Note:**
-This module is not imported in the TADA program for the moment 
+Currently, this module is not used in the TADA program
 
-  
 Update from V2.1 : output method upgraded to xlsxwriter, doing 'format as table' for PowerBI
 Update from V2.2 : remove duplicated run ids, add unit for criterias.
 """

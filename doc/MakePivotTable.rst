@@ -1,7 +1,7 @@
-make\_pivot\_table module
+MakePivotTable module
 =========================
 
-.. automodule:: make_pivot_table
+.. automodule:: MakePivotTable
    :members:
    :undoc-members:
    :show-inheritance:
