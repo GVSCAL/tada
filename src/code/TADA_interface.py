@@ -138,15 +138,16 @@ class StInterface():
         """
         st.sidebar.image('../pic/logo_gvs - cut.jpg', width=250)
         self.page = st.sidebar.selectbox('Page',options=['Main Page','Profiling tool','Compare RunIDs'])
+        
+        st.sidebar.header('Options')
+        self.nb_per_page = st.sidebar.select_slider('Number of graphs per page', options = list(np.arange(6)+1), value=6)
+        self.ph_cbViewTable = st.sidebar.empty()
+
         st.sidebar.header('Useful links')
         st.sidebar.write('<a href="https://www.faurecia.com" target="_blank"><dir style="background-color:#ffffff; padding:10px 10px"><img src="https://www.faurecia.com/sites/groupe/files/logo%402x.png" width="60%"></dir></a>', unsafe_allow_html = True)
         st.sidebar.write('<a href="http://frbriunil007.bri.fr.corp/dashboard/MIT_reports.php" target="_blank" style="color: white; font-size:25px; text-decoration: none;"><dir style="background-color:#D73925; padding:10px 10px; "><b>MIT Report</b></dir></a>', unsafe_allow_html = True)
         st.sidebar.write('<a href="https://faurus.ww.faurecia.com/community/thehub" target="_blank"><dir style="background-color:#003684; padding:10px 10px"><img src="https://faurus.ww.faurecia.com/9.0.1.1597bde/resources/images/palette-1022/customNavLogoImage-1570090458285-faurus-logos.png" width="50%"></dir></a>', unsafe_allow_html = True)
 
-        
-        st.sidebar.header('Options')
-        self.nb_per_page = st.sidebar.select_slider('Number of graphs per page', options = list(np.arange(6)+1), value=6)
-        self.ph_cbViewTable = st.sidebar.empty()
         
 
     def display_profiling(self):
@@ -286,20 +287,17 @@ class StInterface():
         else:
             st.success('Searching successful, generating Excels...')
         
-        tmp_excel_path = grasper.generate_xml()
-        st.text("Generating temporary excel file...")        
+        with st.spinner('Generating temporary excel file...'):
+            tmp_excel_path = grasper.generate_xml()
 
         transferer = DataTransferer(raw_file_name = tmp_excel_path)
         all_criteria, uncommon_criteria, msg_list = transferer.getInfo()
-        st.text("Done") 
         
         self.all_criteria = all_criteria
         self.uncommon_criteria = uncommon_criteria
         
-        st.text("Generating regular excel file...")
-    
-        regular_excel_path = transferer.generate_reg_excel()
-        st.text("Done")
+        with st.spinner('Generating regular excel file...'):
+            regular_excel_path = transferer.generate_reg_excel()
 
         warning_msg = "\n".join(msg_list)
         
@@ -309,12 +307,12 @@ class StInterface():
         print(warning_msg)
 
         try:
-            st.text("Updating database...")  
-            transferer.concatenate_to_db(self.multi_runIDs)
+            with st.spinner('Updating database...'):
+                transferer.concatenate_to_db(self.multi_runIDs)
         except xlsxwriter.exceptions.FileCreateError as e:
             st.warning(f'{e}\n\nTo save history, please make sure the database excel is closed.')
         else:
-            st.text("Done")
+            st.success('Excel generated successfully')
         self.tmp_excel_path, self.regular_excel_path = tmp_excel_path, regular_excel_path
 
     def display_excel_path(self):

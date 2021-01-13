@@ -483,6 +483,7 @@ class GraphGenerator():
         :type design_loop: list
         :param otheritems: List of strings which contains uncommon column names
         :type otheritems: list
+        :param page: Current page selected in the menu
         :param max_per_page: Maximum number of chart in one PDF page, defaults to 6
         :type max_per_page: int, optional
         :Returns: 
@@ -504,8 +505,8 @@ class GraphGenerator():
         self.df = self.df_origin[self.df_origin.design_loop.isin(design_loop)]
         print(self.df)
         _,_,self.loadcase_short_name = self.basic_info()
-        self.compare_mode = len(design_loop)>1
-        self.page = page
+        self.compare_mode = len(design_loop)>1 and page == 'Main Page'
+        
 
         # empty warning message list
         msg_list = []
@@ -598,7 +599,7 @@ class GraphGenerator():
                 
 
             # if in compare mode (multiple design loops selected)
-            else:
+            elif self.compare_mode:
                 # Belt bracket on track selected
                 if(cb_selected[1]):
                     fbf_ds_column_name = get_found_column(self.df,KW_Belt_Bracket_Force)   
