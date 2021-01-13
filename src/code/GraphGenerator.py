@@ -26,6 +26,7 @@ BFD_DS = 'Belt Fixation DS displacement [mm]'
 
 # all graph keywords
 KW_LOADCASE = 'loadcase_short_name'
+KW_RUNID = 'RunID'
 KW_latch_DS = 'Latch force DS'
 KW_latch_TS = 'Latch force TS'  
 
@@ -473,7 +474,7 @@ class GraphGenerator():
         return srcpages.render()
 
     # function to generate PDF file
-    def generate_pdf(self,cb_selected:list,design_loop:list,otheritems:list, max_per_page = 6):
+    def generate_pdf(self,cb_selected:list,design_loop:list,otheritems:list, page, max_per_page = 6):
         """This function generates PDF file
 
         :param cb_selected: List of integers which contains checkbox index of selected graphs types
@@ -501,15 +502,22 @@ class GraphGenerator():
 
         # filter design loop
         self.df = self.df_origin[self.df_origin.design_loop.isin(design_loop)]
+        print(self.df)
         _,_,self.loadcase_short_name = self.basic_info()
         self.compare_mode = len(design_loop)>1
+        self.page = page
 
         # empty warning message list
         msg_list = []
         fig_list = []
         with PdfPages(savepath) as pdf:  # create a PDF file
-            loadcase_column_name = get_found_column(self.df,KW_LOADCASE)
-            
+            if page == 'Main Page':
+                loadcase_column_name = get_found_column(self.df,KW_LOADCASE)
+            elif page == 'Compare RunIDs':
+                loadcase_column_name = get_found_column(self.df, KW_RUNID)
+            print('page:', page)
+            print('loadcase_column_name', loadcase_column_name)
+
             # add figure to the PDF file
             # Status selected
             if(cb_selected[0]):

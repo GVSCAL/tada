@@ -137,7 +137,7 @@ class StInterface():
         """This function displays sidebar widgets
         """
         st.sidebar.image('../pic/logo_gvs - cut.jpg', width=250)
-        self.page = st.sidebar.selectbox('Page',options=['Main Page','Profiling tool'])
+        self.page = st.sidebar.selectbox('Page',options=['Main Page','Profiling tool','Compare RunIDs'])
         st.sidebar.header('Useful links')
         st.sidebar.write('<a href="https://www.faurecia.com" target="_blank"><dir style="background-color:#ffffff; padding:10px 10px"><img src="https://www.faurecia.com/sites/groupe/files/logo%402x.png" width="60%"></dir></a>', unsafe_allow_html = True)
         st.sidebar.write('<a href="http://frbriunil007.bri.fr.corp/dashboard/MIT_reports.php" target="_blank" style="color: white; font-size:25px; text-decoration: none;"><dir style="background-color:#D73925; padding:10px 10px; "><b>MIT Report</b></dir></a>', unsafe_allow_html = True)
@@ -392,21 +392,29 @@ class StInterface():
         
         return result
 
-    def show_excel_data(self):
+    def show_excel_data(self, page):
         """This function print the regularized dataframe to the interface
+
+        :param page: Current page name
+        :type page: string
         """
 
         self.cb_view_table = self.ph_cbViewTable.checkbox('View Excel table')
         if self.cb_view_table:
             with st.beta_expander("Regular excel table", expanded=True):
                 with st.spinner('Displaying dataframe...'):
-                    st.write(self.gen.df_origin) 
-
+                    if page=='Main Page':
+                        st.write(self.gen.df_origin) 
+                    elif page=='Compare RunIDs':
+                        df = self.gen.df_origin
+                        df = df.set_index('RunID',inplace=False)
+                        df = df.T
+                        st.write(df)
             
         
 
 
-    def generate_charts(self):
+    def generate_charts(self, page):
         """This function generates a PDF which contains all generated graphs
         """
         uc_list = self.uncommon_criteria
@@ -431,10 +439,13 @@ class StInterface():
         # st.write('selected_loop:',selected_loop)
         # st.write('otheritems_list:',otheritems_list)
         # st.write('max_per_page:',max_per_page)
+        # st.write(self.gen.df_origin)
+
+
 
         try:
             print("max per page", max_per_page)
-            self.fig_list, save_path, _ = self.gen.generate_pdf(self.cb_graph_type, selected_loop, otheritems_list, max_per_page = max_per_page)
+            self.fig_list, save_path, _ = self.gen.generate_pdf(self.cb_graph_type, selected_loop, otheritems_list, page, max_per_page = max_per_page)
             self._generated = True
 
         except PermissionError as e:
@@ -514,7 +525,7 @@ if __name__ == "__main__":
         interface.initialize()
         interface.incrementUploader()
     
-    if (interface.page == 'Main Page'):
+    if (interface.page == 'Main Page' or interface.page == 'Compare RunIDs'):
         interface.interface_mainPage()
         upload_len, curr_id_list, current_runIDs= interface.get_uploaded(dataStore.upload_length, dataStore.id_list, dataStore.last_current_runIDs)
 
@@ -531,11 +542,6 @@ if __name__ == "__main__":
             with st.spinner('Searching runIDs online ...'):    
                 interface.search_online()
 
-            # dataStore.regular_excel_path = regular_excel_path
-                
-            # state.interface = interface     # Update state
-            
-
         if interface.getSearchedState():
             interface.display_excel_path()
             interface.display_default_loop(interface.regular_excel_path) 
@@ -543,10 +549,10 @@ if __name__ == "__main__":
             interface.display_uncommon_criterias()
             
             if interface.verifyCanGenerate():
-                interface.show_excel_data()
+                interface.show_excel_data(interface.page)
                 if st.button('Generate Graphs'):
                     with st.spinner('Generating graphs...'):       
-                        interface.generate_charts()
+                        interface.generate_charts(interface.page)
             
         if interface.getGeneratedState():
             interface.plot_graphs()
