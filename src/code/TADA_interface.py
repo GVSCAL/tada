@@ -137,7 +137,7 @@ class StInterface():
         """This function displays sidebar widgets
         """
         st.sidebar.image('../pic/logo_gvs - cut.jpg', width=250)
-        self.page = st.sidebar.selectbox('Page',options=['Main Page','Profiling tool','Compare RunIDs'])
+        self.page = st.sidebar.selectbox('Page',options=['Main Page','Profiling Tool','Compare RunIDs'])
         
         st.sidebar.header('Options')
         self.nb_per_page = st.sidebar.select_slider('Number of graphs per page', options = list(np.arange(6)+1), value=6)
@@ -455,7 +455,8 @@ class StInterface():
             st.warning(f"PermissionError: {e}")
             return
         
-        self.mode = 'Compare mode' if self.gen.compare_mode else 'Single runID mode'
+
+        self.mode = self.gen.mode
         st.success("PDF File generated successfully")
         st.info(f'PDF path: {save_path}')
 
@@ -496,7 +497,6 @@ class DataStorage():
     """This class stores global variables, which we don't want lose them during every user action
     """
     def __init__(self):
-        self.regular_excel_path = None
         self.upload_length = 0
         self.last_current_runIDs = []
         self.id_list = []
@@ -532,7 +532,7 @@ if __name__ == "__main__":
         interface.interface_mainPage()
         upload_len, curr_id_list, current_runIDs= interface.get_uploaded(dataStore.upload_length, dataStore.id_list, dataStore.last_current_runIDs)
 
-
+        # update dataStore
         dataStore.upload_length = upload_len
         dataStore.id_list = curr_id_list
         dataStore.last_current_runIDs = current_runIDs
@@ -561,7 +561,7 @@ if __name__ == "__main__":
             interface.plot_graphs()
 
         
-    else:
+    if (interface.page == 'Profiling Tool'):
         interface.interface_profilingPage()
         interface.display_profiling()
        

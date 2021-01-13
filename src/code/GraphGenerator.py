@@ -103,13 +103,13 @@ class GraphGenerator():
         :type column_bar: str, optional
         :param column_line: Column name for the line chart., defaults to BFD_DS
         :type column_line: str, optional
-        :param loadcase_name: Load case name (only for compare mode, defaults to ""
+        :param loadcase_name: Load case name (only for multi loop mode, defaults to ""
         :type loadcase_name: str, optional
         :return: Generated figure object
         :rtype: matplotlib.pyplot.figure
         """
         xs,ys = dfToDict(dataframe,column_type,column_bar)
-        if not self.compare_mode:
+        if not self.mode=='multiple loop':
             title = "Belt Bracket on track"
             # fig = plt.figure()
 
@@ -166,14 +166,14 @@ class GraphGenerator():
         :type doorside_column_name: str, optional
         :param tunnelside_column_name: Column name for second bar, defaults to 'Latch Inner force'
         :type tunnelside_column_name: str, optional
-        :param loadcase_name: Load case name (only for compare mode), defaults to ''
+        :param loadcase_name: Load case name (only for multi loop mode), defaults to ''
         :type loadcase_name: str, optional
         :return: Generated figure object
         :rtype: matplotlib.pyplot.figure
         """
 
-        title = "Longitudinal Load" if not self.compare_mode else "Longitudinal Load ("+ loadcase_name + ")"
-        if not self.compare_mode:
+        title = "Longitudinal Load" if not self.mode=='multiple loop' else "Longitudinal Load ("+ loadcase_name + ")"
+        if not self.mode=='multiple loop':
             title = "Longitudinal Load" 
             chart_type = 'bar'
         else:
@@ -195,12 +195,12 @@ class GraphGenerator():
         :type doorside_column_name: str, optional
         :param tunnelside_column_name: Column name for second bar, defaults to 'recliner torque TS'
         :type tunnelside_column_name: str, optional
-        :param loadcase_name: Load case name (only for compare mode), defaults to ''
+        :param loadcase_name: Load case name (only for multi loop mode), defaults to ''
         :type loadcase_name: str, optional
         :return: Generated figure object
         :rtype: matplotlib.pyplot.figure
         """
-        if not self.compare_mode:
+        if not self.mode=='multiple loop':
             title = "Recliner Torque" 
             chart_type = 'bar'
         else:
@@ -222,13 +222,13 @@ class GraphGenerator():
         :type doorside_column_name: str, optional
         :param tunnelside_column_name: Column name for second bar, defaults to FBF_TS
         :type tunnelside_column_name: str, optional
-        :param loadcase_name: Load case name (only for compare mode), defaults to ''
+        :param loadcase_name: Load case name (only for multi loop mode), defaults to ''
         :type loadcase_name: str, optional
         :return: Generated figure object
         :rtype: matplotlib.pyplot.figure
         """
 
-        if not self.compare_mode:
+        if not self.mode=='multiple loop':
             title = "Front Brackets Load" 
             chart_type = 'bar'
         else:
@@ -248,12 +248,12 @@ class GraphGenerator():
         :type doorside_column_name: str, optional
         :param tunnelside_column_name: Column name for second bar, defaults to KW_Rear_Bracket_Force_TS
         :type tunnelside_column_name: str, optional
-        :param loadcase_name: Load case name (only for compare mode), defaults to ''
+        :param loadcase_name: Load case name (only for multi loop mode), defaults to ''
         :type loadcase_name: str, optional
         :return: Generated figure object
         :rtype: matplotlib.pyplot.figure
         """
-        if not self.compare_mode:
+        if not self.mode=='multiple loop':
             title = "Rear Brackets Load" 
             chart_type = 'bar'
         else:
@@ -325,7 +325,7 @@ class GraphGenerator():
                     ys_bar.pop(i) 
 
 
-        if not self.compare_mode:
+        if not self.mode=='multiple loop':
             if len(xs_bar) <= 1:
                 return False 
         else:
@@ -388,7 +388,7 @@ class GraphGenerator():
                     ys_line.pop(i) 
 
 
-        if not self.compare_mode:
+        if not self.mode=='multiple loop':
             if len(xs_line) == 0:
                 return False 
         else:
@@ -505,7 +505,12 @@ class GraphGenerator():
         self.df = self.df_origin[self.df_origin.design_loop.isin(design_loop)]
         print(self.df)
         _,_,self.loadcase_short_name = self.basic_info()
-        self.compare_mode = len(design_loop)>1 and page == 'Main Page'
+        if len(design_loop)>1 and page == 'Main Page':
+            self.mode = 'multiple loop'
+        elif len(design_loop)==1 and page == 'Main Page':
+            self.mode = 'single loop'
+        elif page == 'Compare RunIDs':
+            self.mode = 'compare RunIDs'
         
 
         # empty warning message list
@@ -528,7 +533,7 @@ class GraphGenerator():
                     fig_list.append(fig1)
                     plt.close(fig1)
                 
-            if not self.compare_mode:
+            if self.mode == 'single loop' or self.mode == 'compare RunIDs':
                 # Belt bracket on track selected
                 if(cb_selected[1]):
                     # draw status
@@ -598,8 +603,8 @@ class GraphGenerator():
                     
                 
 
-            # if in compare mode (multiple design loops selected)
-            elif self.compare_mode:
+            # if in multi loop mode (multiple design loops selected)
+            elif self.mode == 'multiple loops':
                 # Belt bracket on track selected
                 if(cb_selected[1]):
                     fbf_ds_column_name = get_found_column(self.df,KW_Belt_Bracket_Force)   
