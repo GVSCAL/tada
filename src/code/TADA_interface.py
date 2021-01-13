@@ -327,12 +327,17 @@ class StInterface():
         
         :param str path: Regular excel path
         """
-        with st.beta_expander("Select loops"):
-            c1, c2 = st.beta_columns((1,10))
-            self.loop_list = self.get_all_loop(path)          
-            self.cb_loop.clear()
-            for i in range(len(self.loop_list)):
-                self.cb_loop.append(c2.checkbox(self.loop_list[i], True, key=i))
+        try:
+            with st.beta_expander("Select loops"):
+                c1, c2 = st.beta_columns((1,10))
+                
+                self.loop_list = self.get_all_loop(path)   
+                self.cb_loop.clear()
+                for i in range(len(self.loop_list)):
+                    self.cb_loop.append(c2.checkbox(self.loop_list[i], True, key=i))
+        except FileNotFoundError:  
+            st.error(f'Can not find file {path}.\nPlease make sure the file exists or recheck your connection.')     
+            st.stop()
 
 
     def get_all_loop(self, path):
