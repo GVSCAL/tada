@@ -360,6 +360,8 @@ class DataTransferer():
                 'IFX Trans -': 'IFX',
                 'IFX Trans +': 'IFX',
                 'TopTether': 'IFX',
+                'RR pulling (Mech)': 'RR pull',
+                'FR pulling (Mech)': 'FR pull',
                 }
             loadcase_short = find_key_for(loadcase_dict,loadcase)
             return loadcase_short
