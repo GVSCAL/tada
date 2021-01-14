@@ -604,7 +604,7 @@ class GraphGenerator():
                 
 
             # if in multi loop mode (multiple design loops selected)
-            elif self.mode == 'multiple loops':
+            elif self.mode == 'multiple loop':
                 # Belt bracket on track selected
                 if(cb_selected[1]):
                     fbf_ds_column_name = get_found_column(self.df,KW_Belt_Bracket_Force)   
