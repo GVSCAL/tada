@@ -50,8 +50,11 @@ class StInterface():
         self.canGenerate = False
         self.cb_view_table = False
         self.multiSelectKey = 0
+        self.multiSelectKey2 = 0
+
         self.uploaderKey = 0
         self.uploaderKey2 = 0
+        self.uploaderKey3 = 0
         self.tmp_excel_path = None
         self.regular_excel_path = None
         self.set_working_dir()
@@ -128,16 +131,34 @@ class StInterface():
 
     def interface_profilingPage(self):
         st.title('THC Automated Display Analysis')
-        with st.beta_expander("How to use?"):
-            st.write('This profiling tool can make data analyse of a dataframe')
-            st.markdown(f"- Select your XLSX file, then click **'Generate Profiling'**")
+        with st.beta_expander("Introduction"):
+            st.write('This profiling tool can make quick data analysis of a existing dataframe')
+            st.write('For each column the following statistics - if relevant for the column type - are presented in an interactive HTML report:')
+            st.markdown('- **Type inference**: detect the types of columns in a dataframe.')
+            st.markdown('- **Essentials**: type, unique values, missing values')
+            st.markdown('- **Quantile statistics** like minimum value, Q1, median, Q3, maximum, range, interquartile range')
+            st.markdown('- **Descriptive statistics** like mean, mode, standard deviation, sum, median absolute deviation, coefficient of variation, kurtosis, skewness')
+            st.markdown('- **Most frequent values**')
+            st.markdown('- **Histograms**')
+            st.markdown('- **Correlations** highlighting of highly correlated variables, Spearman, Pearson and Kendall matrices')
+            st.markdown('- **Missing values** matrix, count, heatmap and dendrogram of missing values')
+            st.markdown('- **Duplicate rows** Lists the most occurring duplicate rows')
+            st.markdown('- **Text analysis** learn about categories (Uppercase, Space), scripts (Latin, Cyrillic) and blocks (ASCII) of text data')
+
+
+            st.write('For further information, visit [this page](https://pandas-profiling.github.io/pandas-profiling/docs/master/rtd/).')
+
+        st.write('')
+        with st.beta_expander('How to use?'):
+            st.write("Select your XLSX file, then click **'Generate Profiling'**")
+        st.subheader('Choose a XLSX file')
 
 
     def display_sidebar_widget(self):
         """This function displays sidebar widgets
         """
         st.sidebar.image('../pic/logo_gvs - cut.jpg', width=250)
-        self.page = st.sidebar.selectbox('Page',options=['Main Page','Profiling Tool','Compare RunIDs'])
+        self.page = st.sidebar.selectbox('Page',options=['Main Page','Compare RunIDs','Quick Data Analysis','Add New RunID to Excel'])
         
         st.sidebar.header('Options')
         self.nb_per_page = st.sidebar.select_slider('Number of graphs per page', options = list(np.arange(6)+1), value=6)
@@ -151,7 +172,7 @@ class StInterface():
         
 
     def display_profiling(self):
-        uploaded_file = st.file_uploader('Choose a XLSX file', type=['xlsx'],accept_multiple_files=False, key = self.uploaderKey2)
+        uploaded_file = st.file_uploader('Choose a XLSX file which contains data to analyse', type=['xlsx'],accept_multiple_files=False, key = self.uploaderKey2)
         if uploaded_file:
             df = pd.read_excel(uploaded_file)
             st.dataframe(df)
@@ -162,6 +183,14 @@ class StInterface():
                 st.stop()
             pr = ProfileReport(df, explorative=True)
             st_profile_report(pr)
+
+    def display_add_new_runid(self):
+        uploaded_file = st.file_uploader('Choose a XLSX file', type=['xlsx'],accept_multiple_files=False, key = self.uploaderKey3)
+        if uploaded_file:
+            df = pd.read_excel(uploaded_file)
+            st.dataframe(df)
+        
+        
         
 
     def get_uploaded(self, old_upload_len, old_id_list, last_current_runIDs_value):
@@ -179,37 +208,46 @@ class StInterface():
             - current_runIDs: Temporary list variable which contains runIDs.
         :rtype: int, list, list
         """
-        print('Refreshing uploaded files...')
-        print('old_id_list\n', old_id_list)
-        multiple_files = True
-        st.subheader('Choose a txt file')
-        print('self.uploaderKey:',self.uploaderKey)
-        uploaded_file = st.file_uploader("Choose a txt file which contains RunIDs", type=['txt'], accept_multiple_files=multiple_files, key = self.uploaderKey)
+        print(self.page)
+        if  self.page == 'Main Page' or self.page == 'Compare RunIDs':
+            print('Refreshing uploaded files...')
+            print('old_id_list\n', old_id_list)
+            multiple_files = True
+            st.subheader('Choose a txt file')
+            print('self.uploaderKey:',self.uploaderKey)
+            uploaded_file = st.file_uploader("Choose a txt file which contains RunIDs", type=['txt'], accept_multiple_files=multiple_files, key = self.uploaderKey)
+            file_runid_list = self.file_runid_list
+            input_add_list = []
+
+            if uploaded_file:
+                string_data = ""
+                for up_file in uploaded_file:
+                    # To convert to a string based IO
+                    stringio = io.StringIO(up_file.read().decode("utf-8"))
+
+                    # To read file as string
+                    string_data += stringio.read()
+                    
+                file_runid_list = self.toRunidList(string_data)
+            
+            print('old file:',old_upload_len,'now file:',len(uploaded_file))
+
+            
 
         st.subheader('Add other runIDs here if needed')
         text_input = st.text_area("RunIDs")
-        file_runid_list = self.file_runid_list
-        input_add_list = []
 
-        if uploaded_file:
-            string_data = ""
-            for up_file in uploaded_file:
-                # To convert to a string based IO
-                stringio = io.StringIO(up_file.read().decode("utf-8"))
 
-                # To read file as string
-                string_data += stringio.read()
-                
-            file_runid_list = self.toRunidList(string_data)
-        
         if st.button('Add to list'):
             if text_input!='':
                 input_add_list = self.toRunidList(text_input)
             if not input_add_list:
                 st.error('No valid runID')
+                st.stop()
+
+
         print('file_runid_list:\n',file_runid_list)
         print('input add list:\n',input_add_list)
-        print('old file:',old_upload_len,'now file:',len(uploaded_file))
 
         
         # One file added
@@ -252,6 +290,37 @@ class StInterface():
         return len(uploaded_file), self.multi_runIDs, current_runIDs
 
 
+
+    def add_new_runID(self, old_id_list):
+        input_runIDs = []
+        
+        uploaded_file = st.file_uploader('Choose a XLSX file which contains data to analyse', type=['xlsx'],accept_multiple_files=False, key = self.uploaderKey3)
+        if uploaded_file:
+            self.exist_df = pd.read_excel(uploaded_file)
+            st.dataframe(self.exist_df)
+
+        st.subheader('Add runIDs here')
+        text_input = st.text_area("RunIDs")
+
+        if st.button('Add to list'):
+            if text_input!='':
+                input_runIDs = self.toRunidList(text_input)
+            if not input_runIDs:
+                st.error('No valid runID')
+                st.stop()
+        print('input runids:',input_runIDs)
+        print('old id list:', old_id_list)
+
+        if (input_runIDs):
+            self.multiSelectKey2 += 1    # if there are new items added by input text, increment the multiselect widget key
+        
+        current_runIDs = sorted(list(set().union(input_runIDs,old_id_list)))
+        self.multi_runIDs = st.multiselect('Selected runIDs:\n',current_runIDs,current_runIDs, key=self.multiSelectKey2)    # Here we pass the current key number
+        print('self.multiSelect:', self.multi_runIDs)
+
+        return self.multi_runIDs
+
+
     def toRunidList(self,runid_string):
         """This function converts a string to a list of RunIDs
         
@@ -271,8 +340,10 @@ class StInterface():
         """
         if not self.multi_runIDs:
             st.error('No runID selected')
-
             return
+        if self.page == 'Add New RunID to Excel' and not hasattr(self, 'exist_df'):
+            st.error('Please select a existing Excel file.')
+            st.stop()
         self.setSearched(True)
         grasper = DataGrasper()
         try:
@@ -289,8 +360,10 @@ class StInterface():
         
         with st.spinner('Generating temporary excel file...'):
             tmp_excel_path = grasper.generate_xml()
-
-        transferer = DataTransferer(raw_file_name = tmp_excel_path)
+        if not self.page == 'Add New RunID to Excel':
+            transferer = DataTransferer(raw_file_name = tmp_excel_path)
+        else:
+            transferer = DataTransferer(raw_file_name = tmp_excel_path, exist_df=self.exist_df)
         all_criteria, uncommon_criteria, msg_list = transferer.getInfo()
         
         self.all_criteria = all_criteria
@@ -310,6 +383,8 @@ class StInterface():
             with st.spinner('Updating database...'):
                 transferer.concatenate_to_db(self.multi_runIDs)
         except xlsxwriter.exceptions.FileCreateError as e:
+            st.warning(f'{e}\n\nTo save history, please make sure the database excel is closed.')
+        except PermissionError as e:
             st.warning(f'{e}\n\nTo save history, please make sure the database excel is closed.')
         else:
             st.success('Excel generated successfully')
@@ -481,6 +556,11 @@ class StInterface():
         """
         self.uploaderKey2 += 1
 
+    def incrementUploader(self):
+        """This function increment the inner key field for file uploader widget
+        """
+        self.uploaderKey3 += 1
+
     def initialize(self):
         """This function initialize the Streamlilt interface
         """
@@ -500,6 +580,7 @@ class DataStorage():
         self.upload_length = 0
         self.last_current_runIDs = []
         self.id_list = []
+        self.last_id2=[]
 
     def initialize(self):
         print('initialize dataStorage')
@@ -527,22 +608,30 @@ if __name__ == "__main__":
         dataStore.initialize()
         interface.initialize()
         interface.incrementUploader()
+        interface.incrementUploader2()
+        interface.incrementUploader3()
+
     
-    if (interface.page == 'Main Page' or interface.page == 'Compare RunIDs'):
+    if (interface.page == 'Main Page' or interface.page == 'Compare RunIDs' or interface.page == 'Add New RunID to Excel'):
         interface.interface_mainPage()
-        upload_len, curr_id_list, current_runIDs= interface.get_uploaded(dataStore.upload_length, dataStore.id_list, dataStore.last_current_runIDs)
 
-        # update dataStore
-        dataStore.upload_length = upload_len
-        dataStore.id_list = curr_id_list
-        dataStore.last_current_runIDs = current_runIDs
+        if not interface.page == 'Add New RunID to Excel':
+            upload_len, curr_id_list, current_runIDs= interface.get_uploaded(dataStore.upload_length, dataStore.id_list, dataStore.last_current_runIDs)
+            # update dataStore
+            dataStore.upload_length = upload_len
+            dataStore.id_list = curr_id_list
+            dataStore.last_current_runIDs = current_runIDs
 
-        print('dataStore.id_list', dataStore.id_list)
+            print('dataStore.id_list', dataStore.id_list)
+        else:
+            current_id = interface.add_new_runID(dataStore.last_id2)
+            print('last id 2:',dataStore.last_id2)
+            dataStore.last_id2 = current_id
 
         # bottons for click
         if st.button("Search"):
             interface.setGenerated(False)
-            with st.spinner('Searching runIDs online ...'):    
+            with st.spinner('Searching runIDs online ...'):     
                 interface.search_online()
 
         if interface.getSearchedState():
@@ -561,10 +650,10 @@ if __name__ == "__main__":
             interface.plot_graphs()
 
         
-    if (interface.page == 'Profiling Tool'):
+    if (interface.page == 'Quick Data Analysis'):
         interface.interface_profilingPage()
         interface.display_profiling()
-       
+
 
     print('****************')
     state.data = dataStore      # Update state

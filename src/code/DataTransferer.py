@@ -14,7 +14,7 @@ from pathlib import Path
 class DataTransferer():
     """This class analyse all column names in the raw excel file and generates a standardized excel with standard columns
     """
-    def __init__(self,raw_file_name = r'df2.xlsx'):
+    def __init__(self,raw_file_name = r'df2.xlsx', exist_df= pd.DataFrame()):
         cfg = ConfigParser()
         cfg.read('../config.ini')
         
@@ -46,6 +46,8 @@ class DataTransferer():
         self.df1 = pd.DataFrame(columns = ['RunID','OEM','project_name','seatversion','loadcase',
                             'dummy','design_loop','TRK_position','HA_position','pulse','integrity','specs'])
         self.df1.columns = self.df1.columns.str.strip()  #remove white space in each column nameprint(df1)
+
+        self.exist_df = exist_df
 
         # filename = r'df2.xlsx'
         self.df2 = pd.read_excel(raw_file_name)
@@ -178,7 +180,6 @@ class DataTransferer():
                 for keyword3 in keywords3:
                     for keyword4 in keywords4:
                         keywords_list.append([keyword1,keyword2,keyword3,keyword4])
-        print('key words four:', keywords_list)
         return keywords_list
 
     # send data from df2 to df1, according to column name
@@ -188,6 +189,8 @@ class DataTransferer():
         :param str df1_column_name: Column name of the regular dataframe
         :param str df2_column_name: Column name of the raw dataframe
         """
+        print(self.df1)
+        print('columns:',self.df1.columns)
         if df1_column_name not in self.df1.columns:
             # if column name does not exist, create an empty column
             self.df1[df1_column_name] = np.nan
@@ -213,10 +216,7 @@ class DataTransferer():
         dt_string = now.strftime("%d-%m-%Y %H:%M:%S")
         new_History__ = {'time': dt_string, 'runID': ','.join(str(e) for e in runID_list).rstrip(',')}
 
-        print('original:', self.df_History__)
         self.df_History__ = self.df_History__.append(new_History__, ignore_index=True)
-        print('added:', self.df_History__)
-
         self.df_History__.to_excel(writer, sheet_name='History__', index=False,header = True)
 
         worksheet1 = writer.sheets['FEA']
@@ -314,6 +314,8 @@ class DataTransferer():
         """
         self.df1, msg_list = self.update_df1_according_to_match()
         self.df1 = self.send_basic_info()
+        if not self.exist_df.empty:
+            self.df1 = pd.concat([self.exist_df, self.df1], axis=0, ignore_index=True, join='inner')
         
         all_criteria = self.getAllCriterias()
         uncommon_criterias = self.getUncommonCriterias(all_criteria)
@@ -409,7 +411,8 @@ class DataTransferer():
         
         last_basic_info_column_id = 12
 
-        self.df1.insert(last_basic_info_column_id ,'loadcase_short_name',value='null')
+        if not 'loadcase_short_name' in self.df1:
+            self.df1.insert(last_basic_info_column_id ,'loadcase_short_name',value='null')
         self.df1['loadcase_short_name'] = self.df1.apply(getLoadcase_full_name, axis=1)
 
         last_basic_info_column_id += 1  # as we added new column(full loadcase name)

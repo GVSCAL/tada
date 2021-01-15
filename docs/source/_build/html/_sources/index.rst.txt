@@ -8,17 +8,10 @@ Welcome to TADA's documentation!
 
 .. toctree::
    :maxdepth: 2
-   :caption: Contents:
-	
-   :members:
+   :caption: Contents:	
 
-   TADA_interface
-
-   Data Grasper
-
-   Data Transferer
-   Graph Generator
-
+   UserGuide
+   Dev_details
 
 
 Indices and tables

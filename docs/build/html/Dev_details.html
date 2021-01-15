@@ -1,0 +1,1150 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>About Streamlit framework &mdash; TADA 2.0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="User Guide" href="UserGuide.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> TADA
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">For Users</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="UserGuide.html">User Guide</a></li>
+</ul>
+<p class="caption"><span class="caption-text">For Developpers</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">About Streamlit framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#installing-packages">Installing Packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#launching-application">Launching application</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#description-of-mudules">Description of mudules</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#tada-interface-module">TADA interface module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#class-stinterface">class StInterface</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#class-datastorage">class DataStorage</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#data-grasper-module">Data Grasper module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#class-datagrasper">class Datagrasper</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#datagrasper-module">DataGrasper module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id1">class Datagrasper</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#datatransferer-module">DataTransferer module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#class-datatransferer">class DataTransferer</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#graphgenerator-module">GraphGenerator module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#class-graphgenerator">class GraphGenerator</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#human-computer-interaction-procedure">Human-Computer interaction Procedure:</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#classes-and-functions">Classes and functions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id2">TADA interface module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id3">Data Grasper module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-DataTransferer">Data Transferer module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-GraphGenerator">Graph Generator module</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">TADA</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>About Streamlit framework</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/Dev_details.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="about-streamlit-framework">
+<h1>About Streamlit framework<a class="headerlink" href="#about-streamlit-framework" title="Permalink to this headline">¶</a></h1>
+<p>Streamlit is an open-source app framework for Machine Learning and Data Science teams. This framework makes it easy to create and share beautiful, custom web apps for machine learning and data science, all in pure Python.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>The way Streamlit works is :
+Any time something must be updated on the screen, Streamlit just <strong>reruns the entire Python script from top to bottom</strong>.</p>
+</div>
+</div>
+<div class="section" id="installing-packages">
+<h1>Installing Packages<a class="headerlink" href="#installing-packages" title="Permalink to this headline">¶</a></h1>
+<p>The requirement file is located the . You can install all required packages by using pip install like so:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">pip</span> <span class="n">install</span> <span class="o">-</span><span class="n">r</span> <span class="n">requirements</span><span class="o">.</span><span class="n">txt</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="launching-application">
+<h1>Launching application<a class="headerlink" href="#launching-application" title="Permalink to this headline">¶</a></h1>
+<p>You can launch the app with:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">streamlit</span> <span class="n">run</span> <span class="n">TADA_interface</span><span class="o">.</span><span class="n">py</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="description-of-mudules">
+<h1>Description of mudules<a class="headerlink" href="#description-of-mudules" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="tada-interface-module">
+<h2>TADA interface module<a class="headerlink" href="#tada-interface-module" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="class-stinterface">
+<h3>class StInterface<a class="headerlink" href="#class-stinterface" title="Permalink to this headline">¶</a></h3>
+<p>This class displays Streamlit user Interface.
+It imports Streamlit framework.
+We also import SessionState class to keep track of the user session.
+The SessionState class allows us to store data about current state as the user navigates through web pages of this application.
+At the beginning of the script, we call SessionState.get function.
+This function create a SessionState object if necessary, or returns the previously created state object.
+Therefore, when the whole application launches the first time, since there is not an existing SessionState object, this function will create a SessionState object.
+At the end of the script, we update the fields of this SessionState object.
+Because whenever there is a user action, the script rerun from begin to end, so, at the end of the script, the new information will be stored in the SessionState object.
+Whenever the user clicks a button, SessionState.get function will return the only instance that is generated when the app launches.
+We can use this object field to track information of the previous state.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The prefix « St » of the class name stands for Streamlit.</p>
+</div>
+</div>
+<div class="section" id="class-datastorage">
+<h3>class DataStorage<a class="headerlink" href="#class-datastorage" title="Permalink to this headline">¶</a></h3>
+<p>This class stores global variables, which we don’t want lose them during every user action. Like StInterface, we create an instance of DataStorage when app launches and store it in the SessionState object at the end of the script.</p>
+</div>
+</div>
+<div class="section" id="data-grasper-module">
+<h2>Data Grasper module<a class="headerlink" href="#data-grasper-module" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="class-datagrasper">
+<h3>class Datagrasper<a class="headerlink" href="#class-datagrasper" title="Permalink to this headline">¶</a></h3>
+<p>This class grasp information from MIT webpage, append them into a data frame, and do the data cleaning. We change unknown data to np.nan, remove column with out name, and regularize number format, etc. Then, this data frame will be exported as a raw excel file. It reads a config file which indicates the directory path in which the generated raw excel file will be stored.</p>
+</div>
+</div>
+<div class="section" id="datagrasper-module">
+<h2>DataGrasper module<a class="headerlink" href="#datagrasper-module" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id1">
+<h3>class Datagrasper<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<p>This class grasp information from MIT webpage, append them into a data frame, and do the data cleaning. We change unknown data to np.nan, remove column with out name, and regularize number format, etc. Then, this data frame will be exported as a raw excel file. It reads a config file which indicates the directory path in which the generated raw excel file will be stored.</p>
+</div>
+</div>
+<div class="section" id="datatransferer-module">
+<h2>DataTransferer module<a class="headerlink" href="#datatransferer-module" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="class-datatransferer">
+<h3>class DataTransferer<a class="headerlink" href="#class-datatransferer" title="Permalink to this headline">¶</a></h3>
+<p>This class analyze all column names in the raw excel file and generates a standardized excel with standard columns. All standard column names and keywords are defined by the programmer and is stored in a dictionary. The key of the dictionary is the standard name, while the value is a list of strings which are the possible combinations of keywords. We create an empty data frame and by doing the regex research, we append the content of raw data frame generated by DataGrasper class object to this data frame with standard column names. Finally, the Standardized excel file will be generated to the path defined in the config file.</p>
+</div>
+</div>
+<div class="section" id="graphgenerator-module">
+<h2>GraphGenerator module<a class="headerlink" href="#graphgenerator-module" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="class-graphgenerator">
+<h3>class GraphGenerator<a class="headerlink" href="#class-graphgenerator" title="Permalink to this headline">¶</a></h3>
+<p>This class contains functions to draw various types of graphs. In general, there are 3 types of graphs:</p>
+<ul class="simple">
+<li><p>The first one is pie chart, which is used to column « integrity » and « specification ».</p></li>
+<li><p>The second one is bar chart, which includes single bar chart and double bar chart. We use this chart  type to draw charts which compares the result using different dummies.</p></li>
+<li><p>The third one is line chart. We use this chart type to compare results of different design loops.</p></li>
+</ul>
+<p>We distinguish 2 cases:</p>
+<ul class="simple">
+<li><p>If user is in  « Main Page », and has chosen only one design loop, then it’s in « single loop » mode. We draw bar charts to compare results in different load case situation.</p></li>
+<li><p>If user is in  « Main Page », and has chosen only one design loop, then it’s in « multiple loop » mode. We draw line charts to compare result in different design loops.</p></li>
+<li><p>Otherwise (if user is in « Compare RunID » page), then it’s in « compare RunIDs » mode. We draw same type of graph as « single loop » mode, but instead use RunIDs as x-axis.</p></li>
+</ul>
+<p>Matplotlib package is used to draw graphs.</p>
+</div>
+</div>
+</div>
+<div class="section" id="human-computer-interaction-procedure">
+<h1>Human-Computer interaction Procedure:<a class="headerlink" href="#human-computer-interaction-procedure" title="Permalink to this headline">¶</a></h1>
+<ol class="arabic simple">
+<li><p>StInterface displays user interface</p></li>
+<li><p>User inputs all RunIDs and click « Search » button</p></li>
+<li><p>Datagrasper grasps information from MIT website and generate a unstandardized excel</p></li>
+<li><p>DataTransferer reads the unstandardized excel and transfer their column names to standardized ones, and generates a standardized excel</p></li>
+<li><p>User selects graphs options and click the button « Generate graphs »</p></li>
+<li><p>GraphGenerator reads the standardized excel and generates graphs in a PDF, finally it sends figure objects to StInterface</p></li>
+<li><p>StInterface receives the graph objects and displays them on the user interface.</p></li>
+</ol>
+<a class="reference internal image-reference" href="_images/hci.png"><img alt="HCI figure" class="align-center" src="_images/hci.png" style="width: 735.0px; height: 489.0px;" /></a>
+</div>
+<div class="section" id="classes-and-functions">
+<h1>Classes and functions<a class="headerlink" href="#classes-and-functions" title="Permalink to this headline">¶</a></h1>
+<p>The principle classes are listed below:</p>
+<div class="section" id="id2">
+<h2>TADA interface module<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<span class="target" id="module-TADA_interface"></span><dl class="py class">
+<dt id="TADA_interface.DataStorage">
+<em class="property">class </em><code class="sig-prename descclassname">TADA_interface.</code><code class="sig-name descname">DataStorage</code><a class="headerlink" href="#TADA_interface.DataStorage" title="Permalink to this definition">¶</a></dt>
+<dd><p>This class stores global variables, which we don’t want lose them during every user action</p>
+</dd></dl>
+
+<dl class="py class">
+<dt id="TADA_interface.StInterface">
+<em class="property">class </em><code class="sig-prename descclassname">TADA_interface.</code><code class="sig-name descname">StInterface</code><a class="headerlink" href="#TADA_interface.StInterface" title="Permalink to this definition">¶</a></dt>
+<dd><p>This class displays Streamlit user interface</p>
+<dl class="py method">
+<dt id="TADA_interface.StInterface.display_common_creterias">
+<code class="sig-name descname">display_common_creterias</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#TADA_interface.StInterface.display_common_creterias" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function displays common creterias as checkbox widgets</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="TADA_interface.StInterface.display_default_loop">
+<code class="sig-name descname">display_default_loop</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">path</span></em><span class="sig-paren">)</span><a class="headerlink" href="#TADA_interface.StInterface.display_default_loop" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function displays run loops as checkbox widgts</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>path</strong> (<em>str</em>) – Regular excel path</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="TADA_interface.StInterface.display_excel_path">
+<code class="sig-name descname">display_excel_path</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#TADA_interface.StInterface.display_excel_path" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function displays the path of generated excel</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="TADA_interface.StInterface.display_sidebar_widget">
+<code class="sig-name descname">display_sidebar_widget</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#TADA_interface.StInterface.display_sidebar_widget" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function displays sidebar widgets</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="TADA_interface.StInterface.display_uncommon_criterias">
+<code class="sig-name descname">display_uncommon_criterias</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#TADA_interface.StInterface.display_uncommon_criterias" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function displays uncommon creterias as checkbox widgets</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="TADA_interface.StInterface.generate_charts">
+<code class="sig-name descname">generate_charts</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">page</span></em><span class="sig-paren">)</span><a class="headerlink" href="#TADA_interface.StInterface.generate_charts" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function generates a PDF which contains all generated graphs</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="TADA_interface.StInterface.getGeneratedState">
+<code class="sig-name descname">getGeneratedState</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#TADA_interface.StInterface.getGeneratedState" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function returns generate state, an instance variable which represents if graphs has been generated or not</p>
+<dl class="simple">
+<dt>Returns:</dt><dd><p>bool: returns a boolean value</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="TADA_interface.StInterface.getSearchedState">
+<code class="sig-name descname">getSearchedState</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#TADA_interface.StInterface.getSearchedState" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function returns search state, an instance variable which represents if ‘Search’ button has been clicked or not</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A boolean value</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="TADA_interface.StInterface.get_all_loop">
+<code class="sig-name descname">get_all_loop</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">path</span></em><span class="sig-paren">)</span><a class="headerlink" href="#TADA_interface.StInterface.get_all_loop" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function returns a list of all loops presented in the excel</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>path</strong> (<em>str</em>) – Path of the regular excel</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>list of all loops</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="TADA_interface.StInterface.get_uploaded">
+<code class="sig-name descname">get_uploaded</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">old_upload_len</span></em>, <em class="sig-param"><span class="n">old_id_list</span></em>, <em class="sig-param"><span class="n">last_current_runIDs_value</span></em><span class="sig-paren">)</span><a class="headerlink" href="#TADA_interface.StInterface.get_uploaded" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function gets selected runIDs and adjust the display of related widgets</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>old_upload_len</strong> (<em>int</em>) – Previous uploaded file length</p></li>
+<li><p><strong>old_id_list</strong> (<em>list</em>) – Previous runID list in multi-select widget</p></li>
+<li><p><strong>last_current_runIDs_value</strong> (<em>list</em>) – Temporary variable to store previous runID list. When a runID is removed, this variable will be sent to the widget</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><ul class="simple">
+<li><p>len(uploaded_file): Number of ujploaded file</p></li>
+<li><p>self.multi_runIDs: List of selected runIDs in the multi-select widget</p></li>
+<li><p>current_runIDs: Temporary list variable which contains runIDs.</p></li>
+</ul>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>int, list, list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="TADA_interface.StInterface.incrementUploader">
+<code class="sig-name descname">incrementUploader</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#TADA_interface.StInterface.incrementUploader" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function increment the inner key field for file uploader widget</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="TADA_interface.StInterface.incrementUploader2">
+<code class="sig-name descname">incrementUploader2</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#TADA_interface.StInterface.incrementUploader2" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function increment the inner key field for file uploader widget</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="TADA_interface.StInterface.initialize">
+<code class="sig-name descname">initialize</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#TADA_interface.StInterface.initialize" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function initialize the Streamlilt interface</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="TADA_interface.StInterface.interface_mainPage">
+<code class="sig-name descname">interface_mainPage</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#TADA_interface.StInterface.interface_mainPage" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function displays the basic elements to the interface</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="TADA_interface.StInterface.plot_graphs">
+<code class="sig-name descname">plot_graphs</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#TADA_interface.StInterface.plot_graphs" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function draws charts to interface</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="TADA_interface.StInterface.search_online">
+<code class="sig-name descname">search_online</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#TADA_interface.StInterface.search_online" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function handles online search interface</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="TADA_interface.StInterface.setGenerated">
+<code class="sig-name descname">setGenerated</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">state</span></em><span class="sig-paren">)</span><a class="headerlink" href="#TADA_interface.StInterface.setGenerated" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function sets generate state. If button ‘Generate graph’ is clicked, then the generate state will be set to true.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>state</strong> (<em>bool</em>) – Receive a boolean value.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="TADA_interface.StInterface.setSearched">
+<code class="sig-name descname">setSearched</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">state</span></em><span class="sig-paren">)</span><a class="headerlink" href="#TADA_interface.StInterface.setSearched" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function sets search state.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>state</strong> (<em>bool</em>) – A boolean value.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="TADA_interface.StInterface.set_working_dir">
+<code class="sig-name descname">set_working_dir</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#TADA_interface.StInterface.set_working_dir" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function sets working directory to the location where source code file locates</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="TADA_interface.StInterface.show_excel_data">
+<code class="sig-name descname">show_excel_data</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">page</span></em><span class="sig-paren">)</span><a class="headerlink" href="#TADA_interface.StInterface.show_excel_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function print the regularized dataframe to the interface</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>page</strong> (<em>string</em>) – Current page name</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="TADA_interface.StInterface.toRunidList">
+<code class="sig-name descname">toRunidList</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">runid_string</span></em><span class="sig-paren">)</span><a class="headerlink" href="#TADA_interface.StInterface.toRunidList" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function converts a string to a list of RunIDs</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>runid_string</strong> (<em>str</em>) – Input string</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A list of runIDs</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="TADA_interface.StInterface.verifyCanGenerate">
+<code class="sig-name descname">verifyCanGenerate</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#TADA_interface.StInterface.verifyCanGenerate" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function checks if it’s possible to generate charts</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Returns a boolean</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>boolean</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="id3">
+<h2>Data Grasper module<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<span class="target" id="module-DataGrasper"></span><dl class="py class">
+<dt id="DataGrasper.DataGrasper">
+<em class="property">class </em><code class="sig-prename descclassname">DataGrasper.</code><code class="sig-name descname">DataGrasper</code><a class="headerlink" href="#DataGrasper.DataGrasper" title="Permalink to this definition">¶</a></dt>
+<dd><p>This class grasps information from MIT webpage</p>
+<dl class="py method">
+<dt id="DataGrasper.DataGrasper.generate_xml">
+<code class="sig-name descname">generate_xml</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#DataGrasper.DataGrasper.generate_xml" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function generates the raw excel</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>File path of the generated raw excel</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="DataGrasper.DataGrasper.get_df_from_runid">
+<code class="sig-name descname">get_df_from_runid</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">RunID</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataGrasper.DataGrasper.get_df_from_runid" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function generate a dataframe from a particular RunID, by scraping infor from Lv0 website based on RunID.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>RunID</strong> (<em>str</em>) – One RunID</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Dataframe for one runID</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Pandas.Dataframe</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="DataGrasper.DataGrasper.search_online_by_runID">
+<code class="sig-name descname">search_online_by_runID</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">runid_list</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataGrasper.DataGrasper.search_online_by_runID" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function search for information from a list of runIDs and generates a dataframe which contains all information of all runIDs</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>runid_list</strong> (<em>list</em>) – A list of runIDs</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><a class="reference internal" href="#DataGrasper.FooException" title="DataGrasper.FooException"><strong>FooException</strong></a> – When there is an error, a FooException will be raised, with runID as argument.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py exception">
+<dt id="DataGrasper.FooException">
+<em class="property">exception </em><code class="sig-prename descclassname">DataGrasper.</code><code class="sig-name descname">FooException</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">run</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataGrasper.FooException" title="Permalink to this definition">¶</a></dt>
+<dd><p>This custom class handles exception, it extends class Exception</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-DataTransferer">
+<span id="data-transferer-module"></span><h2>Data Transferer module<a class="headerlink" href="#module-DataTransferer" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="DataTransferer.DataTransferer">
+<em class="property">class </em><code class="sig-prename descclassname">DataTransferer.</code><code class="sig-name descname">DataTransferer</code><span class="sig-paren">(</span><em class="sig-param">raw_file_name='df2.xlsx'</em>, <em class="sig-param">exist_df=Empty DataFrame Columns: [] Index: []</em><span class="sig-paren">)</span><a class="headerlink" href="#DataTransferer.DataTransferer" title="Permalink to this definition">¶</a></dt>
+<dd><p>This class analyse all column names in the raw excel file and generates a standardized excel with standard columns</p>
+<dl class="py method">
+<dt id="DataTransferer.DataTransferer.concatenate_to_db">
+<code class="sig-name descname">concatenate_to_db</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">runID_list</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataTransferer.DataTransferer.concatenate_to_db" title="Permalink to this definition">¶</a></dt>
+<dd><p>Concatenate search information to database after each search is finished</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>runID_list</strong> (<em>list</em>) – List of runID searched</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="DataTransferer.DataTransferer.create_regex_dict_keywords_four">
+<code class="sig-name descname">create_regex_dict_keywords_four</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">keywords1</span></em>, <em class="sig-param"><span class="n">keywords2</span></em>, <em class="sig-param"><span class="n">keywords3</span></em>, <em class="sig-param"><span class="n">keywords4</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataTransferer.DataTransferer.create_regex_dict_keywords_four" title="Permalink to this definition">¶</a></dt>
+<dd><p>See function create_regex_dict_keywords_two</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="DataTransferer.DataTransferer.create_regex_dict_keywords_three">
+<code class="sig-name descname">create_regex_dict_keywords_three</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">keywords1</span></em>, <em class="sig-param"><span class="n">keywords2</span></em>, <em class="sig-param"><span class="n">keywords3</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataTransferer.DataTransferer.create_regex_dict_keywords_three" title="Permalink to this definition">¶</a></dt>
+<dd><p>See function create_regex_dict_keywords_two</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="DataTransferer.DataTransferer.create_regex_dict_keywords_two">
+<code class="sig-name descname">create_regex_dict_keywords_two</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">keywords1</span></em>, <em class="sig-param"><span class="n">keywords2</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataTransferer.DataTransferer.create_regex_dict_keywords_two" title="Permalink to this definition">¶</a></dt>
+<dd><p>This class creates a list of possible keyword combination. It select one elements from each argument and combine them into a new list, then appends the list to keywords_list</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>keywords1</strong> (<em>list</em>) – First keyword list</p></li>
+<li><p><strong>keywords2</strong> (<em>[</em><em>type</em><em>]</em>) – Second keyword list</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>List which contains lists of keyword combination</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="DataTransferer.DataTransferer.generate_reg_excel">
+<code class="sig-name descname">generate_reg_excel</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#DataTransferer.DataTransferer.generate_reg_excel" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function generates regular excel</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Path of regular excel generated</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="DataTransferer.DataTransferer.getAllCriterias">
+<code class="sig-name descname">getAllCriterias</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#DataTransferer.DataTransferer.getAllCriterias" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function returns all columns except basic columns from the regular dataframe</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>List which contains column names</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="DataTransferer.DataTransferer.getInfo">
+<code class="sig-name descname">getInfo</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#DataTransferer.DataTransferer.getInfo" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function calls update_df1_according_to_match</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p>all_criteria: List of all column names except basic column name</p></li>
+<li><p>uncommon_criterias: List of all uncommon column names which is not stored in our column</p></li>
+<li><p>msg_list: List of messages</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>list, list, list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="DataTransferer.DataTransferer.getUncommonCriterias">
+<code class="sig-name descname">getUncommonCriterias</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">all_criteria</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataTransferer.DataTransferer.getUncommonCriterias" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function returns uncommon column names which is not stored in our column name dictionary</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>all_criteria</strong> (<em>list</em>) – List which contains all column names except basic column names</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>List which contains all uncommon columns</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="DataTransferer.DataTransferer.send_basic_info">
+<code class="sig-name descname">send_basic_info</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#DataTransferer.DataTransferer.send_basic_info" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function send basic information from raw dataframe to regular dataframe</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Updated regular dataframe</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>pandas.Dataframe</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="DataTransferer.DataTransferer.send_data">
+<code class="sig-name descname">send_data</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">df1_column_name</span></em>, <em class="sig-param"><span class="n">df2_column_name</span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataTransferer.DataTransferer.send_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function send data from raw dataframe to regular dataframe, by providing their correspond column names</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df1_column_name</strong> (<em>str</em>) – Column name of the regular dataframe</p></li>
+<li><p><strong>df2_column_name</strong> (<em>str</em>) – Column name of the raw dataframe</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="DataTransferer.DataTransferer.update_df1_according_to_match">
+<code class="sig-name descname">update_df1_according_to_match</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#DataTransferer.DataTransferer.update_df1_according_to_match" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function match column using regular expression, then send matched content from raw dataframe to regular ddataframe</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Updated regular dataframe</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>pandas.Dataframe</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>List of messages generated during match process</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-GraphGenerator">
+<span id="graph-generator-module"></span><h2>Graph Generator module<a class="headerlink" href="#module-GraphGenerator" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="GraphGenerator.GraphGenerator">
+<em class="property">class </em><code class="sig-prename descclassname">GraphGenerator.</code><code class="sig-name descname">GraphGenerator</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">filepath</span></em>, <em class="sig-param"><span class="n">design_loop</span><span class="o">=</span><span class="default_value">''</span></em><span class="sig-paren">)</span><a class="headerlink" href="#GraphGenerator.GraphGenerator" title="Permalink to this definition">¶</a></dt>
+<dd><p>This class contains functions to draw various types of graphs</p>
+<dl class="py method">
+<dt id="GraphGenerator.GraphGenerator.basic_info">
+<code class="sig-name descname">basic_info</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#GraphGenerator.GraphGenerator.basic_info" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function return basic information of the runID set (OEM, Project name, Loadcase)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p>oem_list: OEM list</p></li>
+<li><p>pjtname_list: Project name list</p></li>
+<li><p>loadcase_list: Loadcase list</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>list, list, list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="GraphGenerator.GraphGenerator.belt_bracket">
+<code class="sig-name descname">belt_bracket</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">dataframe</span></em>, <em class="sig-param"><span class="n">column_type</span><span class="o">=</span><span class="default_value">'loadcase_short_name'</span></em>, <em class="sig-param"><span class="n">column_bar</span><span class="o">=</span><span class="default_value">'Belt bracket force'</span></em>, <em class="sig-param"><span class="n">column_line</span><span class="o">=</span><span class="default_value">'Belt Fixation DS displacement [mm]'</span></em>, <em class="sig-param"><span class="n">loadcase_name</span><span class="o">=</span><span class="default_value">''</span></em><span class="sig-paren">)</span><a class="headerlink" href="#GraphGenerator.GraphGenerator.belt_bracket" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function plots graph for ‘belt bracket’</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dataframe</strong> (<em>pandas.Dataframe</em>) – Regular dataframe</p></li>
+<li><p><strong>column_type</strong> (<em>str</em><em>, </em><em>optional</em>) – Column name for the x axis, defaults to ‘loadcase_short_name’</p></li>
+<li><p><strong>column_bar</strong> (<em>str</em><em>, </em><em>optional</em>) – Column name for the bar chart., defaults to KW_Belt_Bracket_Force</p></li>
+<li><p><strong>column_line</strong> (<em>str</em><em>, </em><em>optional</em>) – Column name for the line chart., defaults to BFD_DS</p></li>
+<li><p><strong>loadcase_name</strong> (<em>str</em><em>, </em><em>optional</em>) – Load case name (only for multi loop mode, defaults to “”</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Generated figure object</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>matplotlib.pyplot.figure</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="GraphGenerator.GraphGenerator.combine_pages">
+<code class="sig-name descname">combine_pages</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">srcpages</span></em><span class="sig-paren">)</span><a class="headerlink" href="#GraphGenerator.GraphGenerator.combine_pages" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function combines multiple pages of a PDF file in to one page</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="GraphGenerator.GraphGenerator.double_value_chart">
+<code class="sig-name descname">double_value_chart</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">dataframe</span><span class="p">:</span> <span class="n">pandas.core.frame.DataFrame</span></em>, <em class="sig-param"><span class="n">abs_column_name</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">vert_column_name1</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">vert_column_name2</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">title</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">xlabel</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">ylabel</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">chart_type</span><span class="p">:</span> <span class="n">str</span></em><span class="sig-paren">)</span> &#x2192; matplotlib.pyplot.figure<a class="headerlink" href="#GraphGenerator.GraphGenerator.double_value_chart" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function generate a double value (bar/line) chart</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dataframe</strong> (<em>pd.core.frame.DataFrame</em>) – Regular dataframe</p></li>
+<li><p><strong>abs_column_name</strong> (<em>str</em>) – Column name for x axis</p></li>
+<li><p><strong>vert_column_name1</strong> (<em>str</em>) – Column name for first y axis</p></li>
+<li><p><strong>vert_column_name2</strong> (<em>str</em>) – Column name for second y axis</p></li>
+<li><p><strong>title</strong> (<em>str</em>) – Graph title name</p></li>
+<li><p><strong>xlabel</strong> (<em>str</em>) – x label name</p></li>
+<li><p><strong>ylabel</strong> (<em>str</em>) – y label name</p></li>
+<li><p><strong>chart_type</strong> (<em>str</em>) – Type of the chart (bar/line)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Generated figure object</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>matplotlib.pyplot.figure</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="GraphGenerator.GraphGenerator.front_brackets_load">
+<code class="sig-name descname">front_brackets_load</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">dataframe</span><span class="p">:</span> <span class="n">pandas.core.frame.DataFrame</span></em>, <em class="sig-param"><span class="n">abs_column_name</span><span class="o">=</span><span class="default_value">'loadcase_short_name'</span></em>, <em class="sig-param"><span class="n">doorside_column_name</span><span class="o">=</span><span class="default_value">'DS Front bracket force [kN]'</span></em>, <em class="sig-param"><span class="n">tunnelside_column_name</span><span class="o">=</span><span class="default_value">'TS Front bracket force [kN]'</span></em>, <em class="sig-param"><span class="n">loadcase_name</span><span class="o">=</span><span class="default_value">''</span></em><span class="sig-paren">)</span> &#x2192; matplotlib.pyplot.figure<a class="headerlink" href="#GraphGenerator.GraphGenerator.front_brackets_load" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function plots graph for ‘front brackets load’</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dataframe</strong> (<em>pd.core.frame.DataFrame</em>) – Regular dataframe</p></li>
+<li><p><strong>abs_column_name</strong> (<em>str</em><em>, </em><em>optional</em>) – Column name for x axis, defaults to ‘loadcase_short_name’</p></li>
+<li><p><strong>doorside_column_name</strong> (<em>str</em><em>, </em><em>optional</em>) – Column name for first bar, defaults to FBF_DS</p></li>
+<li><p><strong>tunnelside_column_name</strong> (<em>str</em><em>, </em><em>optional</em>) – Column name for second bar, defaults to FBF_TS</p></li>
+<li><p><strong>loadcase_name</strong> (<em>str</em><em>, </em><em>optional</em>) – Load case name (only for multi loop mode), defaults to ‘’</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Generated figure object</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>matplotlib.pyplot.figure</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="GraphGenerator.GraphGenerator.generate_pdf">
+<code class="sig-name descname">generate_pdf</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">cb_selected</span><span class="p">:</span> <span class="n">list</span></em>, <em class="sig-param"><span class="n">design_loop</span><span class="p">:</span> <span class="n">list</span></em>, <em class="sig-param"><span class="n">otheritems</span><span class="p">:</span> <span class="n">list</span></em>, <em class="sig-param"><span class="n">page</span></em>, <em class="sig-param"><span class="n">max_per_page</span><span class="o">=</span><span class="default_value">6</span></em><span class="sig-paren">)</span><a class="headerlink" href="#GraphGenerator.GraphGenerator.generate_pdf" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function generates PDF file</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>cb_selected</strong> (<em>list</em>) – List of integers which contains checkbox index of selected graphs types</p></li>
+<li><p><strong>design_loop</strong> (<em>list</em>) – List of strings which contains selected design loop</p></li>
+<li><p><strong>otheritems</strong> (<em>list</em>) – List of strings which contains uncommon column names</p></li>
+<li><p><strong>page</strong> – Current page selected in the menu</p></li>
+<li><p><strong>max_per_page</strong> (<em>int</em><em>, </em><em>optional</em>) – Maximum number of chart in one PDF page, defaults to 6</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><ul class="simple">
+<li><p>fig_list: List of matplotlib.pyplot.figure</p></li>
+<li><p>savepath: Path of PDF generated</p></li>
+<li><p>msg_list: List of strings which contains message</p></li>
+</ul>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>list, str, list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="GraphGenerator.GraphGenerator.longitudinal_load">
+<code class="sig-name descname">longitudinal_load</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">dataframe</span><span class="p">:</span> <span class="n">pandas.core.frame.DataFrame</span></em>, <em class="sig-param"><span class="n">abs_column_name</span><span class="o">=</span><span class="default_value">'loadcase_short_name'</span></em>, <em class="sig-param"><span class="n">doorside_column_name</span><span class="o">=</span><span class="default_value">'Latch Outer force'</span></em>, <em class="sig-param"><span class="n">tunnelside_column_name</span><span class="o">=</span><span class="default_value">'Latch Inner force'</span></em>, <em class="sig-param"><span class="n">loadcase_name</span><span class="o">=</span><span class="default_value">''</span></em><span class="sig-paren">)</span> &#x2192; matplotlib.pyplot.figure<a class="headerlink" href="#GraphGenerator.GraphGenerator.longitudinal_load" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function plots graph for ‘longitudinal load’</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dataframe</strong> (<em>pandas.Dataframe</em>) – Regular dataframe</p></li>
+<li><p><strong>abs_column_name</strong> (<em>str</em><em>, </em><em>optional</em>) – Column name for x axis, defaults to ‘loadcase_short_name’</p></li>
+<li><p><strong>doorside_column_name</strong> (<em>str</em><em>, </em><em>optional</em>) – Column name for first bar, defaults to ‘Latch Outer force’</p></li>
+<li><p><strong>tunnelside_column_name</strong> (<em>str</em><em>, </em><em>optional</em>) – Column name for second bar, defaults to ‘Latch Inner force’</p></li>
+<li><p><strong>loadcase_name</strong> (<em>str</em><em>, </em><em>optional</em>) – Load case name (only for multi loop mode), defaults to ‘’</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Generated figure object</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>matplotlib.pyplot.figure</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="GraphGenerator.GraphGenerator.rear_brackets_load">
+<code class="sig-name descname">rear_brackets_load</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">dataframe</span><span class="p">:</span> <span class="n">pandas.core.frame.DataFrame</span></em>, <em class="sig-param"><span class="n">abs_column_name</span><span class="o">=</span><span class="default_value">'loadcase_short_name'</span></em>, <em class="sig-param"><span class="n">doorside_column_name</span><span class="o">=</span><span class="default_value">'Rear bracket force DS'</span></em>, <em class="sig-param"><span class="n">tunnelside_column_name</span><span class="o">=</span><span class="default_value">'Rear bracket force TS'</span></em>, <em class="sig-param"><span class="n">loadcase_name</span><span class="o">=</span><span class="default_value">''</span></em><span class="sig-paren">)</span> &#x2192; matplotlib.pyplot.figure<a class="headerlink" href="#GraphGenerator.GraphGenerator.rear_brackets_load" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function plots graph for ‘rear brackets load’</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dataframe</strong> (<em>pd.core.frame.DataFrame</em>) – Regular dataframe</p></li>
+<li><p><strong>abs_column_name</strong> (<em>str</em><em>, </em><em>optional</em>) – Column name for x axis, defaults to ‘loadcase_short_name’</p></li>
+<li><p><strong>doorside_column_name</strong> (<em>str</em><em>, </em><em>optional</em>) – Column name for first bar, defaults to KW_Rear_Bracket_Force_DS</p></li>
+<li><p><strong>tunnelside_column_name</strong> (<em>str</em><em>, </em><em>optional</em>) – Column name for second bar, defaults to KW_Rear_Bracket_Force_TS</p></li>
+<li><p><strong>loadcase_name</strong> (<em>str</em><em>, </em><em>optional</em>) – Load case name (only for multi loop mode), defaults to ‘’</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Generated figure object</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>matplotlib.pyplot.figure</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="GraphGenerator.GraphGenerator.recliner_torque">
+<code class="sig-name descname">recliner_torque</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">dataframe</span><span class="p">:</span> <span class="n">pandas.core.frame.DataFrame</span></em>, <em class="sig-param"><span class="n">abs_column_name</span><span class="o">=</span><span class="default_value">'loadcase_short_name'</span></em>, <em class="sig-param"><span class="n">doorside_column_name</span><span class="o">=</span><span class="default_value">'recliner torque DS'</span></em>, <em class="sig-param"><span class="n">tunnelside_column_name</span><span class="o">=</span><span class="default_value">'recliner torque TS'</span></em>, <em class="sig-param"><span class="n">loadcase_name</span><span class="o">=</span><span class="default_value">''</span></em><span class="sig-paren">)</span> &#x2192; matplotlib.pyplot.figure<a class="headerlink" href="#GraphGenerator.GraphGenerator.recliner_torque" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function plots graph for ‘recliner torque’</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dataframe</strong> (<em>pd.core.frame.DataFrame</em>) – Regular dataframe</p></li>
+<li><p><strong>abs_column_name</strong> (<em>str</em><em>, </em><em>optional</em>) – Column name for x axis, defaults to ‘loadcase_short_name’</p></li>
+<li><p><strong>doorside_column_name</strong> (<em>str</em><em>, </em><em>optional</em>) – Column name for first bar, defaults to ‘recliner torque DS’</p></li>
+<li><p><strong>tunnelside_column_name</strong> (<em>str</em><em>, </em><em>optional</em>) – Column name for second bar, defaults to ‘recliner torque TS’</p></li>
+<li><p><strong>loadcase_name</strong> (<em>str</em><em>, </em><em>optional</em>) – Load case name (only for multi loop mode), defaults to ‘’</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Generated figure object</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>matplotlib.pyplot.figure</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="GraphGenerator.GraphGenerator.single_bar_chart">
+<code class="sig-name descname">single_bar_chart</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">dataframe</span><span class="p">:</span> <span class="n">pandas.core.frame.DataFrame</span></em>, <em class="sig-param"><span class="n">abs_column_name</span></em>, <em class="sig-param"><span class="n">vert_column_name</span></em>, <em class="sig-param"><span class="n">title</span><span class="o">=</span><span class="default_value">''</span></em><span class="sig-paren">)</span> &#x2192; matplotlib.pyplot.figure<a class="headerlink" href="#GraphGenerator.GraphGenerator.single_bar_chart" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function generates a one bar chart</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dataframe</strong> (<em>pd.core.frame.DataFrame</em>) – Regular dataframe</p></li>
+<li><p><strong>abs_column_name</strong> (<em>str</em>) – Column name for x axis</p></li>
+<li><p><strong>vert_column_name</strong> (<em>str</em>) – Column name for y axis</p></li>
+<li><p><strong>title</strong> (<em>str</em><em>, </em><em>optional</em>) – Graph title name, defaults to ‘’</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Generated figure object</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>matplotlib.pyplot.figure</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="GraphGenerator.GraphGenerator.single_line_chart">
+<code class="sig-name descname">single_line_chart</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">dataframe</span><span class="p">:</span> <span class="n">pandas.core.frame.DataFrame</span></em>, <em class="sig-param"><span class="n">abs_column_name</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">vert_column_name</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">title</span><span class="o">=</span><span class="default_value">''</span></em><span class="sig-paren">)</span> &#x2192; matplotlib.pyplot.figure<a class="headerlink" href="#GraphGenerator.GraphGenerator.single_line_chart" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function generates a one line chart</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dataframe</strong> (<em>pd.core.frame.DataFrame</em>) – Regular dataframe</p></li>
+<li><p><strong>abs_column_name</strong> (<em>str</em>) – Column name for x axis</p></li>
+<li><p><strong>vert_column_name</strong> (<em>str</em>) – Column name for y axis</p></li>
+<li><p><strong>title</strong> (<em>str</em><em>, </em><em>optional</em>) – Graph title name, defaults to ‘’</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Generated figure object</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>matplotlib.pyplot.figure</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="GraphGenerator.GraphGenerator.two_pie_chart">
+<code class="sig-name descname">two_pie_chart</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">column_name1</span><span class="o">=</span><span class="default_value">'integrity'</span></em>, <em class="sig-param"><span class="n">column_name2</span><span class="o">=</span><span class="default_value">'specs'</span></em><span class="sig-paren">)</span><a class="headerlink" href="#GraphGenerator.GraphGenerator.two_pie_chart" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function which returns a fig object of a two pie chart</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>column_name1</strong> (<em>str</em><em>, </em><em>optional</em>) – Column name of ‘integrity’, defaults to ‘integrity’</p></li>
+<li><p><strong>column_name2</strong> (<em>str</em><em>, </em><em>optional</em>) – Column name of ‘specification’, defaults to ‘specs’</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Generated figure object</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>matplotlib.pyplot.figure</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt id="GraphGenerator.dfToDict">
+<code class="sig-prename descclassname">GraphGenerator.</code><code class="sig-name descname">dfToDict</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">dataframe</span><span class="p">:</span> <span class="n">pandas.core.frame.DataFrame</span></em>, <em class="sig-param"><span class="n">column_key</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">column_value</span><span class="p">:</span> <span class="n">str</span></em><span class="sig-paren">)</span><a class="headerlink" href="#GraphGenerator.dfToDict" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function convert a data frame to a dictionary which contains the selected column, then returns keys and values of the dictionary</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dataframe</strong> (<em>pd.core.frame.DataFrame</em>) – Regular dataframe</p></li>
+<li><p><strong>column_key</strong> (<em>str</em>) – The column name which constitutes dictionary key</p></li>
+<li><p><strong>column_value</strong> (<em>str</em>) – The column name which constituted dictionary value</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p>xs - List of dictionary keys</p></li>
+<li><p>ys - List of dictionary values</p></li>
+</ul>
+</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>list, list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="GraphGenerator.get_found_column">
+<code class="sig-prename descclassname">GraphGenerator.</code><code class="sig-name descname">get_found_column</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">dataframe</span><span class="p">:</span> <span class="n">pandas.core.frame.DataFrame</span></em>, <em class="sig-param"><span class="n">colName</span><span class="p">:</span> <span class="n">str</span></em><span class="sig-paren">)</span><a class="headerlink" href="#GraphGenerator.get_found_column" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function search the column by keyword and return the column name. If no column name is found, then return False.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dataframe</strong> (<em>pd.core.frame.DataFrame</em>) – Regular dataframe</p></li>
+<li><p><strong>colName</strong> (<em>str</em>) – The column name that we want to search</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The column name found, false if not found</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>str or bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="GraphGenerator.pie_chart">
+<code class="sig-prename descclassname">GraphGenerator.</code><code class="sig-name descname">pie_chart</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">dataframe</span><span class="p">:</span> <span class="n">pandas.core.frame.DataFrame</span></em>, <em class="sig-param"><span class="n">column</span><span class="p">:</span> <span class="n">str</span></em><span class="sig-paren">)</span><a class="headerlink" href="#GraphGenerator.pie_chart" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function plot a pie chart</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dataframe</strong> (<em>pd.core.frame.DataFrame</em>) – Regular dataframe</p></li>
+<li><p><strong>column</strong> (<em>str</em>) – Column name for the pie chart</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="GraphGenerator.raw_double_value_chart">
+<code class="sig-prename descclassname">GraphGenerator.</code><code class="sig-name descname">raw_double_value_chart</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">dataframe</span><span class="p">:</span> <span class="n">pandas.core.frame.DataFrame</span></em>, <em class="sig-param"><span class="n">column_type</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">vert_column_name1</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">vert_column_name2</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">chart_type</span><span class="o">=</span><span class="default_value">'bar'</span></em><span class="sig-paren">)</span> &#x2192; Tuple<span class="p">[</span>matplotlib.pyplot.figure<span class="p">, </span>list<span class="p">]</span><a class="headerlink" href="#GraphGenerator.raw_double_value_chart" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generates raw double value (bar/line) chart</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dataframe</strong> (<em>pd.core.frame.DataFrame</em>) – Regular dataframe</p></li>
+<li><p><strong>column_type</strong> (<em>str</em>) – Column name for x axis</p></li>
+<li><p><strong>vert_column_name1</strong> (<em>str</em>) – Column name for first y axis</p></li>
+<li><p><strong>vert_column_name2</strong> (<em>str</em>) – Column name for second y axis</p></li>
+<li><p><strong>chart_type</strong> (<em>str</em><em>, </em><em>optional</em>) – Type of the chart, defaults to ‘bar’</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>-fig: Generated figure object
+-xs: List of x axis value</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>matplotlib.pyplot.figure, list</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="UserGuide.html" class="btn btn-neutral float-left" title="User Guide" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, Wang CHEN, Ruochen CHEN.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

@@ -98,8 +98,6 @@ class DataGrasper():
             values_criteria = [td.text for td in tr.find_all('td')]
             criteria.append(values_criteria)                #Get criteria and its value into a list 'criteria' 
 
-        
-
         df = pd.DataFrame(criteria)
     #############Seperate position into HA and TRK position##
         position__ = position.split(' : ')[1]
