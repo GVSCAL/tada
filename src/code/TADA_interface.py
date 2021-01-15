@@ -184,12 +184,6 @@ class StInterface():
             pr = ProfileReport(df, explorative=True)
             st_profile_report(pr)
 
-    def display_add_new_runid(self):
-        uploaded_file = st.file_uploader('Choose a XLSX file', type=['xlsx'],accept_multiple_files=False, key = self.uploaderKey3)
-        if uploaded_file:
-            df = pd.read_excel(uploaded_file)
-            st.dataframe(df)
-        
         
         
 
@@ -293,13 +287,13 @@ class StInterface():
 
     def add_new_runID(self, old_id_list):
         input_runIDs = []
-        
+        st.subheader('Choose a XLSX file')
         uploaded_file = st.file_uploader('Choose a XLSX file which contains data to analyse', type=['xlsx'],accept_multiple_files=False, key = self.uploaderKey3)
         if uploaded_file:
             self.exist_df = pd.read_excel(uploaded_file)
             st.dataframe(self.exist_df)
 
-        st.subheader('Add runIDs here')
+        st.subheader('Select runIDs here')
         text_input = st.text_area("RunIDs")
 
         if st.button('Add to list'):
@@ -621,11 +615,9 @@ if __name__ == "__main__":
             dataStore.upload_length = upload_len
             dataStore.id_list = curr_id_list
             dataStore.last_current_runIDs = current_runIDs
-
             print('dataStore.id_list', dataStore.id_list)
         else:
             current_id = interface.add_new_runID(dataStore.last_id2)
-            print('last id 2:',dataStore.last_id2)
             dataStore.last_id2 = current_id
 
         # bottons for click
