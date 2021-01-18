@@ -40,11 +40,14 @@ class DataTransferer():
             self.df_History__ = pd.read_excel(self.db_path, sheet_name='History__')
 
         self.df_database = pd.read_excel(self.db_path, sheet_name='FEA')
+
+        # contains names of all basic columns
+        self.basic_info_list = ['RunID','OEM','project_name','seatversion','loadcase',
+                            'dummy','design_loop','TRK_position','HA_position','pulse','integrity','specs']
         
         # raw_file_name is the user input, template_filename is the template df.
         # the goal is to send raw_file_name information to template_filename(template with standard criteria names)
-        self.df1 = pd.DataFrame(columns = ['RunID','OEM','project_name','seatversion','loadcase',
-                            'dummy','design_loop','TRK_position','HA_position','pulse','integrity','specs'])
+        self.df1 = pd.DataFrame(columns = self.basic_info_list)
         self.df1.columns = self.df1.columns.str.strip()  #remove white space in each column nameprint(df1)
 
         self.exist_df = exist_df
@@ -52,10 +55,6 @@ class DataTransferer():
         # filename = r'df2.xlsx'
         self.df2 = pd.read_excel(raw_file_name)
         self.df2.columns = self.df2.columns.str.strip()  #remove white space in each column nameprint(df2)
-
-        # contains names of all basic columns
-        self.basic_info_list = ['RunID','OEM','project_name','seatversion','loadcase',
-                            'dummy','design_loop','TRK_position','HA_position','pulse','integrity','specs']
 
         # All keywords are in this dictionary. 
         # For exemple, ['latch','DS'] means a column should match 2 keywords 'latch' and 'DS' at the same time
@@ -288,7 +287,8 @@ class DataTransferer():
         :return: List which contains column names
         :rtype: list
         """
-        all_criteria = self.df1.columns[len(self.basic_info_list):].to_list()
+        # +1 because we should consider 'load_case_short_name' column that is added
+        all_criteria = self.df1.columns[len(self.basic_info_list) + 1:].to_list()
         return all_criteria
 
     def getUncommonCriterias(self,all_criteria):
@@ -309,18 +309,14 @@ class DataTransferer():
         :Returns: 
             - all_criteria: List of all column names except basic column name
             - uncommon_criterias: List of all uncommon column names which is not stored in our column
-            - msg_list: List of messages
-        :rtype: list, list, list
+            
+        :rtype: list, list
         """
-        self.df1, msg_list = self.update_df1_according_to_match()
-        self.df1 = self.send_basic_info()
-        if not self.exist_df.empty:
-            self.df1 = pd.concat([self.exist_df, self.df1], axis=0, ignore_index=True, join='inner')
         
         all_criteria = self.getAllCriterias()
         uncommon_criterias = self.getUncommonCriterias(all_criteria)
         uncommon_criterias = sorted(uncommon_criterias)
-        return all_criteria, uncommon_criterias, msg_list
+        return all_criteria, uncommon_criterias
 
     def generate_reg_excel(self):
         """This function generates regular excel
@@ -339,6 +335,11 @@ class DataTransferer():
         filepath_ = 'THC_summary_regular_excel_' + dt_string + '.xlsx'
         filepath = os.path.join(self.direc_path,filepath_)
         print('filepath:', filepath)
+
+        self.df1, msg_list = self.update_df1_according_to_match()
+        self.df1 = self.send_basic_info()
+
+        
         
         def find_key_for(input_dict, value):    
             matched = '_'
@@ -411,12 +412,26 @@ class DataTransferer():
         
         last_basic_info_column_id = 12
 
+
+        print(self.df1)
+
+
         if not 'loadcase_short_name' in self.df1:
             self.df1.insert(last_basic_info_column_id ,'loadcase_short_name',value='null')
         self.df1['loadcase_short_name'] = self.df1.apply(getLoadcase_full_name, axis=1)
 
         last_basic_info_column_id += 1  # as we added new column(full loadcase name)
         
+
+        # if in add RunID mode
+        if not self.exist_df.empty:
+            print('self.exist_df:', self.exist_df)
+            #self.df1 = pd.concat([self.exist_df, self.df1], axis=0, ignore_index=True, join='inner')
+            common_columns = self.exist_df.columns.intersection(self.df1.columns)
+            self.df1 = pd.concat([self.exist_df,self.df1[common_columns]])
+            print('merged:\n', self.df1)
+          
+
         os.makedirs(os.path.dirname(filepath),exist_ok=True)
 
         # Create a Pandas Excel writer using XlsxWriter as the engine.
@@ -462,7 +477,8 @@ class DataTransferer():
             df_select_column = self.df1[column].copy()
             df_sheet = pd.concat([df_basic_info, df_select_column], axis=1, sort=False)
             
-            loadcase_short_name_column_id = df_sheet.columns.get_loc("loadcase_short_name")
+            if "loadcase_short_name" in df_sheet.columns:
+                loadcase_short_name_column_id = df_sheet.columns.get_loc("loadcase_short_name")
 
             sheet_name = column
 
@@ -478,48 +494,50 @@ class DataTransferer():
             workbook  = writer.book
             worksheet = writer.sheets[sheet_name]
 
-            # Create a chart object.
-            chart = workbook.add_chart({'type': 'column'})
+           
 
             # Configure the series of the chart from the dataframe data.
-            chart.add_series({
-                'name':       [sheet_name, 0, last_basic_info_column_id],
-                'categories': [sheet_name, 1, loadcase_short_name_column_id, count_row, loadcase_short_name_column_id],
-                'values':     [sheet_name, 1, last_basic_info_column_id, count_row, last_basic_info_column_id],
-                'fill':       {'color':  random.choice(colors)},
-                'overlap':    -5,
-            })
+            if "loadcase_short_name" in df_sheet.columns:
+                 # Create a chart object.
+                chart = workbook.add_chart({'type': 'column'})
+                chart.add_series({
+                    'name':       [sheet_name, 0, last_basic_info_column_id],
+                    'categories': [sheet_name, 1, loadcase_short_name_column_id, count_row, loadcase_short_name_column_id],
+                    'values':     [sheet_name, 1, last_basic_info_column_id, count_row, last_basic_info_column_id],
+                    'fill':       {'color':  random.choice(colors)},
+                    'overlap':    -5,
+                })
 
-            # Configure the chart axes.
-            x_axis_name = 'Load case'
-            y_axis_name = column
-            chart.set_x_axis({'name': x_axis_name})
-            chart.set_y_axis({'name': y_axis_name , 'major_gridlines': {'visible': False}})
+                # Configure the chart axes.
+                x_axis_name = 'Load case'
+                y_axis_name = column
+                chart.set_x_axis({'name': x_axis_name})
+                chart.set_y_axis({'name': y_axis_name , 'major_gridlines': {'visible': False}})
 
-            # Insert the chart into the worksheet.
-            worksheet.insert_chart('O8', chart)
+                # Insert the chart into the worksheet.
+                worksheet.insert_chart('O8', chart)
 
     ##########################################################################33
-            ## Create a 2nd chart object.
-            chart = workbook.add_chart({'type': 'column'})
-
             # Configure the series of the chart from the dataframe data.
-            chart.add_series({
-                'name':       [sheet_name, 0, last_basic_info_column_id],
-                'categories': [sheet_name, 1, last_basic_info_column_id + 1, length_xs, last_basic_info_column_id + 1],
-                'values':     [sheet_name, 1, last_basic_info_column_id + 2, length_xs, last_basic_info_column_id + 2],
-                'fill':       {'color':  random.choice(colors)},
-                'overlap':    -5,
-            })
+            if "loadcase_short_name" in df_sheet.columns:
+                ## Create a 2nd chart object.
+                chart = workbook.add_chart({'type': 'column'})
+                chart.add_series({
+                    'name':       [sheet_name, 0, last_basic_info_column_id],
+                    'categories': [sheet_name, 1, last_basic_info_column_id + 1, length_xs, last_basic_info_column_id + 1],
+                    'values':     [sheet_name, 1, last_basic_info_column_id + 2, length_xs, last_basic_info_column_id + 2],
+                    'fill':       {'color':  random.choice(colors)},
+                    'overlap':    -5,
+                })
 
-            # Configure the chart axes.
-            x_axis_name2 = 'dummy'
-            y_axis_name2 = column
-            chart.set_x_axis({'name': x_axis_name2})
-            chart.set_y_axis({'name': y_axis_name2 , 'major_gridlines': {'visible': False}})
+                # Configure the chart axes.
+                x_axis_name2 = 'dummy'
+                y_axis_name2 = column
+                chart.set_x_axis({'name': x_axis_name2})
+                chart.set_y_axis({'name': y_axis_name2 , 'major_gridlines': {'visible': False}})
 
-            # Insert the chart into the worksheet.
-            worksheet.insert_chart('O24', chart)
+                # Insert the chart into the worksheet.
+                worksheet.insert_chart('O24', chart)
 
         # Close the Pandas Excel writer and output the Excel file.
         writer.save()

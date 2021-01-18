@@ -503,7 +503,6 @@ class GraphGenerator():
 
         # filter design loop
         self.df = self.df_origin[self.df_origin.design_loop.isin(design_loop)]
-        print(self.df)
         _,_,self.loadcase_short_name = self.basic_info()
         if len(design_loop)>1 and page == 'Main Page':
             self.mode = 'multiple loop'
@@ -829,7 +828,7 @@ def dfToDict(dataframe:pd.core.frame.DataFrame,column_key:str,column_value:str):
     :type dataframe: pd.core.frame.DataFrame
     :param column_key: The column name which constitutes dictionary key
     :type column_key: str
-    :param column_value: The column name which constituted dictionary value
+    :param column_value: The column name which constitutes dictionary value
     :type column_value: str
     :returns: 
         - xs - List of dictionary keys

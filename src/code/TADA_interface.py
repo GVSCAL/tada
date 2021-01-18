@@ -109,11 +109,19 @@ class StInterface():
         direc_path = cfg.get('user_setting','directory_path')
         direc_path = direc_path.replace('\\', '/')
 
-        st.title('THC Automated Display Analysis')
+        if self.page == 'Main Page':
+            st.title('THC Automated Display Analysis')
+        else:
+            st.title(self.page)
+
         with st.beta_expander("How to use?"):
-            st.write('This tool can make result summary for a bunch of RunIDs based on results searched from [MIT report website](http://frbriunil007.bri.fr.corp/dashboard/MIT_reports.php).')
-            st.markdown(f"- Select your txt file (Runids), then click **'Search Online'**. .\nYou can also click **Generate PDF** to get quick charts.")
-            st.markdown(f'- Excels and PDFs will be created in **{direc_path}**')          
+            if self.page == 'TADA Based on Excel':
+                st.markdown(f"- Select a existing Excel file with desired columns, then select RunIDs to add. Click **'Search Online'**. It will generate new Excel which contains added runIDs.")
+                st.markdown(f'- Excels will be created in **{direc_path}**') 
+            else:
+                st.write('This tool can make result summary for a bunch of RunIDs based on results searched from [MIT report website](http://frbriunil007.bri.fr.corp/dashboard/MIT_reports.php).')
+                st.markdown(f"- Select your txt file (Runids), then click **'Search Online'**.\nYou can also click **Generate PDF** to get quick charts.")
+                st.markdown(f'- Excels and PDFs will be created in **{direc_path}**')          
             components.html(
                 """
                 <button id="btn" onclick="
@@ -130,7 +138,7 @@ class StInterface():
             )
 
     def interface_profilingPage(self):
-        st.title('THC Automated Display Analysis')
+        st.title(self.page)
         with st.beta_expander("Introduction"):
             st.write('This profiling tool can make quick data analysis of a existing dataframe')
             st.write('For each column the following statistics - if relevant for the column type - are presented in an interactive HTML report:')
@@ -158,7 +166,7 @@ class StInterface():
         """This function displays sidebar widgets
         """
         st.sidebar.image('../pic/logo_gvs - cut.jpg', width=250)
-        self.page = st.sidebar.selectbox('Page',options=['Main Page','Compare RunIDs','Quick Data Analysis','Add New RunID to Excel'])
+        self.page = st.sidebar.selectbox('Page',options=['Main Page','Compare RunIDs','Quick Data Analysis','TADA Based on Excel'])
         
         st.sidebar.header('Options')
         self.nb_per_page = st.sidebar.select_slider('Number of graphs per page', options = list(np.arange(6)+1), value=6)
@@ -335,7 +343,7 @@ class StInterface():
         if not self.multi_runIDs:
             st.error('No runID selected')
             return
-        if self.page == 'Add New RunID to Excel' and not hasattr(self, 'exist_df'):
+        if self.page == 'TADA Based on Excel' and not hasattr(self, 'exist_df'):
             st.error('Please select a existing Excel file.')
             st.stop()
         self.setSearched(True)
@@ -354,25 +362,18 @@ class StInterface():
         
         with st.spinner('Generating temporary excel file...'):
             tmp_excel_path = grasper.generate_xml()
-        if not self.page == 'Add New RunID to Excel':
+        if not self.page == 'TADA Based on Excel':
             transferer = DataTransferer(raw_file_name = tmp_excel_path)
         else:
             transferer = DataTransferer(raw_file_name = tmp_excel_path, exist_df=self.exist_df)
-        all_criteria, uncommon_criteria, msg_list = transferer.getInfo()
-        
-        self.all_criteria = all_criteria
-        self.uncommon_criteria = uncommon_criteria
         
         with st.spinner('Generating regular excel file...'):
             regular_excel_path = transferer.generate_reg_excel()
+            all_criteria, uncommon_criteria = transferer.getInfo()
 
-        warning_msg = "\n".join(msg_list)
+            self.all_criteria = all_criteria
+            self.uncommon_criteria = uncommon_criteria
         
-        if len(warning_msg) == 0:
-            warning_msg = "All keywords matched successfully!"
- 
-        print(warning_msg)
-
         try:
             with st.spinner('Updating database...'):
                 transferer.concatenate_to_db(self.multi_runIDs)
@@ -550,11 +551,6 @@ class StInterface():
         """
         self.uploaderKey2 += 1
 
-    def incrementUploader(self):
-        """This function increment the inner key field for file uploader widget
-        """
-        self.uploaderKey3 += 1
-
     def initialize(self):
         """This function initialize the Streamlilt interface
         """
@@ -575,6 +571,7 @@ class DataStorage():
         self.last_current_runIDs = []
         self.id_list = []
         self.last_id2=[]
+        self.page = 'Main Page'
 
     def initialize(self):
         print('initialize dataStorage')
@@ -594,22 +591,28 @@ if __name__ == "__main__":
     interface = state.interface             # Get current state object
     dataStore = state.data                  # Get current state object
     
-
     interface.display_sidebar_widget()
 
-    if st.sidebar.button('Restart'):
+    print('dataStore.page:',dataStore.page)
+    print('interface.page:',interface.page)
+
+
+    share_data_page = ['Main Page', 'Compare RunIDs']
+
+    if st.sidebar.button('Restart') or not (interface.page in share_data_page and dataStore.page in share_data_page or (interface.page == dataStore.page)):
         st.balloons()
         dataStore.initialize()
         interface.initialize()
         interface.incrementUploader()
         interface.incrementUploader2()
-        interface.incrementUploader3()
 
-    
-    if (interface.page == 'Main Page' or interface.page == 'Compare RunIDs' or interface.page == 'Add New RunID to Excel'):
+    if interface.page != dataStore.page:
+        interface.setGenerated(False)
+
+    if (interface.page == 'Main Page' or interface.page == 'Compare RunIDs' or interface.page == 'TADA Based on Excel'):
         interface.interface_mainPage()
 
-        if not interface.page == 'Add New RunID to Excel':
+        if not interface.page == 'TADA Based on Excel':
             upload_len, curr_id_list, current_runIDs= interface.get_uploaded(dataStore.upload_length, dataStore.id_list, dataStore.last_current_runIDs)
             # update dataStore
             dataStore.upload_length = upload_len
@@ -626,17 +629,19 @@ if __name__ == "__main__":
             with st.spinner('Searching runIDs online ...'):     
                 interface.search_online()
 
+        
         if interface.getSearchedState():
             interface.display_excel_path()
-            interface.display_default_loop(interface.regular_excel_path) 
-            interface.display_common_creterias()
-            interface.display_uncommon_criterias()
-            
-            if interface.verifyCanGenerate():
-                interface.show_excel_data(interface.page)
-                if st.button('Generate Graphs'):
-                    with st.spinner('Generating graphs...'):       
-                        interface.generate_charts(interface.page)
+            if not interface.page == 'TADA Based on Excel':
+                interface.display_default_loop(interface.regular_excel_path) 
+                interface.display_common_creterias()
+                interface.display_uncommon_criterias()
+                
+                if interface.verifyCanGenerate():
+                    interface.show_excel_data(interface.page)
+                    if st.button('Generate Graphs'):
+                        with st.spinner('Generating graphs...'):       
+                            interface.generate_charts(interface.page)
             
         if interface.getGeneratedState():
             interface.plot_graphs()
@@ -648,6 +653,7 @@ if __name__ == "__main__":
 
 
     print('****************')
+    dataStore.page = interface.page
     state.data = dataStore      # Update state
     state.interface = interface     # Update state
     state.count += 1
