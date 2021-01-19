@@ -3,15 +3,11 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-=====================
-User Guide
-=====================
-Hi, this is a user guide for TADA application.
 
 TADA Quick start 
 ======================
 
-1. Double click the file « TADA_runner.bat » in the source directory, a web page will be opened.
+1. Double click the file **« TADA_runner.bat »** in the source directory, a web page will be opened.
 
 .. image:: pic/userguide1.png
    :align: center
@@ -19,16 +15,16 @@ TADA Quick start
    :width: 630
 
 
-2. Click « Browse files » to select one or multiple txt files which contains RunIDs.
+2. Click **« Browse files »** to select one or multiple txt files which contains RunIDs.
 
 .. image:: pic/userguide2.png
    :align: center
    :alt: User guide image
    :width: 630
 
-3. You may also want to add other RunIDs. You can do it by entering them in the text input below and then click « Add to list ». 
+3. You may also want to add other RunIDs. You can do it by entering them in the text input below and then click **« Add to list »**. 
 4. All selected RunIDs will be presented at the bottom. 
-5. Click the button  « Search » and wait for a while. During this time, the program searches all the RunID one by one from MIT reports online database. The search time depends on the total number of RunID and connection speed.
+5. Click the button **« Search »** and wait for a while. During this time, the program searches all the RunID one by one from MIT reports online database. The search time depends on the total number of RunID and connection speed.
 
 .. image:: pic/userguide3.png
    :align: center
@@ -46,14 +42,14 @@ TADA Quick start
    If multiple design loops are selected, the generated graphs will be in compare mode. The generated graph will compare results in different **design loops** instead of load case short name.
 
 
-7. Click « Generate Graphs ». All generated graphs will be displayed in the section « Graphs ». A PDF file which contains all graphs will be generated at the same time. 
+7. Click **« Generate Graphs »**. All generated graphs will be displayed in the section « Graphs ». A PDF file which contains all graphs will be generated at the same time. 
 
 .. image:: pic/userguide5.png
    :align: center
    :alt: User guide image
    :width: 630
 
-8. You can see the standardized Excel table, by clicking the checkbox « View Excel table » in the sidebar. A table will be displayed on the interface.
+8. You can see the standardized Excel table, by clicking the checkbox **« View Excel table »** in the sidebar. A table will be displayed on the interface.
 
 .. image:: pic/userguide6.png
    :align: center
@@ -61,7 +57,7 @@ TADA Quick start
    :width: 630
 
 .. tip:: 
-   Sometimes, you just want to compare **compare different RunIDs**. To do this, you can switch the « Page » in the sidebar, and select « Compare RunIDs », then click « Generate Graphs ».
+   Sometimes, you just want to compare **compare different RunIDs**. To do this, you can switch the « Page » in the sidebar, and select **« Compare RunIDs »**, then click **« Generate Graphs »**.
 
 .. image:: pic/userguide7.png
    :align: center
@@ -73,7 +69,7 @@ Quick Data Analysis
 =========================
 If you want to do some data analysis, you can use the « Quick Data Analysis »:
 
-- First, switch the « Page » option to « Quick Data Analysis »
+- First, switch the **« Page »** option to **« Quick Data Analysis »**
 
 .. image:: pic/analysis1.png
    :align: center
@@ -87,7 +83,14 @@ If you want to do some data analysis, you can use the « Quick Data Analysis »:
    :alt: User guide image
    :width: 630
 
-- Finally, click « Generate profiling » to generate an interactive HTML report.
+
+.. image:: pic/profiling1.png
+   :align: center
+   :alt: User guide image
+   :width: 630
+
+
+- Finally, click **« Generate profiling »** to generate an interactive HTML report.
 
 .. image:: pic/analysis3.png
    :align: center
@@ -106,3 +109,53 @@ For each column the following statistics - if relevant for the column type - are
 * **Missing values** matrix, count, heatmap and dendrogram of missing values
 * **Duplicate rows** Lists the most occurring duplicate rows
 * **Text analysis** learn about categories (Uppercase, Space), scripts (Latin, Cyrillic) and blocks (ASCII) of text data
+
+
+Results could be like this:
+
+.. image:: pic/profiling2.png
+   :align: center
+   :alt: User guide image
+   :width: 630
+
+
+.. image:: pic/profiling3.png
+   :align: center
+   :alt: User guide image
+   :width: 630
+
+TADA Based on Excel
+=====================
+You can also update an existing Excel by adding other RunIDs. If you have already deleted the unnecessary columns in your Excel table, 
+and you want to add a few other RunIDs to the existing table without creating new tables.
+
+To do this, switch to **« TADA Based on Excel »** page in the sidebar. 
+
+.. image:: pic/based_on_excel1.png
+   :align: center
+   :alt: User guide image
+   :width: 300
+
+
+Then, upload the existing Excel with desired columns. 
+You can then see the Excel table on your screen.
+
+.. image:: pic/based_on_excel2.png
+   :align: center
+   :alt: User guide image
+   :width: 630
+
+Now, enter a few RunIDs to the input box and click **« Add to list »**. Finally, click **« Search »**. The updated Excel will be generated and stored to the same path of other generated files.
+
+.. image:: pic/based_on_excel3.png
+   :align: center
+   :alt: User guide image
+   :width: 630
+
+
+Video test
+
+.. raw:: html
+
+   <video src="_static/video1.mp4" width="100%" controls="controls">Can not load the video</video>
+

@@ -17,7 +17,7 @@ Streamlit is an open-source app framework for Machine Learning and Data Science 
 
 Installing Packages
 ====================
-The requirement file is located the . You can install all required packages by using pip install like so:
+The requirement file is located at the source directory. You can install all required packages by using pip install like so:
 
 .. code-block:: 
 
@@ -60,15 +60,6 @@ This class stores global variables, which we don’t want lose them during every
 
 
 Data Grasper module
----------------------
-class Datagrasper
-~~~~~~~~~~~~~~~~~~~~~
-This class grasp information from MIT webpage, append them into a data frame, and do the data cleaning. We change unknown data to np.nan, remove column with out name, and regularize number format, etc. Then, this data frame will be exported as a raw excel file. It reads a config file which indicates the directory path in which the generated raw excel file will be stored. 
-
-
-
-
-DataGrasper module
 -------------------
 class Datagrasper
 ~~~~~~~~~~~~~~~~~~~~~
@@ -90,22 +81,22 @@ This class contains functions to draw various types of graphs. In general, there
 * The second one is bar chart, which includes single bar chart and double bar chart. We use this chart  type to draw charts which compares the result using different dummies.
 * The third one is line chart. We use this chart type to compare results of different design loops.
 
-We distinguish 2 cases:
+We distinguish 3 cases:
 
-* If user is in  « Main Page », and has chosen only one design loop, then it’s in « single loop » mode. We draw bar charts to compare results in different load case situation.
-* If user is in  « Main Page », and has chosen only one design loop, then it’s in « multiple loop » mode. We draw line charts to compare result in different design loops.
-* Otherwise (if user is in « Compare RunID » page), then it’s in « compare RunIDs » mode. We draw same type of graph as « single loop » mode, but instead use RunIDs as x-axis.
+* If user is in  **« Main Page »**, and has chosen only one design loop, then it’s in **« single loop »** mode. We draw bar charts to compare results in different load case situation.
+* If user is in  **« Main Page »**, and has chosen only one design loop, then it’s in **« multiple loop »** mode. We draw line charts to compare result in different design loops.
+* Otherwise (if user is in **« Compare RunID »** page), then it’s in **« compare RunIDs »** mode. We draw same type of graph as **« single loop »** mode, but instead use RunIDs as x-axis.
 
 Matplotlib package is used to draw graphs.
 
 
-Human-Computer interaction Procedure: 
+Human-Computer interaction Procedure
 ======================================
 #. StInterface displays user interface
-#. User inputs all RunIDs and click « Search » button
+#. User inputs all RunIDs and click **« Search »** button
 #. Datagrasper grasps information from MIT website and generate a unstandardized excel
 #. DataTransferer reads the unstandardized excel and transfer their column names to standardized ones, and generates a standardized excel
-#. User selects graphs options and click the button « Generate graphs »
+#. User selects graphs options and click the button **« Generate graphs »**
 #. GraphGenerator reads the standardized excel and generates graphs in a PDF, finally it sends figure objects to StInterface
 #. StInterface receives the graph objects and displays them on the user interface.
 
