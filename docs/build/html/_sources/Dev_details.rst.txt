@@ -134,4 +134,20 @@ Graph Generator module
 
 
 
+Support
+=========
+Troubleshooting
+------------------
+
+Frequent issues
+~~~~~~~~~~~~~~~~~~~
+Why is the web page stuck at loading?
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Check if the command prompt is in **« Quick Edit mode »**. If so, unable **« Quick Edit mode »** in the proporties of the command prompt.
+
+.. image:: pic/faq1.png
+   :align: center
+   :alt: User guide image
+   :width: 630
+
 
