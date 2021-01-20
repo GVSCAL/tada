@@ -56,6 +56,14 @@ TADA Quick start
    :alt: User guide image
    :width: 630
 
+.. seealso:: Demo video: Main Page - TADA
+
+.. raw:: html
+
+   <video src="_static/streamlit-TADA_interface-main_page.webm" width="100%" controls="controls">Can not load the video</video>
+
+   
+
 .. tip:: 
    Sometimes, you just want to compare **compare different RunIDs**. To do this, you can switch the « Page » in the sidebar, and select **« Compare RunIDs »**, then click **« Generate Graphs »**.
 
@@ -63,6 +71,14 @@ TADA Quick start
    :align: center
    :alt: User guide image
    :width: 630
+
+.. seealso:: Demo video: Compare RunIDs
+
+.. raw:: html
+
+   <video src="_static/streamlit-TADA_interface-compare_runids.webm" width="100%" controls="controls">Can not load the video</video>
+
+   
 
 
 Quick Data Analysis
@@ -124,6 +140,16 @@ Results could be like this:
    :alt: User guide image
    :width: 630
 
+
+.. seealso:: Demo video: Quick data analysis
+
+.. raw:: html
+
+   <video src="_static/streamlit-TADA_interface-data_analysis.webm" width="100%" controls="controls">Can not load the video</video>
+
+
+
+
 TADA Based on Excel
 =====================
 You can also update an existing Excel by adding other RunIDs. If you have already deleted the unnecessary columns in your Excel table, 
@@ -153,9 +179,8 @@ Now, enter a few RunIDs to the input box and click **« Add to list »**. Finall
    :width: 630
 
 
-Video test
+.. seealso:: Demo video:  Add RunID based on Excel
 
 .. raw:: html
 
-   <video src="_static/video1.mp4" width="100%" controls="controls">Can not load the video</video>
-
+   <video src="_static/streamlit-TADA_interface-TADA_based_on_excel.webm" width="100%" controls="controls">Can not load the video</video>

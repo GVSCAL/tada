@@ -393,7 +393,7 @@ class StInterface():
 
 
     def display_default_loop(self, path):
-        """This function displays run loops as checkbox widgts
+        """This function displays run loops as checkbox widgets
         
         :param str path: Regular excel path
         """
