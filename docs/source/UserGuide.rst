@@ -14,6 +14,10 @@ TADA Quick start
    :alt: User guide image
    :width: 630
 
+.. tip::
+   We recommend you set Google Chrome as your default brower.
+
+
 
 2. Click **« Browse files »** to select one or multiple txt files which contains RunIDs.
 
