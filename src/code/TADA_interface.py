@@ -575,7 +575,7 @@ class DataStorage():
 
     def initialize(self):
         print('initialize dataStorage')
-        self.__init__()                 # Initialize all class variables
+        self.__init__()                 # Initialize all fields
         
 
 
@@ -599,7 +599,7 @@ if __name__ == "__main__":
 
     share_data_page = ['Main Page', 'Compare RunIDs']
 
-    if st.sidebar.button('Restart') or not (interface.page in share_data_page and dataStore.page in share_data_page or (interface.page == dataStore.page)):
+    if st.sidebar.button('Restart') or not ((interface.page in share_data_page and dataStore.page in share_data_page) or (interface.page == dataStore.page)):
         st.balloons()
         dataStore.initialize()
         interface.initialize()
@@ -647,7 +647,7 @@ if __name__ == "__main__":
             interface.plot_graphs()
 
         
-    if (interface.page == 'Quick Data Analysis'):
+    elif (interface.page == 'Quick Data Analysis'):
         interface.interface_profilingPage()
         interface.display_profiling()
 
