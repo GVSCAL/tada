@@ -110,9 +110,12 @@ class StInterface():
         direc_path = direc_path.replace('\\', '/')
 
         if self.page == 'Main Page':
-            st.title('THC Automated Display Analysis')
+            st.title('Thc Automated Display Analysis')
+            st.subheader("TADA offical doc see [link](https://gvscal.github.io/tada/)")
+
         else:
             st.title(self.page)
+            st.subheader("TADA offical doc see [link](https://gvscal.github.io/tada/)")
 
         with st.beta_expander("How to use?"):
             if self.page == 'TADA Based on Excel':
