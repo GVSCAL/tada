@@ -6,7 +6,6 @@ attrs==20.3.0
 backcall==0.2.0
 base58==2.1.0
 beautifulsoup4==4.9.3
-bleach==3.2.1
 blinker==1.4
 bs4==0.0.1
 cachetools==4.2.0
@@ -32,7 +31,6 @@ ipython-genutils==0.2.0
 ipywidgets==7.6.3
 jdcal==1.4.1
 jedi==0.18.0
-Jinja2==2.11.2
 joblib==1.0.0
 jsonschema==3.2.0
 jupyter-client==6.1.11
@@ -61,7 +59,7 @@ pandocfilters==1.4.3
 parso==0.8.1
 phik==0.10.0
 pickleshare==0.7.5
-Pillow==8.1.0
+
 prometheus-client==0.9.0
 prompt-toolkit==3.0.10
 protobuf==3.14.0
@@ -96,7 +94,7 @@ tornado==6.1
 tqdm==4.56.0
 traitlets==5.0.5
 tzlocal==2.1
-urllib3==1.26.2
+
 validators==0.18.2
 visions==0.6.0
 watchdog==1.0.2
