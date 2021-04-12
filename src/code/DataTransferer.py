@@ -79,6 +79,8 @@ class DataTransferer():
                        'Backrest dynamic angle TS': self.create_regex_dict_keywords_four(['Backrest'],['angle'],['dynamic','dyna','dyn'],ts_list),
                        'Backrest static angle DS': self.create_regex_dict_keywords_four(['Backrest'],['angle'],['static','stat'],ds_list),
                        'Backrest static angle TS': self.create_regex_dict_keywords_four(['Backrest'],['angle'],['static','stat'],ts_list),
+                       'Backrest deflection DS': self.create_regex_dict_keywords_three(['Backrest'],['deflection'],ds_list),
+                       'Backrest deflection TS': self.create_regex_dict_keywords_three(['Backrest'],['deflection'],ts_list),
                        'Backrest x displ' : self.create_regex_dict_keywords_three(['backrest'],['displacement','dis','disp'],['x']),# need to verify
                        'PELVIS DX': [['PELVIS', 'x', 'dis'],['PELVIS', 'Dx']],  # need to verify
                        'PELVIS DZ': [['PELVIS', 'z', 'dis'],['PELVIS', 'Dz']],  # need to verify
